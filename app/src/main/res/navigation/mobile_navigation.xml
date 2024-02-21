@@ -9,4 +9,14 @@
         android:name="pe.edu.idat.appborabora.Catalogo"
         android:label="fragment_catalogo"
         tools:layout="@layout/fragment_catalogo" />
+    <fragment
+        android:id="@+id/contacto"
+        android:name="pe.edu.idat.appborabora.Contacto"
+        android:label="fragment_contacto"
+        tools:layout="@layout/fragment_contacto" />
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="pe.edu.idat.appborabora.Dashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
