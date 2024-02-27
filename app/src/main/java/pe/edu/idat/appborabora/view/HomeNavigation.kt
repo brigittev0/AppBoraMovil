@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora
+package pe.edu.idat.appborabora.view
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
 
 class HomeNavigation : AppCompatActivity() {
@@ -37,7 +38,7 @@ class HomeNavigation : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.dashboard, R.id.catalogo, R.id.contacto, R.id.perfil
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

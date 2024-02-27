@@ -3,20 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/catalogo">
+    app:startDestination="@id/dashboard">
     <fragment
         android:id="@+id/catalogo"
-        android:name="pe.edu.idat.appborabora.Catalogo"
-        android:label="fragment_catalogo"
+        android:name="pe.edu.idat.appborabora.view.fragments.Catalogo"
+        android:label="Catalogo"
         tools:layout="@layout/fragment_catalogo" />
     <fragment
         android:id="@+id/contacto"
-        android:name="pe.edu.idat.appborabora.Contacto"
-        android:label="fragment_contacto"
+        android:name="pe.edu.idat.appborabora.view.fragments.Contacto"
+        android:label="Contacto"
         tools:layout="@layout/fragment_contacto" />
     <fragment
         android:id="@+id/dashboard"
-        android:name="pe.edu.idat.appborabora.Dashboard"
-        android:label="fragment_dashboard"
+        android:name="pe.edu.idat.appborabora.view.fragments.Dashboard"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/perfil"
+        android:name="pe.edu.idat.appborabora.view.fragments.Perfil"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
 </navigation>
