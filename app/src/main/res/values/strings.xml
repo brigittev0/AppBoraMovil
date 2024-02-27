@@ -64,10 +64,6 @@
     <string name="stringContacto">Contacto</string>
     <string name="valFinalizarCompra">Finalizar Compra</string>
     <string name="title_activity_home_navigation">HomeNavigation</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="nav_header_title">Bora Bora</string>
+    <string name="nav_header_subtitle">bora@sac.com</string>
 </resources>

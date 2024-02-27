@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/registro"
-    tools:context=".Registro">
+    tools:context=".view.activities.Registro">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
