@@ -12,6 +12,13 @@
             android:id="@+id/catalogo"
             android:icon="@drawable/baseline_format_list_bulleted_24"
             android:title="@string/menu_catalogo" />
+        <item android:title="Compra">
+            <menu>
+                <item android:id="@+id/compra"
+                      android:icon="@drawable/baseline_shopping_cart_24"
+                      android:title="@string/menu_compra"/>
+            </menu>
+        </item>
         <item android:title="Información">
         <menu>
         <item

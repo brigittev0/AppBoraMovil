@@ -24,4 +24,9 @@
         android:name="pe.edu.idat.appborabora.view.fragments.Perfil"
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/compra"
+        android:name="pe.edu.idat.appborabora.view.fragments.Compra"
+        android:label="Compra"
+        tools:layout="@layout/fragment_compra" />
 </navigation>
