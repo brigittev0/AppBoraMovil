@@ -17,6 +17,10 @@
                 <item android:id="@+id/compra"
                       android:icon="@drawable/baseline_shopping_cart_24"
                       android:title="@string/menu_compra"/>
+                <item
+                    android:id="@+id/historialCompra"
+                    android:icon="@drawable/baseline_history_24"
+                    android:title="@string/men_historial_compra" />
             </menu>
         </item>
         <item android:title="Información">
@@ -27,12 +31,21 @@
             android:title="@string/stringContacto" />
         </menu>
         </item>
+
         <item android:title="Sesión">
             <menu>
+                <item
+                    android:id="@+id/activity_login"
+                    android:icon="@drawable/baseline_login_24"
+                    android:title="Iniciar sesión" />
                 <item
                     android:id="@+id/perfil"
                     android:icon="@drawable/baseline_person_outline_24"
                     android:title="@string/menu_perfil" />
+                <item
+                    android:id="@+id/mainActivity"
+                    android:icon="@drawable/baseline_logout_24"
+                    android:title="Cerrar sesión" />
             </menu>
         </item>
     </group>
