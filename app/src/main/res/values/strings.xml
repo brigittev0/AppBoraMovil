@@ -45,7 +45,7 @@
     <string name="menu_catalogo">Catalogo</string>
     <string name="menu_dashboard">Dashboard</string>
     <string name="menu_compra">Compra</string>
-    <string name="menu_historial_compra">Historial Compra</string>
+    <string name="men_historial_compra">Historial Compra</string>
     <string name="menu_perfil">Perfil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

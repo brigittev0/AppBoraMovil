@@ -24,4 +24,18 @@
         android:name="pe.edu.idat.appborabora.view.fragments.Perfil"
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/detalleProducto"
+        android:name="pe.edu.idat.appborabora.view.fragments.DetalleProducto"
+        android:label="DetalleProducto" />
+    <fragment
+        android:id="@+id/detalleHistorialCompra"
+        android:name="pe.edu.idat.appborabora.view.fragments.DetalleHistorialCompra"
+        android:label="fragment_detalle_historial_compra"
+        tools:layout="@layout/fragment_detalle_historial_compra" />
+    <fragment
+        android:id="@+id/historialCompra"
+        android:name="pe.edu.idat.appborabora.view.fragments.HistorialCompra"
+        android:label="@string/men_historial_compra"
+        tools:layout="@layout/fragment_historial_compra" />
 </navigation>
