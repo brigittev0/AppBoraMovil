@@ -8,10 +8,49 @@
     android:orientation="vertical"
     tools:context=".view.fragments.Dashboard">
 
+    <RelativeLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/mensajeBienvenidad"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginTop="-1dp"
+            android:layout_marginRight="-69dp"
+            android:layout_toLeftOf="@id/label"
+            android:text="@string/sesion" />
+
+        <Button
+            android:id="@+id/btncuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginLeft="-70dp"
+            android:layout_marginTop="-1dp"
+            android:layout_toRightOf="@id/label"
+            android:text="@string/cuenta" />
+
+    </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/button_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,9 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                tools:cardCornerRadius="10dp"/>
+                tools:cardCornerRadius="10dp" />
 
-                <!--<com.smarteist.autoimageslider.SliderView
+            <!--<com.smarteist.autoimageslider.SliderView
                     android:id="@+id/svCarrusel"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -72,12 +111,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="370dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,4 +66,6 @@
     <string name="title_activity_home_navigation">HomeNavigation</string>
     <string name="nav_header_title">Bora Bora</string>
     <string name="nav_header_subtitle">bora@sac.com</string>
+    <string name="cuenta">Crear Cuenta</string>
+    <string name="mensajeBienvenidad">!Qué bueno tenerte de vuelta!</string>
 </resources>
