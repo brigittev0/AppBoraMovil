@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efedec"
+    tools:context=".view.fragments.Dashboard">
+
+    <RelativeLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/mensajeBienvenidad"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginTop="-1dp"
+            android:layout_marginRight="-69dp"
+            android:layout_toLeftOf="@id/label"
+            android:text="@string/sesion" />
+
+        <Button
+            android:id="@+id/btncuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginLeft="-70dp"
+            android:layout_marginTop="-1dp"
+            android:layout_toRightOf="@id/label"
+            android:text="@string/cuenta" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/button_layout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                tools:cardCornerRadius="10dp" />
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/svCarrusel"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                tools:sliderAnimationDuration="600"
+                tools:sliderAutoCycleDirection="back_and_forth"
+                tools:sliderAutoCycleEnabled="true"
+                tools:sliderIndicatorAnimationDuration="600"
+                tools:sliderIndicatorGravity="center_horizontal|bottom"
+                tools:sliderIndicatorMargin="15dp"
+                tools:sliderIndicatorOrientation="horizontal"
+                tools:sliderIndicatorPadding="3dp"
+                tools:sliderIndicatorRadius="2dp"
+                tools:sliderIndicatorSelectedColor="#5A5A5A"
+                tools:sliderIndicatorUnselectedColor="#FFF"
+                tools:sliderScrollTimeInSec="1"
+                tools:sliderStartAutoCycle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Lo Mas Vendido"
+                android:textColor="#000000"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTopProductos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="3dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
