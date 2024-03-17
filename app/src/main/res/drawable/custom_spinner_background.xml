@@ -1,0 +1,38 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo cuando el elemento está seleccionado -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <!-- Fondo personalizado -->
+            <item>
+                <shape>
+                    <solid android:color="#E0E0E0" />
+                    <stroke android:width="2dp" android:color="#673AB7" />
+                    <corners android:radius="90dp" />
+                </shape>
+            </item>
+            <!-- Flecha de despliegue -->
+            <item
+                android:drawable="@drawable/baseline_keyboard_arrow_down_24"
+                android:gravity="start|center_vertical"
+                android:left="255dp" />
+        </layer-list>
+    </item>
+    <!-- Fondo predeterminado -->
+    <item>
+        <layer-list>
+            <!-- Fondo personalizado -->
+            <item>
+                <shape>
+                    <solid android:color="#FFFFFF" />
+                    <stroke android:width="2dp" android:color="#673AB7" />
+                    <corners android:radius="90dp" />
+                </shape>
+            </item>
+            <!-- Flecha de despliegue -->
+            <item
+                android:drawable="@drawable/baseline_keyboard_arrow_down_24"
+                android:gravity="start|center_vertical"
+                android:left="255dp" />
+        </layer-list>
+    </item>
+</selector>
