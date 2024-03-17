@@ -16,7 +16,7 @@
             android:layout_height="615dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="45dp"
-            android:background="@drawable/borde"
+            android:background="@drawable/borde_small"
             android:orientation="vertical"
             android:padding="35dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -4,13 +4,23 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="purple">#8692f7</color>
     <color name="fondo">#f8f1ee</color>
     <color name="rojo">#FF0000</color>
     <color name="purple_mas_oscuro">#5e60a7</color>
-
     <color name="gris_oscuro">#777676</color>
+
+
+    <color name="purple_700">#FF3700B3</color>
+    <color name="gray_100">#4a4e69</color>  //--
+
+    <color name="purple_800">#8c07dd</color>  //Color principal
+    <color name="purple_900">#6910a8</color> //Palabras subrayadas
+    <color name="purple_1000">#58148e</color>  //Input
+
+
 </resources>

@@ -4,52 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/registro"
+    android:background="@drawable/bg_welcome"
     tools:context=".view.activities.Login">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/innerConstraintLayout"
-        android:layout_width="322dp"
-        android:layout_height="450dp"
-        android:background="@drawable/borde"
+        android:layout_width="414dp"
+        android:layout_height="492dp"
+        android:background="@drawable/card_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textregistro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif-medium"
-            android:padding="8dp"
-            android:text="@string/registropregunta"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.294"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
-
-        <TextView
-            android:id="@+id/tvregisterlog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="40dp"
-            android:fontFamily="sans-serif-medium"
-            android:padding="8dp"
-            android:text="@string/registropregunta2"
-            android:textAllCaps="false"
-            android:textColor="@color/purple_700"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageButton
             android:id="@+id/closeButton"
@@ -61,7 +28,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/btn_close"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.911"
+            app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -71,9 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
+            android:fontFamily="sans-serif-light"
             android:text="@string/logintitulo"
             android:textAlignment="center"
-            android:textColor="@color/purple"
+            android:textColor="@color/purple_800"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,23 +51,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
-            android:layout_width="255dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
             android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tUsername"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toBottomOf="@+id/loginText"
             app:startIconDrawable="@drawable/baseline_person_24">
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="255dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/textInputLayout2"
+            android:layout_width="260dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tPassword"
             app:layout_constraintTop_toBottomOf="@+id/tUsername"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/baseline_lock_24">
@@ -108,43 +77,91 @@
 
         <Button
             android:id="@+id/btnlogin"
-            android:layout_width="255dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="44dp"
-            android:backgroundTint="@color/purple"
+            android:layout_width="208dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/purple_800"
             android:text="Ingresar"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tPassword" />
 
+        <TextView
+            android:id="@+id/textregistro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="8dp"
+            android:text="@string/registropregunta"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.339"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+
+        <TextView
+            android:id="@+id/tvregisterlog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="96dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="8dp"
+            android:text="@string/registropregunta2"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_700"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tPassword"
-            android:layout_width="255dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/dborde"
+            android:background="@drawable/bg_input"
             android:drawablePadding="1dp"
             android:hint="@string/contra"
             android:padding="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toBottomOf="@+id/tUsername" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tUsername"
-            android:layout_width="255dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/dborde"
+            android:background="@drawable/bg_input"
             android:drawablePadding="1dp"
             android:hint="@string/username"
-            app:layout_constraintTop_toBottomOf="@+id/loginText"
-            tools:layout_editor_absoluteX="35dp" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/loginText" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="65dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="65dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
