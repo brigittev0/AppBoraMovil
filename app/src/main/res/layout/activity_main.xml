@@ -7,26 +7,25 @@
     android:background="@drawable/bg_welcome"
     tools:context=".view.activities.MainActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="50dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="50dp" />
-
+    <Button
+        android:id="@+id/btninvitado"
+        android:layout_width="208dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/purple_800"
+        android:text="Invitado"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnregistrar" />
 
     <Button
         android:id="@+id/btningresar"
         android:layout_width="208dp"
         android:layout_height="55dp"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="444dp"
         android:backgroundTint="@color/yellow"
         android:text="@string/sesion"
         android:textColor="@color/purple_500"
@@ -41,7 +40,7 @@
         android:id="@+id/btnregistrar"
         android:layout_width="208dp"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/yellow"
         android:text="@string/registro"
         android:textColor="@color/purple_500"
@@ -51,5 +50,20 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btningresar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="50dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="50dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

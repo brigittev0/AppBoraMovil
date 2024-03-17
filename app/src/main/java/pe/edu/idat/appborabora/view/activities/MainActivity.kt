@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.view.fragments.Dashboard
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btningresar = findViewById<Button>(R.id.btningresar)
         btningresar.setOnClickListener(this)
         val btnregistrar = findViewById<TextView>(R.id.btnregistrar)
+        btnregistrar.setOnClickListener(this)
+        val btninvitado = findViewById<TextView>(R.id.btninvitado)
         btnregistrar.setOnClickListener(this)
     }
 
@@ -28,6 +31,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btnregistrar -> {
                 val intent = Intent(this, RegisterUser::class.java)
+                startActivity(intent)
+            }
+            R.id.btninvitado -> {
+                val intent = Intent(this, Dashboard::class.java)
                 startActivity(intent)
             }
         }
