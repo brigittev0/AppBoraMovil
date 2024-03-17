@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.view.HomeNavigation
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.tvregistro -> {
-                val intent = Intent(this, Registro::class.java)
+                val intent = Intent(this, RegisterUser::class.java)
                 startActivity(intent)
             }
         }

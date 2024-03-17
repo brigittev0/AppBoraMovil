@@ -7,9 +7,8 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/registro"
-    tools:context=".view.activities.Registro">
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:context=".view.activities.RegisterUser">
+
 
         <LinearLayout
             android:id="@+id/linearLayout"

@@ -11,16 +11,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.SliderItem
-import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.view.SliderAdapter
 import pe.edu.idat.appborabora.view.activities.MainActivity
-import pe.edu.idat.appborabora.view.activities.Registro
+import pe.edu.idat.appborabora.view.activities.RegisterUser
 
 class Dashboard : Fragment(), View.OnClickListener {
 
@@ -101,7 +99,7 @@ class Dashboard : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.btncuenta -> {
-                val intent = Intent(activity, Registro::class.java)
+                val intent = Intent(activity, RegisterUser::class.java)
                 startActivity(intent)
             }
         }

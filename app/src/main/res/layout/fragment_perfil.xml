@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/dborde"
-        android:hint="@string/email"
+        android:hint="@string/username"
         android:minHeight="48dp"
         android:padding="10dp"
         android:drawableLeft="@drawable/baseline_alternate_email_24"

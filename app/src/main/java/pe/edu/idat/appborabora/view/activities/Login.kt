@@ -5,10 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.model.request.LoginRequest
 import pe.edu.idat.appborabora.data.model.response.LoginResponse
@@ -29,14 +33,23 @@ class Login : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tUser = findViewById(R.id.tEmail)
+        tUser = findViewById(R.id.tUsername)
         tPassword = findViewById(R.id.tPassword)
 
         val btnlogin = findViewById<Button>(R.id.btnlogin)
         btnlogin.setOnClickListener(this)
 
-        val btninvitado = findViewById<Button>(R.id.btninvitado)
-        btninvitado.setOnClickListener(this)
+        val tvregistrolog = findViewById<TextView>(R.id.tvregisterlog)
+        tvregistrolog.setOnClickListener(this)
+
+        // Animacion
+        val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+        findViewById<ConstraintLayout>(R.id.innerConstraintLayout).startAnimation(slideUp)
+
+        // Manejar click cerrar
+        findViewById<ImageButton>(R.id.closeButton).setOnClickListener {
+            finish()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -58,8 +71,8 @@ class Login : AppCompatActivity(), View.OnClickListener {
                 }
             }
 
-            R.id.btninvitado -> {
-                val intent = Intent(this, HomeNavigation::class.java)
+            R.id.tvregisterlog -> {
+                val intent = Intent(this, RegisterUser::class.java)
                 startActivity(intent)
             }
         }

@@ -27,7 +27,7 @@
             android:name=".view.activities.Admin"
             android:exported="false" />
         <activity
-            android:name=".view.activities.Registro"
+            android:name=".view.activities.RegisterUser"
             android:exported="false" />
         <activity
             android:name=".view.activities.NewPassword"
