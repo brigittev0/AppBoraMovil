@@ -17,6 +17,7 @@ import com.smarteist.autoimageslider.SliderView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.slider.SliderItem
 import pe.edu.idat.appborabora.adapter.SliderAdapter
+import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
 import pe.edu.idat.appborabora.view.activities.RegisterUser
 
@@ -34,9 +35,9 @@ class Dashboard : Fragment(), View.OnClickListener {
 
         loginOption = view.findViewById(R.id.loginOption)
 
-        val btnSesion = view.findViewById<Button>(R.id.btnsesion)
+        val btnlogindash = view.findViewById<Button>(R.id.btnlogindash)
         val btncuenta = view.findViewById<Button>(R.id.btncuenta)
-        btnSesion.setOnClickListener(this)
+        btnlogindash.setOnClickListener(this)
         btncuenta.setOnClickListener(this)
 
         init(view)
@@ -64,6 +65,7 @@ class Dashboard : Fragment(), View.OnClickListener {
         }
     }
 
+    // Carrusel
     private fun init(v: View) {
         svCarrusel = v.findViewById(R.id.svCarrusel)
     }
@@ -94,8 +96,8 @@ class Dashboard : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnsesion -> {
-                val intent = Intent(activity, MainActivity::class.java)
+            R.id.btnlogindash -> {
+                val intent = Intent(activity, Login::class.java)
                 startActivity(intent)
             }
             R.id.btncuenta -> {

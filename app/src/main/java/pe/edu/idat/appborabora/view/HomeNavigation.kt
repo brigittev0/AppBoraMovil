@@ -14,6 +14,7 @@ import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
 import pe.edu.idat.appborabora.view.activities.Compra
 import pe.edu.idat.appborabora.view.activities.Login
+import pe.edu.idat.appborabora.view.activities.MainActivity
 
 class HomeNavigation : AppCompatActivity() {
 
@@ -63,7 +64,7 @@ class HomeNavigation : AppCompatActivity() {
         sharedPref.edit().remove("role").apply()
 
         // Redirigir al usuario a la pantalla de inicio de sesión
-        val intent = Intent(this, Login::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

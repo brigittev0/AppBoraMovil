@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnsesion"
+            android:id="@+id/btnlogindash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label"

@@ -7,22 +7,6 @@
     android:background="@drawable/bg_welcome"
     tools:context=".view.activities.MainActivity">
 
-    <TextView
-        android:id="@+id/tvregistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-medium"
-        android:padding="8dp"
-        android:text="@string/registropregunta"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/btningresar" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -37,17 +21,35 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="50dp" />
 
+
     <Button
         android:id="@+id/btningresar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="572dp"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:layout_width="208dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="476dp"
+        android:backgroundTint="@color/yellow"
         android:text="@string/sesion"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        android:textColor="@color/purple_500"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnregistrar"
+        android:layout_width="208dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/yellow"
+        android:text="@string/registro"
+        android:textColor="@color/purple_500"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btningresar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

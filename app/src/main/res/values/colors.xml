@@ -18,6 +18,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="gray_100">#4a4e69</color>  //--
 
+    <color name="yellow">#ffb703</color>  //--
     <color name="purple_800">#8c07dd</color>  //Color principal
     <color name="purple_900">#6910a8</color> //Palabras subrayadas
     <color name="purple_1000">#58148e</color>  //Input
