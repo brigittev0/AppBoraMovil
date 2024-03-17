@@ -15,8 +15,8 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.SliderItem
-import pe.edu.idat.appborabora.view.SliderAdapter
+import pe.edu.idat.appborabora.slider.SliderItem
+import pe.edu.idat.appborabora.adapter.SliderAdapter
 import pe.edu.idat.appborabora.view.activities.MainActivity
 import pe.edu.idat.appborabora.view.activities.RegisterUser
 
@@ -82,11 +82,11 @@ class Dashboard : Fragment(), View.OnClickListener {
 
     private fun loadData() {
         val lista = mutableListOf<SliderItem>(
-            SliderItem(R.drawable.img_8, ""),
-            SliderItem(R.drawable.img_5, ""),
-            SliderItem(R.drawable.img_01, ""),
-            SliderItem(R.drawable.img_04, ""),
-            SliderItem(R.drawable.img_3, "")
+            SliderItem(R.drawable.rul_img_06, ""),
+            SliderItem(R.drawable.rul_img_05, ""),
+            SliderItem(R.drawable.rul_img_01, ""),
+            SliderItem(R.drawable.rul_img_03, ""),
+            SliderItem(R.drawable.rul_img_04, "")
         )
 
         sliderAdapter.updateItem(lista)

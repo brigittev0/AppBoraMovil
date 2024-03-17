@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/abarrotes" />
+            android:src="@drawable/ctg_abarrotes" />
 
         <RelativeLayout
             android:layout_width="250dp"

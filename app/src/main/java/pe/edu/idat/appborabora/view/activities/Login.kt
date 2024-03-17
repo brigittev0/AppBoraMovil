@@ -83,7 +83,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
         val role = sharedPref.getString("role", "")
 
         val intent = when (role) {
-            "ROLE_ADMIN" -> Intent(this, Admin::class.java)
+            "ROLE_ADMIN" -> Intent(this, AdminPanel::class.java)
             "ROLE_USER" -> Intent(this, HomeNavigation::class.java)
             else -> Intent(this, HomeNavigation::class.java)
         }

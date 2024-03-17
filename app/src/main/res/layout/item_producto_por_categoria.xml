@@ -25,7 +25,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/abarrotes" />
+                android:src="@drawable/ctg_abarrotes" />
 
             <TextView
                 android:id="@+id/nombreProducto"

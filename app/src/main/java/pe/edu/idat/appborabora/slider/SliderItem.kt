@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora
+package pe.edu.idat.appborabora.slider
 
 class SliderItem {
     var titulo: String? = null

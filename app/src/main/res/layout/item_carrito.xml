@@ -35,7 +35,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginLeft="10dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/cereales" />
+                    android:src="@drawable/ctg_cereales" />
             </LinearLayout>
 
             <LinearLayout

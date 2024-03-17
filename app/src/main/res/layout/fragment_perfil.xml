@@ -11,7 +11,7 @@
         android:layout_width="172dp"
         android:layout_height="144dp"
         android:layout_marginTop="18dp"
-        android:src="@drawable/perfil"
+        android:src="@drawable/ic_perfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

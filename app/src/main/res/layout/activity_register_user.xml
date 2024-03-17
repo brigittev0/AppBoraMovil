@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/registro"
+    android:background="@drawable/bg_tienda"
     tools:context=".view.activities.RegisterUser">
 
 

@@ -24,7 +24,7 @@
             android:name=".view.activities.Compra"
             android:exported="false" />
         <activity
-            android:name=".view.activities.Admin"
+            android:name=".view.activities.AdminPanel"
             android:exported="false" />
         <activity
             android:name=".view.activities.RegisterUser"
