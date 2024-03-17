@@ -7,7 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class BoraBoraClient {
 
     companion object {
-        private const val BASE_URL = "http://192.168.18.8:8070/api/v1/"
+        private const val BASE_URL = "http://(AGREGA IP):8070/api/v1/"
+
+        //NOTA: AGREGAR IP TAMBIEN EN EL ARCHIVO =  xml/network-security-config
     }
 
     private val retrofit: Retrofit

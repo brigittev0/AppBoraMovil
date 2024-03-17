@@ -60,6 +60,7 @@ class HomeNavigation : AppCompatActivity() {
         }
     }
 
+    // Cierre de sesion - provisional
     private fun logout() {
         val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         sharedPref.edit().remove("token").apply()

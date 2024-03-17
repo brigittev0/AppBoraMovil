@@ -155,6 +155,8 @@ class Login : AppCompatActivity(), View.OnClickListener {
         Log.e("LoginActivity", errorMsg)
     }
 
+
+    // Preferencias compartidas
     private fun saveToSharedPrefs(username: String?, role: String?, token: String?) {
         val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {

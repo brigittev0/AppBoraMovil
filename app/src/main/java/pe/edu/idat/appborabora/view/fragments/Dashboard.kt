@@ -48,6 +48,7 @@ class Dashboard : Fragment(), View.OnClickListener {
         return view
     }
 
+    // Actualizacion de interfaz, segun inicio de sesion del usuario
     override fun onResume() {
         super.onResume()
 
