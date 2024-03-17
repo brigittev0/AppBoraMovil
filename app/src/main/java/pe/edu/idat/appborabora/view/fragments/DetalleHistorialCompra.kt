@@ -15,4 +15,7 @@ class DetalleHistorialCompra : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detalle_historial_compra, container, false)
     }
+
+
+
 }

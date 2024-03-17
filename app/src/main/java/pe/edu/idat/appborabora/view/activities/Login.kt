@@ -34,6 +34,9 @@ class Login : AppCompatActivity(), View.OnClickListener {
 
         val btnlogin = findViewById<Button>(R.id.btnlogin)
         btnlogin.setOnClickListener(this)
+
+        val btninvitado = findViewById<Button>(R.id.btninvitado)
+        btninvitado.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -54,11 +57,24 @@ class Login : AppCompatActivity(), View.OnClickListener {
                     makeApiCall()
                 }
             }
+
+            R.id.btninvitado -> {
+                val intent = Intent(this, HomeNavigation::class.java)
+                startActivity(intent)
+            }
         }
     }
 
     private fun startHomeNavigation() {
-        val intent = Intent(this, HomeNavigation::class.java)
+        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val role = sharedPref.getString("role", "")
+
+        val intent = when (role) {
+            "ROLE_ADMIN" -> Intent(this, Admin::class.java)
+            "ROLE_USER" -> Intent(this, HomeNavigation::class.java)
+            else -> Intent(this, HomeNavigation::class.java)
+        }
+
         startActivity(intent)
     }
 

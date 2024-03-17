@@ -90,12 +90,12 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/btninicioadmin"
+                android:id="@+id/btninvitado"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="@color/purple"
-                android:text="Iniciar Sesion-ADMIN"
+                android:text="Iniciar Sesion-INVITADO"
                 android:textSize="18sp"
                 card_view:cornerRadius="20dp" />
 

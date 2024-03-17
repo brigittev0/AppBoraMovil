@@ -18,4 +18,6 @@ class DetalleProducto : Fragment() {
         return inflater.inflate(R.layout.fragment_detalle_producto, container, false)
     }
 
+
+
 }

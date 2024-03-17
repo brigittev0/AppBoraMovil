@@ -17,4 +17,6 @@ class HistorialCompra : Fragment() {
         return inflater.inflate(R.layout.fragment_historial_compra, container, false)
     }
 
+
+
 }

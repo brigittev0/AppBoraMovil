@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.view.HomeNavigation
+
 class Contacto : Fragment() {
 
     override fun onCreateView(
