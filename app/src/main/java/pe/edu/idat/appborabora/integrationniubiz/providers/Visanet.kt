@@ -7,7 +7,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import pe.edu.idat.appborabora.integrationniubiz.*
 import pe.edu.idat.appborabora.integrationniubiz.model.CertificateApp
-import pe.edu.idat.appborabora.integrationniubiz.services.ApiCertificateApps
+import pe.edu.idat.appborabora.integrationniubiz.services.CertificateApps
 import pe.edu.idat.appborabora.integrationniubiz.services.ApiServiceToken
 import com.google.gson.Gson
 import pe.edu.idat.appborabora.R
@@ -55,7 +55,7 @@ class Visanet {
                         .baseUrl(Constants.URL)
                         .build()
 
-                    val service2 = retrofit2.create(ApiCertificateApps::class.java)
+                    val service2 = retrofit2.create(CertificateApps::class.java)
                     val token = tokenResponse.replace("\"", "")
 
                     // Solicitud para obtener el certificado(data y pinhash)
