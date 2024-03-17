@@ -56,7 +56,7 @@ class Compra : AppCompatActivity() {
         //"sha256/$pinHash"
 
         val custom = VisaNetViewAuthorizationCustom()
-        custom.logoImage = R.drawable.logo
+        custom.logoImage = R.drawable.lg_logotipo
         custom.buttonColorMerchant = R.color.black
 
         //Invocación al método autorización

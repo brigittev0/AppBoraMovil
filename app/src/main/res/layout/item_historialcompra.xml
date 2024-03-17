@@ -142,7 +142,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/btnflechadetallecompra"
+                android:src="@drawable/btn_historial_compra"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.945"

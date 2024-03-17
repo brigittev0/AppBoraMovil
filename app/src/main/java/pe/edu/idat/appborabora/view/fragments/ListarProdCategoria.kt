@@ -14,4 +14,7 @@ class ListarProdCategoria : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_listar_prod_categoria, container, false)
     }
+
+
+
 }

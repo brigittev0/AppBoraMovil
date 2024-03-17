@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.view.HomeNavigation
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,8 +15,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btningresar = findViewById<Button>(R.id.btningresar)
         btningresar.setOnClickListener(this)
-        val tvregistro = findViewById<TextView>(R.id.tvregistro)
-        tvregistro.setOnClickListener(this)
+        val btnregistrar = findViewById<TextView>(R.id.btnregistrar)
+        btnregistrar.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -27,8 +26,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this, Login::class.java)
                 startActivity(intent)
             }
-            R.id.tvregistro -> {
-                val intent = Intent(this, Registro::class.java)
+            R.id.btnregistrar -> {
+                val intent = Intent(this, RegisterUser::class.java)
                 startActivity(intent)
             }
         }

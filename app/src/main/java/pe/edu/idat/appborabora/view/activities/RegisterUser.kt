@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import pe.edu.idat.appborabora.R
 
-class Registro : AppCompatActivity() {
+class RegisterUser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registro)
+        setContentView(R.layout.activity_register_user)
     }
 }

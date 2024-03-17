@@ -8,10 +8,10 @@
     tools:context=".view.fragments.Dashboard">
 
     <RelativeLayout
-        android:id="@+id/button_layout"
+        android:id="@+id/loginOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
+        android:background="@drawable/bg_purple_light"
         android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,7 +24,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnsesion"
+            android:id="@+id/btnlogindash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label"
@@ -49,7 +49,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/button_layout"
+        app:layout_constraintTop_toBottomOf="@+id/loginOption"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout

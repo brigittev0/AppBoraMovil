@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/abarrotes"
+                android:src="@drawable/ctg_abarrotes"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.95" />

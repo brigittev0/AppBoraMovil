@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/registro"
-    tools:context=".view.activities.Registro">
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:background="@drawable/bg_tienda"
+    tools:context=".view.activities.RegisterUser">
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -17,7 +16,7 @@
             android:layout_height="615dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="45dp"
-            android:background="@drawable/borde"
+            android:background="@drawable/borde_small"
             android:orientation="vertical"
             android:padding="35dp"
             app:layout_constraintBottom_toBottomOf="parent"

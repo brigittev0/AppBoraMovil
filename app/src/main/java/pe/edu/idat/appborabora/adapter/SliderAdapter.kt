@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora.view
+package pe.edu.idat.appborabora.adapter
 
 import android.content.Context
 import android.graphics.Color
@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.smarteist.autoimageslider.SliderViewAdapter
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.SliderItem
+import pe.edu.idat.appborabora.slider.SliderItem
 
 class SliderAdapter(private val context: Context) : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
     private val mSliderItems: MutableList<SliderItem> = ArrayList()
