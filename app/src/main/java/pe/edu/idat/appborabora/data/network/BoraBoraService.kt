@@ -1,6 +1,5 @@
 package pe.edu.idat.appborabora.data.network
 
-import pe.edu.idat.appborabora.adapter.ProductoDashboardAdapter
 import pe.edu.idat.appborabora.data.model.request.LoginRequest
 import pe.edu.idat.appborabora.data.model.response.CategoryResponse
 import pe.edu.idat.appborabora.data.model.response.LoginResponse
