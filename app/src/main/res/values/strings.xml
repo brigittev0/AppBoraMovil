@@ -66,8 +66,6 @@
     <string name="stringContacto">Contacto</string>
     <string name="valFinalizarCompra">Finalizar Compra</string>
     <string name="title_activity_home_navigation">HomeNavigation</string>
-    <string name="nav_header_title">Bora Bora</string>
-    <string name="nav_header_subtitle">bora@sac.com</string>
     <string name="cuenta">Crear Cuenta</string>
     <string name="mensajeBienvenidad">!Qué bueno tenerte de vuelta!</string>
     <string name="title_activity_admin">admin</string>
@@ -123,4 +121,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="valDatos">Ingrese sus datos</string>
+    <string name="welcome">"Hola, "</string>
 </resources>
