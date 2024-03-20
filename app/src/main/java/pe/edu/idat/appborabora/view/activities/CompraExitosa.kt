@@ -17,6 +17,9 @@ class CompraExitosa : AppCompatActivity(), View.OnClickListener {
 
         val btnvolverdash = findViewById<Button>(R.id.btnvolverdash)
         btnvolverdash.setOnClickListener(this)
+
+        val btnfactura = findViewById<Button>(R.id.btnfactura)
+        btnfactura.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -24,6 +27,11 @@ class CompraExitosa : AppCompatActivity(), View.OnClickListener {
 
             R.id.btnvolverdash -> {
                 val intent = Intent(this, HomeNavigation::class.java)
+                startActivity(intent)
+            }
+
+            R.id.btnfactura -> {
+                val intent = Intent(this, Factura::class.java)
                 startActivity(intent)
             }
         }
