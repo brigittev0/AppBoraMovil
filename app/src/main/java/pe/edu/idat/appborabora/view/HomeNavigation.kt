@@ -63,9 +63,9 @@ class HomeNavigation : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    // Cierre de sesion - provisional
+    // Cierre de sesion
     private fun logout() {
-        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         sharedPref.edit().remove("token").apply()
         sharedPref.edit().remove("username").apply()
         sharedPref.edit().remove("role").apply()

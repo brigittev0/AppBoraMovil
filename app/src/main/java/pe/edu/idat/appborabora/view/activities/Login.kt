@@ -76,6 +76,10 @@ class Login : AppCompatActivity() {
 
         if (username.isNotBlank() && password.isNotBlank()) {
             loginViewModel.login(username, password)
+
+            // Limpiar los campos de texto
+            tUser.text.clear()
+            tPassword.text.clear()
         } else {
             Toast.makeText(this, "Ingrese el usuario y la contraseña", Toast.LENGTH_LONG).show()
         }
@@ -85,7 +89,6 @@ class Login : AppCompatActivity() {
         val intent = Intent(this, RegisterUser::class.java)
         startActivity(intent)
     }
-
 
 
     private fun startHomeNavigation() {
@@ -104,7 +107,7 @@ class Login : AppCompatActivity() {
 
     // Preferencias compartidas
     private fun saveToSharedPrefs(username: String?, role: String?, token: String?) {
-        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putString("username", username)
             putString("role", role)
