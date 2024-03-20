@@ -14,7 +14,6 @@ interface BoraBoraService {
     @POST("login")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
-    @GET("categories/byId/{categoryId}")
-    fun getCategoryById(@Path("categoryId") categoryId: Int): Call<CategoryResponse>
-
+    @GET("categories/all")
+    fun getAllCategories(): Call<List<CategoryResponse>>
 }

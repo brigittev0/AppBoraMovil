@@ -37,10 +37,10 @@ class Catalogo : Fragment() {
         rvcategoria.adapter = categoryAdapter
 
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
-        categoryViewModel.category.observe(viewLifecycleOwner, Observer { category ->
-            categoryAdapter.updateData(listOf(category))
+        categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
+            categoryAdapter.updateData(categories)
         })
 
-        categoryViewModel.fetchCategoryById(1) // Reemplaza 1 con el ID de la categoría que quieres obtener
+        categoryViewModel.fetchAllCategories()
     }
-    }
+}

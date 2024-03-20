@@ -10,22 +10,22 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CategoryViewModel : ViewModel() {
-    private val _category = MutableLiveData<CategoryResponse>()
-    val category: LiveData<CategoryResponse> get() = _category
+    private val _categories = MutableLiveData<List<CategoryResponse>>()
+    val categories: LiveData<List<CategoryResponse>> get() = _categories
 
     private val service = BoraBoraClient().getInstance()
 
-    fun fetchCategoryById(categoryId: Int) {
-        service.getCategoryById(categoryId).enqueue(object : Callback<CategoryResponse> {
-            override fun onResponse(call: Call<CategoryResponse>, response: Response<CategoryResponse>) {
+    fun fetchAllCategories() {
+        service.getAllCategories().enqueue(object : Callback<List<CategoryResponse>> {
+            override fun onResponse(call: Call<List<CategoryResponse>>, response: Response<List<CategoryResponse>>) {
                 if (response.isSuccessful) {
-                    _category.value = response.body()
+                    _categories.value = response.body()
                 } else {
                     // Maneja el error
                 }
             }
 
-            override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<CategoryResponse>>, t: Throwable) {
                 // Maneja el error
             }
         })
