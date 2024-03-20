@@ -68,7 +68,7 @@ class Dashboard : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        val sharedPref = activity?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = activity?.getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("token", null)
 
         Log.d("DashboardFragment", "Token: $token")
