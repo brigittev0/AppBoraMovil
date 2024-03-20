@@ -3,6 +3,8 @@ package pe.edu.idat.appborabora.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -42,6 +44,17 @@ class HomeNavigation : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //Codigo para visualizar el username en la header home
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+
+        val headerView = navView.getHeaderView(0)
+        val navUsername = headerView.findViewById<TextView>(R.id.headerUsername)
+
+        val username = sharedPref.getString("username", null)
+
+        navUsername.text = username
+
 
         // Manejar la navegación a CompraAct
         navView.menu.findItem(R.id.compra).setOnMenuItemClickListener {

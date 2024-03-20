@@ -92,7 +92,7 @@ class Login : AppCompatActivity() {
 
 
     private fun startHomeNavigation() {
-        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val role = sharedPref.getString("role", "")
 
         val intent = when (role) {
