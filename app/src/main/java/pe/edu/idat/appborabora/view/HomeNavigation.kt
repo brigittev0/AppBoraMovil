@@ -3,6 +3,8 @@ package pe.edu.idat.appborabora.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.navigateUp
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
 import pe.edu.idat.appborabora.view.activities.Compra
@@ -42,6 +45,17 @@ class HomeNavigation : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        //Codigo para visualizar el username en la header home
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+
+        val headerView = navView.getHeaderView(0)
+        val navUsername = headerView.findViewById<TextView>(R.id.headerUsername)
+
+        val username = sharedPref.getString("username", null)
+
+        navUsername.text = username
+
+
         // Manejar la navegación a CompraAct
         navView.menu.findItem(R.id.compra).setOnMenuItemClickListener {
             val intent = Intent(this, Compra::class.java)
@@ -56,9 +70,15 @@ class HomeNavigation : AppCompatActivity() {
         }
     }
 
-    // Cierre de sesion - provisional
+    // Navegación cuando se presiona el botón de hamburguesa
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_home_navigation)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    // Cierre de sesion
     private fun logout() {
-        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         sharedPref.edit().remove("token").apply()
         sharedPref.edit().remove("username").apply()
         sharedPref.edit().remove("role").apply()

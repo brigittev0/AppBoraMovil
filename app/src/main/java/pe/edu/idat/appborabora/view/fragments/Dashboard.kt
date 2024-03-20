@@ -11,21 +11,29 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.adapter.ProductoDashboardAdapter
 import pe.edu.idat.appborabora.slider.SliderItem
 import pe.edu.idat.appborabora.adapter.SliderAdapter
 import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
 import pe.edu.idat.appborabora.view.activities.RegisterUser
+import pe.edu.idat.appborabora.viewmodel.ProductoDashViewModel
 
 class Dashboard : Fragment(), View.OnClickListener {
 
     private lateinit var sliderAdapter: SliderAdapter
     private lateinit var svCarrusel: SliderView
     private lateinit var loginOption: RelativeLayout
+    private lateinit var rvTopProductos: RecyclerView
+    private lateinit var productoDashViewModel: ProductoDashViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +42,8 @@ class Dashboard : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         loginOption = view.findViewById(R.id.loginOption)
+        rvTopProductos = view.findViewById(R.id.rvTopProductos)
+        productoDashViewModel = ViewModelProvider(this).get(ProductoDashViewModel::class.java)
 
         val btnlogindash = view.findViewById<Button>(R.id.btnlogindash)
         val btncuenta = view.findViewById<Button>(R.id.btncuenta)
@@ -44,14 +54,21 @@ class Dashboard : Fragment(), View.OnClickListener {
         initAdapter()
         loadData()
 
+        rvTopProductos.layoutManager = LinearLayoutManager(requireContext())
+        rvTopProductos.adapter = ProductoDashboardAdapter(requireContext())
+        productoDashViewModel.topSellingProducts.observe(viewLifecycleOwner, Observer { productList ->
+            (rvTopProductos.adapter as ProductoDashboardAdapter).setProductList(productList)
+        })
+
         return view
     }
+
 
     // Actualizacion de interfaz, segun inicio de sesion del usuario
     override fun onResume() {
         super.onResume()
 
-        val sharedPref = activity?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPref = activity?.getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("token", null)
 
         Log.d("DashboardFragment", "Token: $token")

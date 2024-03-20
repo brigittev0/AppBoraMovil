@@ -4,4 +4,6 @@ data class CategoryResponse(
     val id_category: Int,
     val name: String,
     val image: String
+
+
 )
