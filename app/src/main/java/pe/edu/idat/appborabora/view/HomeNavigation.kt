@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ui.navigateUp
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
 import pe.edu.idat.appborabora.view.activities.Compra
@@ -54,6 +55,12 @@ class HomeNavigation : AppCompatActivity() {
             logout()
             true
         }
+    }
+
+    // Navegación cuando se presiona el botón de hamburguesa
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_home_navigation)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     // Cierre de sesion - provisional
