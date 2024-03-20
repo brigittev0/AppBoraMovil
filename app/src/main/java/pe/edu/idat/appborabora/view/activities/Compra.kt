@@ -87,6 +87,10 @@ class Compra : AppCompatActivity() {
                     val toast1 = Toast.makeText(applicationContext, "¡Pago exitoso!", Toast.LENGTH_LONG)
                     toast1.show()
 
+                    // Iniciar la nueva actividad
+                    val intent = Intent(this, CompraExitosa::class.java)
+                    startActivity(intent)
+
                 } else {
                     disableComponents()
                     var JSONString = data.extras!!.getString("keyError")
