@@ -7,7 +7,9 @@ class BoraBoraClient {
 
     companion object {
 
-        private const val BASE_URL = "http://192.168.18.8:8070/api/v1/"
+
+        private const val BASE_URL = "http://192.168.18.25:8070/api/v1/"
+
 
     }
 
