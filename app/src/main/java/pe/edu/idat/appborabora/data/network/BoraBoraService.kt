@@ -21,10 +21,6 @@ interface BoraBoraService {
 
     @GET("categories/all")
     fun getAllCategories(): Call<List<CategoryResponse>>
-
-    @GET("categories/byId/{categoryId}")
-    fun getCategoryById(@Path("categoryId") categoryId: Int): Call<CategoryResponse>
-
     @GET("products/topSelling")
     fun getTopSellingProducts(@Query("limit") limit: Int = 10): Call<List<ProductoDashboardResponse>>
 
