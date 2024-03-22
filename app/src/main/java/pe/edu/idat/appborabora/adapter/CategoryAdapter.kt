@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.data.model.response.CategoryResponse
 
 class CategoryAdapter(private var categories: List<CategoryResponse>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
