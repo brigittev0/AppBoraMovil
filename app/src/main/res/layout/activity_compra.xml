@@ -198,14 +198,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/btnDelivery"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Delivery" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnRecojoTienda"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
