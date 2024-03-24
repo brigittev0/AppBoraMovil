@@ -65,6 +65,7 @@ dependencies {
 
     // Una biblioteca de serialización/deserialización de Java para convertir objetos Java en JSON y viceversa.
     implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("com.google.code.gson:gson:2.8.8")
 
     // Una biblioteca de carga de imágenes para Android.
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -99,4 +100,6 @@ dependencies {
     // Agregar archivos de Niubiz .aar del directorio 'libs'
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     //--------
+
+
 }

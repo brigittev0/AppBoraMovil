@@ -5,8 +5,8 @@ data class CreateUser(
     val name: String,
     val lastname: String,
     val cellphone: Int,
-    val email: String,
+    val email: String/*,
     val username: String,
     val password: String,
-    val roles: Set<String>
+    val roles: Set<String>*/
 )

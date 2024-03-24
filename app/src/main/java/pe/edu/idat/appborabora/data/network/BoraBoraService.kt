@@ -18,7 +18,6 @@ interface BoraBoraService {
     @POST("login")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
-
     @GET("categories/all")
     fun getAllCategories(): Call<List<CategoryResponse>>
     @GET("products/topSelling")
