@@ -15,7 +15,7 @@ import retrofit2.http.Query
 
 interface BoraBoraService {
 
-    @POST("login")
+    @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
     @GET("categories/all")

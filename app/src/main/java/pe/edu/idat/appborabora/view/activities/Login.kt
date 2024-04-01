@@ -3,8 +3,6 @@ package pe.edu.idat.appborabora.view.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
@@ -16,15 +14,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.model.request.LoginRequest
-import pe.edu.idat.appborabora.data.model.response.LoginResponse
-import pe.edu.idat.appborabora.data.network.BoraBoraClient
 import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.viewmodel.LoginState
 import pe.edu.idat.appborabora.viewmodel.LoginViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 class Login : AppCompatActivity() {
 
     private lateinit var tUser: EditText
@@ -60,7 +53,11 @@ class Login : AppCompatActivity() {
         loginViewModel.loginState.observe(this, Observer { loginState ->
             when (loginState) {
                 is LoginState.Success -> {
-                    saveToSharedPrefs(loginState.username, loginState.role, loginState.token)
+
+                    // Limpiar los campos de texto
+                    tUser.text.clear()
+                    tPassword.text.clear()
+                    saveToSharedPrefs(loginState.username, loginState.role, loginState.jwt)
                     startHomeNavigation()
                 }
                 is LoginState.Error -> {
@@ -77,9 +74,6 @@ class Login : AppCompatActivity() {
         if (username.isNotBlank() && password.isNotBlank()) {
             loginViewModel.login(username, password)
 
-            // Limpiar los campos de texto
-            tUser.text.clear()
-            tPassword.text.clear()
         } else {
             Toast.makeText(this, "Ingrese el usuario y la contraseña", Toast.LENGTH_LONG).show()
         }
@@ -96,7 +90,8 @@ class Login : AppCompatActivity() {
         val role = sharedPref.getString("role", "")
 
         val intent = when (role) {
-            "ROLE_ADMIN" -> Intent(this, AdminPanel::class.java)
+            "ROLE_ADMIN_FULL" -> Intent(this, AdminPanel::class.java)
+            "ROLE_ADMIN_BASIC" -> Intent(this, AdminPanel::class.java)
             "ROLE_USER" -> Intent(this, HomeNavigation::class.java)
             else -> Intent(this, HomeNavigation::class.java)
         }
@@ -104,14 +99,13 @@ class Login : AppCompatActivity() {
         startActivity(intent)
     }
 
-
     // Preferencias compartidas
-    private fun saveToSharedPrefs(username: String?, role: String?, token: String?) {
+    private fun saveToSharedPrefs(username: String?, role: String?, jwt: String?) {
         val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putString("username", username)
             putString("role", role)
-            putString("token", token)
+            putString("jwt", jwt)
             apply()
         }
     }

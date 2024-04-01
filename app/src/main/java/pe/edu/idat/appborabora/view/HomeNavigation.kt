@@ -51,7 +51,7 @@ class HomeNavigation : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val navUsername = headerView.findViewById<TextView>(R.id.headerUsername)
 
-        val username = sharedPref.getString("username", null)
+        val username = sharedPref.getString("username", "Invitado")
 
         navUsername.text = username
 
@@ -79,9 +79,9 @@ class HomeNavigation : AppCompatActivity() {
     // Cierre de sesion
     private fun logout() {
         val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        sharedPref.edit().remove("token").apply()
         sharedPref.edit().remove("username").apply()
         sharedPref.edit().remove("role").apply()
+        sharedPref.edit().remove("jwt").apply()
 
         // Redirigir al usuario a la pantalla de inicio de sesión
         val intent = Intent(this, MainActivity::class.java)

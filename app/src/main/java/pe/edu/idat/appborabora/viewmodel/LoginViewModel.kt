@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
 import pe.edu.idat.appborabora.data.model.request.LoginRequest
+import pe.edu.idat.appborabora.data.model.response.ApiResponse
 import pe.edu.idat.appborabora.data.model.response.LoginResponse
 import pe.edu.idat.appborabora.data.network.BoraBoraClient
 import retrofit2.Call
@@ -47,7 +49,7 @@ class LoginViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Log.e("RetrofitError", "Request error: " + t.message)
-                    _loginState.value = LoginState.Error(t.message ?: "Error desconocido")
+                    _loginState.value = LoginState.Error("API - Error de conexión")
                 }
             })
 
@@ -62,24 +64,29 @@ class LoginViewModel : ViewModel() {
             val body = response.body()
             val message = body?.message
             val username = body?.username
-            val token = body?.token
-            val role = body?.role?.get(0)?.authority
+            val jwt = body?.jwt
+            val roles = body?.roles
 
-            if (username != null && message != null) {
-                _loginState.value = LoginState.Success(username, role, token)
+            if (username != null && message != null && !roles.isNullOrEmpty()) {
+                _loginState.value = LoginState.Success(username, roles[0], jwt)
             } else {
                 _loginState.value = LoginState.Error("Usuario o contraseña inválidos")
             }
         } else {
             val statusCode = response?.code() ?: 0
-            val statusMessage = response?.message() ?: "Error desconocido"
+            val errorBody = response?.errorBody()?.string() ?: "Error desconocido"
 
-            _loginState.value = LoginState.Error("Error $statusCode: $statusMessage")
+            if (statusCode == 401) {
+                val apiResponse = Gson().fromJson(errorBody, ApiResponse::class.java)
+                _loginState.value = LoginState.Error(apiResponse.message)
+            } else {
+                _loginState.value = LoginState.Error("Error $statusCode: $errorBody")
+            }
         }
     }
 }
 
 sealed class LoginState {
-    data class Success(val username: String, val role: String?, val token: String?) : LoginState()
+    data class Success(val username: String, val role: String, val jwt: String?) : LoginState()
     data class Error(val error: String) : LoginState()
 }

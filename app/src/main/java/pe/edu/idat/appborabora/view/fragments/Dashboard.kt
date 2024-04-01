@@ -69,9 +69,9 @@ class Dashboard : Fragment(), View.OnClickListener {
         super.onResume()
 
         val sharedPref = activity?.getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        val token = sharedPref?.getString("token", null)
+        val token = sharedPref?.getString("jwt", null)
 
-        Log.d("DashboardFragment", "Token: $token")
+        Log.d("DashboardFragment", "JWT: $token")
 
         if (token == null) {
             // El usuario no ha iniciado sesión, muestra la opción de inicio de sesión
