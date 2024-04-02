@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">AppBoraBora</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home_navigation">Bodega BoraBora</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -65,7 +66,6 @@
     <string name="btnaceptar">Aceptar</string>
     <string name="stringContacto">Contacto</string>
     <string name="valFinalizarCompra">Finalizar Compra</string>
-    <string name="title_activity_home_navigation">HomeNavigation</string>
     <string name="cuenta">Crear Cuenta</string>
     <string name="mensajeBienvenidad">!Qué bueno tenerte de vuelta!</string>
     <string name="title_activity_admin">admin</string>
