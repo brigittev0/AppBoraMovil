@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -68,6 +69,8 @@ class HomeNavigation : AppCompatActivity() {
             logout()
             true
         }
+
+        updateMenu(navView.menu)
     }
 
     // Navegación cuando se presiona el botón de hamburguesa
@@ -83,10 +86,25 @@ class HomeNavigation : AppCompatActivity() {
         sharedPref.edit().remove("role").apply()
         sharedPref.edit().remove("jwt").apply()
 
+        // Actualiza la visibilidad de los elementos del menú
+        updateMenu(binding.navView.menu)
+
         // Redirigir al usuario a la pantalla de inicio de sesión
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    // Si el usuario a iniciado sesión
+    // Se actualiza la visibilidad de los elementos del menú
+    private fun updateMenu(menu: Menu) {
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+        val jwt = sharedPref.getString("jwt", null)
+
+        val isLoggedIn = jwt != null
+        menu.findItem(R.id.activity_login).isVisible = !isLoggedIn
+        menu.findItem(R.id.perfil).isVisible = isLoggedIn
+        menu.findItem(R.id.logout).isVisible = isLoggedIn
     }
 }
 
