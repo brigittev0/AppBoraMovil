@@ -51,7 +51,7 @@ class HomeNavigation : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val navUsername = headerView.findViewById<TextView>(R.id.headerUsername)
 
-        val username = sharedPref.getString("username", "Invitado")
+        val username = sharedPref.getString("username", "!Bienvenido!")
 
         navUsername.text = username
 

@@ -15,14 +15,17 @@ import retrofit2.http.Query
 
 interface BoraBoraService {
 
+    //SIN TOKEN
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
     @GET("categories/all")
     fun getAllCategories(): Call<List<CategoryResponse>>
+
     @GET("products/topSelling")
     fun getTopSellingProducts(@Query("limit") limit: Int = 10): Call<List<ProductoDashboardResponse>>
 
+    //No funciona aun
     @PUT("user/{userId}")
     fun updateUserDetails(@Path("userId") userId: Int, @Body userDetails: CreateUser): Call<String>
 }
