@@ -32,16 +32,16 @@
         </menu>
         </item>
 
-        <item android:title="Sesión">
+        <item android:title="Usuario">
             <menu>
-                <item
-                    android:id="@+id/activity_login"
-                    android:icon="@drawable/baseline_login_24"
-                    android:title="Iniciar sesión" />
                 <item
                     android:id="@+id/perfil"
                     android:icon="@drawable/baseline_person_outline_24"
                     android:title="@string/menu_perfil" />
+                <item
+                    android:id="@+id/login"
+                    android:icon="@drawable/baseline_login_24"
+                    android:title="Iniciar sesión" />
                 <item
                     android:id="@+id/logout"
                     android:icon="@drawable/baseline_logout_24"

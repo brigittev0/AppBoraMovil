@@ -70,6 +70,13 @@ class HomeNavigation : AppCompatActivity() {
             true
         }
 
+        // Manejar el inicio de sesión
+        navView.menu.findItem(R.id.login).setOnMenuItemClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            true
+        }
+
         updateMenu(navView.menu)
     }
 
@@ -102,7 +109,7 @@ class HomeNavigation : AppCompatActivity() {
         val jwt = sharedPref.getString("jwt", null)
 
         val isLoggedIn = jwt != null
-        menu.findItem(R.id.activity_login).isVisible = !isLoggedIn
+        menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
     }
