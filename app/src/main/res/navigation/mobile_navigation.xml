@@ -40,16 +40,6 @@
         android:label="fragment_listar_prod_categoria"
         tools:layout="@layout/fragment_listar_prod_categoria" />
     <fragment
-        android:id="@+id/metodoPago"
-        android:name="pe.edu.idat.appborabora.view.fragments.MetodoPago"
-        android:label="Metodo de pago"
-        tools:layout="@layout/fragment_metodo_pago" />
-    <fragment
-        android:id="@+id/metodoPagoTarjeta"
-        android:name="pe.edu.idat.appborabora.view.fragments.MetodoPagoTarjeta"
-        android:label="Pago con tarjeta"
-        tools:layout="@layout/fragment_metodo_pago_tarjeta" />
-    <fragment
         android:id="@+id/detalleProducto"
         android:name="pe.edu.idat.appborabora.view.fragments.DetalleProducto"
         android:label="Detalle de Producto"
