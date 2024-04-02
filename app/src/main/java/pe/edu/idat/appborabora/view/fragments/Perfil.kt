@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.CreateUser
@@ -17,12 +18,13 @@ import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
 
 class Perfil : Fragment() {
 
-    private lateinit var authViewModel: PerfilViewModel
+    private lateinit var perfilViewModel: PerfilViewModel
     private lateinit var btnActualizarPerfil: Button
     private lateinit var nombreEditText: EditText
     private lateinit var apellidoEditText: EditText
     private lateinit var dniEditText: EditText
     private lateinit var emailEditText: EditText
+    private lateinit var usernameEditText: EditText
     private lateinit var celularEditText: EditText
     private lateinit var binding: FragmentPerfilBinding
 
@@ -33,44 +35,25 @@ class Perfil : Fragment() {
         binding = FragmentPerfilBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        authViewModel = ViewModelProvider(this).get(PerfilViewModel::class.java)
+        perfilViewModel = ViewModelProvider(this).get(PerfilViewModel::class.java)
 
         // Inicializa las variables con las referencias a los EditTexts
         nombreEditText = view.findViewById(R.id.nombre)
         apellidoEditText = view.findViewById(R.id.apellido)
         dniEditText = view.findViewById(R.id.dni)
         emailEditText = view.findViewById(R.id.email)
+        usernameEditText = view.findViewById(R.id.username)
         celularEditText = view.findViewById(R.id.celular)
         btnActualizarPerfil = view.findViewById(R.id.btnActualizarPerfil)
 
         listarUsuario(view)
-        btnActualizarPerfil.setOnClickListener {
-            actualizarPerfil()
-        }
 
-        authViewModel.observeUpdatePerfilResponse().observe(viewLifecycleOwner) { perfilResponse ->
-            perfilResponse?.let {
-                // Maneja el PerfilResponse aquí, muestra el mensaje en la interfaz de usuario
-                //Toast.makeText(requireContext(), perfilResponse.message, Toast.LENGTH_SHORT).show()
-            }
-        }
         return view
     }
 
-    private fun saveToSharedPrefs(name: String?, lastname: String?, email: String?, identity_doc: Int, cellphone: Int) {
-        val sharedPref = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
-            putString("name", name)
-            putString("lastname", lastname)
-            putInt("identity_doc", identity_doc)
-            putString("email", email)
-            putInt("cellphone", cellphone)
-            apply()
-        }
-    }
-
     private fun listarUsuario(view: View) {
-        //PARA OBTENER EL ID DEL USUARIO:
+
+        //PARA OBTENER EL USERNMA DEL USUARIO LOGUEADO:
         val sharedPref = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
 
         // Obtener la referencia de la vista del fragmento para buscar las vistas
@@ -78,44 +61,25 @@ class Perfil : Fragment() {
         val userapellido = view.findViewById<TextView>(R.id.apellido)
         val userDni = view.findViewById<TextView>(R.id.dni)
         val userEmail = view.findViewById<TextView>(R.id.email)
+        val nameuser = view.findViewById<TextView>(R.id.username)
         val userCelular = view.findViewById<TextView>(R.id.celular)
 
-        val dniUsuario = sharedPref.getInt("identity_doc", 0)
-        val nombreUsuario = sharedPref.getString("name", null)
-        val apellidoUsuario = sharedPref.getString("lastname", null)
-        val emailUsuario = sharedPref.getString("email", null)
-        val cellUsuario = sharedPref.getInt("cellphone", 0)
+        val usernameUsuario = sharedPref.getString("username", null)
 
-
-        if (nombreUsuario != null && apellidoUsuario != null && emailUsuario != null) {
-            username.text = nombreUsuario
-            userapellido.text = apellidoUsuario
-            userEmail.text = emailUsuario
-
-            // Convierte los valores int a String antes de ponerlos en los TextViews
-            val dniUsuarioString = dniUsuario.toString()
-            val cellUsuarioString = cellUsuario.toString()
-
-            userDni.text = dniUsuarioString
-            userCelular.text = cellUsuarioString
+        if (usernameUsuario != null) {
+            perfilViewModel.getUserByUsername(usernameUsuario)
+            perfilViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+                username.text = user.name
+                userapellido.text = user.lastname
+                userEmail.text = user.email
+                nameuser.text = user.username
+                userCelular.text = user.cellphone.toString()
+                userDni.text = user.identityDoc.toString()
+            })
         }
     }
 
-    private fun actualizarPerfil() {
-        if (validarFormulario()) {
-            val name = nombreEditText.text.toString()
-            val lastname = apellidoEditText.text.toString()
-            val identity_doc = dniEditText.text.toString().toInt()
-            val email = emailEditText.text.toString()
-            val cellphone = celularEditText.text.toString().toInt()
-
-            val createUser = CreateUser(identity_doc, name, lastname, cellphone, email)
-            // Llama al método en el ViewModel para actualizar el perfil
-            authViewModel.actualizarPerfil(identity_doc, createUser)
-
-            saveToSharedPrefs(name, lastname, email, identity_doc, cellphone)
-        }
-    }
+    //--Falta validar el username
 
     private fun validarFormulario(): Boolean {
         var respuesta = false

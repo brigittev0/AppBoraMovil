@@ -5,6 +5,7 @@ import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.CreateUser
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.data.dto.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,7 +16,7 @@ import retrofit2.http.Query
 
 interface BoraBoraService {
 
-    //SIN TOKEN
+    //-- SIN TOKEN
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
@@ -25,7 +26,8 @@ interface BoraBoraService {
     @GET("products/topSelling")
     fun getTopSellingProducts(@Query("limit") limit: Int = 10): Call<List<ProductoDashboardResponse>>
 
-    //No funciona aun
-    @PUT("user/{userId}")
-    fun updateUserDetails(@Path("userId") userId: Int, @Body userDetails: CreateUser): Call<String>
+    @GET("user/findUser/{username}")
+    fun getUserByUsername(@Path("username") username: String): Call<UserResponse>
+
+    // -- CON TOKEN
 }
