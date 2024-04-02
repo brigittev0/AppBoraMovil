@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import pe.edu.idat.appborabora.data.model.request.LoginRequest
-import pe.edu.idat.appborabora.data.model.response.ApiResponse
-import pe.edu.idat.appborabora.data.model.response.LoginResponse
+import pe.edu.idat.appborabora.data.dto.request.LoginRequest
+import pe.edu.idat.appborabora.data.dto.response.ApiResponse
+import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.network.BoraBoraClient
 import retrofit2.Call
 import retrofit2.Callback

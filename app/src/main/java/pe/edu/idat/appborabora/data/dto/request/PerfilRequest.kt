@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora.data.model.request
+package pe.edu.idat.appborabora.data.dto.request
 
 class PerfilRequest (
     val identity_doc: Int,

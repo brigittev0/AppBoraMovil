@@ -1,18 +1,17 @@
-package pe.edu.idat.appborabora.data.model.response
+package pe.edu.idat.appborabora.data.dto.response
 
-import java.time.LocalDate
-
-data class ProductResponse (
+// ProductoDashboardResponse.kt
+data class ProductoDashboardResponse(
     val idProduct: Int,
     val name: String,
     val description: String,
     val brand: String,
     val price: Double,
     val stock: Int,
-    val expirationDate: LocalDate,
+    val expirationDate: String,
     val image: String,
     val categoryId: Int,
     val categoryName: String,
     val brandProductId: Int,
-    val brandProductName: String,
+    val brandProductName: String
 )

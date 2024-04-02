@@ -1,10 +1,10 @@
 package pe.edu.idat.appborabora.data.network
 
-import pe.edu.idat.appborabora.data.model.request.LoginRequest
-import pe.edu.idat.appborabora.data.model.response.CategoryResponse
-import pe.edu.idat.appborabora.data.model.response.CreateUser
-import pe.edu.idat.appborabora.data.model.response.LoginResponse
-import pe.edu.idat.appborabora.data.model.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.data.dto.request.LoginRequest
+import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
+import pe.edu.idat.appborabora.data.dto.response.CreateUser
+import pe.edu.idat.appborabora.data.dto.response.LoginResponse
+import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

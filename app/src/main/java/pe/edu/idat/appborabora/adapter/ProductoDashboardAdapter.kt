@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.model.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 
 class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adapter<ProductoDashboardAdapter.ViewHolder>() {
     private var productList: List<ProductoDashboardResponse> = ArrayList()

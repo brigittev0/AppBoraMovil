@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora.data.model.response
+package pe.edu.idat.appborabora.data.dto.response
 
 data class CreateUser(
     val identity_doc: Int,

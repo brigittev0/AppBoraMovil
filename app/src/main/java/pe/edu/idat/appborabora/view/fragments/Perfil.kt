@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.model.response.CreateUser
-import pe.edu.idat.appborabora.data.model.response.PerfilResponse
+import pe.edu.idat.appborabora.data.dto.response.CreateUser
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
 
