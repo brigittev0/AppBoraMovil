@@ -1,14 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdministrarProductos">
+    android:background="@android:color/white"
+    tools:context=".view.fragments.AdministrarProductos">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Encabezado -->
+    <RelativeLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginHorizontal="32dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Productos"
+            android:textSize="33sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerHorizontal="true"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/textViewTitle"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+
+    <!-- Botones de Opciones -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="32dp">
+
+        <!-- Botón Crear Producto -->
+        <Button
+            android:id="@+id/btnCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Producto"
+            android:background="@drawable/rounded_button_primary"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:paddingVertical="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botón Ver Productos -->
+        <Button
+            android:id="@+id/btnVer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Productos"
+            android:background="@drawable/rounded_button_primary"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:paddingVertical="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botón Actualizar Producto -->
+        <Button
+            android:id="@+id/btnActualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Producto"
+            android:background="@drawable/rounded_button_primary"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:paddingVertical="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botón Eliminar Producto -->
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Producto"
+            android:background="@drawable/rounded_button_primary"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:paddingVertical="16dp"/>
+
+    </LinearLayout>
+
+    <!-- Logotipo -->
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/buttonContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/lg_logotipo_black" />
+
+</RelativeLayout>
+

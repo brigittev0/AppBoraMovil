@@ -47,11 +47,11 @@
     <activity
         android:id="@+id/compra"
         android:name="pe.edu.idat.appborabora.view.activities.Compra"
-        android:label="activity_compra"
+        android:label="Compra"
         tools:layout="@layout/activity_compra" />
     <fragment
         android:id="@+id/administrarProductos"
-        android:name="pe.edu.idat.appborabora.AdministrarProductos"
-        android:label="fragment_administrar_productos"
+        android:name="pe.edu.idat.appborabora.view.fragments.AdministrarProductos"
+        android:label="Administrar Productos"
         tools:layout="@layout/fragment_administrar_productos" />
 </navigation>
