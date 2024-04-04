@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class BoraBoraClient {
 
     companion object {
-        private const val BASE_URL = "http://192.168.18.8:8070/api/v1/"
+        private const val BASE_URL = "http://192.168.0.15:8070/api/v1/"
     }
 
     private val boraboraService: BoraBoraService

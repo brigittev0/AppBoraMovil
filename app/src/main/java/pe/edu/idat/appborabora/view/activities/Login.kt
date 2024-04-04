@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import pe.edu.idat.appborabora.AdministrarProductos
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.viewmodel.LoginState
@@ -90,8 +91,8 @@ class Login : AppCompatActivity() {
         val role = sharedPref.getString("role", "")
 
         val intent = when (role) {
-            "ROLE_ADMIN_FULL" -> Intent(this, AdminPanel::class.java)
-            "ROLE_ADMIN_BASIC" -> Intent(this, AdminPanel::class.java)
+            "ROLE_ADMIN_FULL" -> Intent(this, HomeNavigation::class.java)
+            "ROLE_ADMIN_BASIC" -> Intent(this, HomeNavigation::class.java)
             "ROLE_USER" -> Intent(this, HomeNavigation::class.java)
             else -> Intent(this, HomeNavigation::class.java)
         }

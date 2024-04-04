@@ -40,8 +40,7 @@ class HomeNavigation : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.dashboard, R.id.catalogo, R.id.contacto, R.id.perfil, R.id.historialCompra,
-                R.id.detalleHistorialCompra, R.id.detalleProducto
-            ), drawerLayout
+                R.id.detalleHistorialCompra, R.id.detalleProducto, R.id.administrarProductos), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -107,11 +106,13 @@ class HomeNavigation : AppCompatActivity() {
     private fun updateMenu(menu: Menu) {
         val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val jwt = sharedPref.getString("jwt", null)
+        val role = sharedPref.getString("role", null)
 
         val isLoggedIn = jwt != null
         menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
+        menu.findItem(R.id.administrarProductos).isVisible = isLoggedIn
     }
 }
 

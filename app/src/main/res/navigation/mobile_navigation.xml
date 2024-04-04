@@ -49,4 +49,9 @@
         android:name="pe.edu.idat.appborabora.view.activities.Compra"
         android:label="activity_compra"
         tools:layout="@layout/activity_compra" />
+    <fragment
+        android:id="@+id/administrarProductos"
+        android:name="pe.edu.idat.appborabora.AdministrarProductos"
+        android:label="fragment_administrar_productos"
+        tools:layout="@layout/fragment_administrar_productos" />
 </navigation>

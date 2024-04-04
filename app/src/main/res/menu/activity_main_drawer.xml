@@ -48,5 +48,13 @@
                     android:title="Cerrar sesión" />
             </menu>
         </item>
+        <item android:title="Administrador">
+            <menu>
+                <item
+                    android:id="@+id/administrarProductos"
+                    android:icon="@drawable/baseline_person_outline_24"
+                    android:title="@string/menu_admin_prod" />
+            </menu>
+        </item>
     </group>
 </menu>
