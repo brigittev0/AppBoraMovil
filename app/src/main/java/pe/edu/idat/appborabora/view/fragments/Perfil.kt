@@ -2,23 +2,29 @@ package pe.edu.idat.appborabora.view.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import org.json.JSONObject
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.dto.response.CreateUser
+import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
+import pe.edu.idat.appborabora.viewmodel.UpdateUserViewModel
+import pe.edu.idat.appborabora.viewmodel.UpdateUserViewModelFactory
 
 class Perfil : Fragment() {
 
     private lateinit var perfilViewModel: PerfilViewModel
+    private lateinit var updateUserViewModel: UpdateUserViewModel
     private lateinit var btnActualizarPerfil: Button
     private lateinit var nombreEditText: EditText
     private lateinit var apellidoEditText: EditText
@@ -48,6 +54,36 @@ class Perfil : Fragment() {
 
         listarUsuario(view)
 
+        //--
+        val factory = UpdateUserViewModelFactory(requireContext())
+        updateUserViewModel = ViewModelProvider(this, factory).get(UpdateUserViewModel::class.java)
+
+        btnActualizarPerfil.setOnClickListener {
+            if (validarFormulario()) {
+                val createUserRequest = CreateUserRequest(
+                    nombreEditText.text.toString(),
+                    apellidoEditText.text.toString(),
+                    celularEditText.text.toString().toInt(),
+                    emailEditText.text.toString(),
+                    usernameEditText.text.toString(),
+
+                )
+
+                updateUserViewModel.updateUser(dniEditText.text.toString().toInt(), createUserRequest)
+            }
+        }
+
+        updateUserViewModel.apiResponse.observe(viewLifecycleOwner, Observer { apiResponse ->
+            Log.d("PerfilFragment", "ApiResponse: $apiResponse")
+            Toast.makeText(context, apiResponse.message, Toast.LENGTH_LONG).show()
+        })
+
+        updateUserViewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            val jsonObject = JSONObject(error)
+            val message = jsonObject.getString("message")
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        })
+        //--
         return view
     }
 

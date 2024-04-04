@@ -1,11 +1,12 @@
 package pe.edu.idat.appborabora.data.network
 
+import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
+import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
-import pe.edu.idat.appborabora.data.dto.response.CreateUser
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
-import pe.edu.idat.appborabora.data.dto.response.UserResponse
+import pe.edu.idat.appborabora.data.dto.response.PerfilResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -27,7 +28,9 @@ interface BoraBoraService {
     fun getTopSellingProducts(@Query("limit") limit: Int = 10): Call<List<ProductoDashboardResponse>>
 
     @GET("user/findUser/{username}")
-    fun getUserByUsername(@Path("username") username: String): Call<UserResponse>
+    fun getUserByUsername(@Path("username") username: String): Call<PerfilResponse>
 
     // -- CON TOKEN
+    @PUT("user/updateUser/{identityDoc}")
+    fun updateUser(@Path("identityDoc") identityDoc: Int, @Body createUserRequest: CreateUserRequest): Call<ApiResponse>
 }
