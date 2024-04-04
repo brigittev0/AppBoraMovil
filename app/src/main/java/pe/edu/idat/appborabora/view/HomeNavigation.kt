@@ -109,10 +109,12 @@ class HomeNavigation : AppCompatActivity() {
         val role = sharedPref.getString("role", null)
 
         val isLoggedIn = jwt != null
+        val isAdminBasic = role == "ROLE_ADMIN_BASIC"
+
         menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
-        menu.findItem(R.id.administrarProductos).isVisible = isLoggedIn
+        menu.findItem(R.id.administrarProductos).isVisible = isAdminBasic
     }
 }
 
