@@ -7,6 +7,7 @@ import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.data.dto.response.PerfilResponse
+import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,4 +34,7 @@ interface BoraBoraService {
     // -- CON TOKEN
     @PUT("user/updateUser/{identityDoc}")
     fun updateUser(@Path("identityDoc") identityDoc: Int, @Body createUserRequest: CreateUserRequest): Call<ApiResponse>
+
+    @POST("products/createProduct")
+    fun createProduct(@Body productDTO: ProductDTO): Call<ProductDTO>
 }

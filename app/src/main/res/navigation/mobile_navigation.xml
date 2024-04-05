@@ -57,21 +57,21 @@
     <fragment
         android:id="@+id/crearProducto"
         android:name="pe.edu.idat.appborabora.view.fragments.CrearProducto"
-        android:label="fragment_crear_producto"
+        android:label="Crear Producto"
         tools:layout="@layout/fragment_crear_producto" />
     <fragment
         android:id="@+id/actualizarProducto"
         android:name="pe.edu.idat.appborabora.view.fragments.ActualizarProducto"
-        android:label="fragment_actualizar_producto"
+        android:label="Actualizar Producto"
         tools:layout="@layout/fragment_actualizar_producto" />
     <fragment
         android:id="@+id/eliminarProducto"
         android:name="pe.edu.idat.appborabora.view.fragments.EliminarProducto"
-        android:label="fragment_eliminar_producto"
+        android:label="Eliminar Producto"
         tools:layout="@layout/fragment_eliminar_producto" />
     <fragment
         android:id="@+id/verProductos"
         android:name="pe.edu.idat.appborabora.view.fragments.VerProductos"
-        android:label="fragment_ver_productos"
+        android:label="Visualizar Lista de Productos"
         tools:layout="@layout/fragment_ver_productos" />
 </navigation>
