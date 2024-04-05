@@ -3,7 +3,7 @@ package pe.edu.idat.appborabora.data.dto.response
 import java.time.LocalDate
 
 data class ProductDTO (
-    val idProduct: Int,
+    val idProduct: Int = 0,
     val name: String,
     val description: String,
     val price: Double,

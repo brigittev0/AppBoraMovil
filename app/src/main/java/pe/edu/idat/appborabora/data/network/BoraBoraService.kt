@@ -3,6 +3,7 @@ package pe.edu.idat.appborabora.data.network
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
+import pe.edu.idat.appborabora.data.dto.response.BrandProductDTO
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
@@ -37,4 +38,7 @@ interface BoraBoraService {
 
     @POST("products/createProduct")
     fun createProduct(@Body productDTO: ProductDTO): Call<ProductDTO>
+
+    @GET("brand/all")
+    fun getAllBrandProducts(): Call<List<BrandProductDTO>>
 }
