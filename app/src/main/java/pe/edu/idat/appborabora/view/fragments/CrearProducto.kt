@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +20,11 @@ import pe.edu.idat.appborabora.viewmodel.CategoryViewModel
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+
 
 class CrearProducto : Fragment() {
 
@@ -39,7 +44,7 @@ class CrearProducto : Fragment() {
     private lateinit var tilExpirationDate: TextInputLayout
     private lateinit var etExpirationDate: TextInputEditText
     private lateinit var tilImagen: TextInputLayout
-    private lateinit var etImagen: TextInputEditText
+    private lateinit var etImagen: ImageView
     private lateinit var btnSave: Button
 
     override fun onCreateView(
@@ -65,8 +70,9 @@ class CrearProducto : Fragment() {
         tilExpirationDate = view.findViewById(R.id.tilExpirationDate)
         etExpirationDate = view.findViewById(R.id.etExpirationDate)
         tilImagen = view.findViewById(R.id.tilImagen)
-        etImagen = view.findViewById(R.id.etImagen)
+        etImagen = view.findViewById(R.id.ivImagen)
         btnSave = view.findViewById(R.id.btnSave)
+
 
         // Observa la lista de categorías y actualiza el spinner cuando cambie
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
@@ -102,7 +108,15 @@ class CrearProducto : Fragment() {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // Ajusta el patrón según el formato de fecha de tu EditText
             val expirationDate = LocalDate.parse(expirationDateText, formatter)
 
-            val image = etImagen.text.toString()
+            // Obtén la imagen como un ByteArray desde el ImageView
+            val bitmap = (etImagen.drawable as BitmapDrawable).bitmap
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
+
+            // Convierte el byteArray a una cadena Base64
+            val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
+
             val categoryId = spinnerCategory.selectedItemPosition // Obtén la categoría seleccionada
             val brandProductId = spinnerBrandProduct.selectedItemPosition // Obtén la marca del producto seleccionada
             // Crea el objeto ProductDTO con los datos obtenidos
@@ -113,7 +127,7 @@ class CrearProducto : Fragment() {
                 price = price,
                 stock = stock,
                 expirationDate = expirationDate,
-                image = image,
+                image = base64Image,
                 categoryId = categoryId,
                 brandProductId = brandProductId
             )
