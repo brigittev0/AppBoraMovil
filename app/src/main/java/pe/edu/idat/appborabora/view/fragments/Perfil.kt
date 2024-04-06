@@ -19,7 +19,7 @@ import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
 import pe.edu.idat.appborabora.viewmodel.UpdateUserViewModel
-import pe.edu.idat.appborabora.viewmodel.UpdateUserViewModelFactory
+import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 
 class Perfil : Fragment() {
 
@@ -55,7 +55,7 @@ class Perfil : Fragment() {
         listarUsuario(view)
 
         //--
-        val factory = UpdateUserViewModelFactory(requireContext())
+        val factory = ViewModelFactory(requireContext())
         updateUserViewModel = ViewModelProvider(this, factory).get(UpdateUserViewModel::class.java)
 
         btnActualizarPerfil.setOnClickListener {
