@@ -27,8 +27,10 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.provider.MediaStore
 import android.util.Base64
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 
 class CrearProducto : Fragment() {
@@ -182,8 +184,23 @@ class CrearProducto : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            ivImagen.setImageBitmap(imageBitmap)
+            // Verifica si el intent no es nulo y si contiene datos
+            if (data != null && data.data != null) {
+                try {
+                    // Obtiene la URI de la imagen seleccionada
+                    val imageUri = data.data
+
+                    // Lee la imagen como un bitmap
+                    val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
+
+                    // Muestra la imagen en el ImageView
+                    ivImagen.setImageBitmap(imageBitmap)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            } else {
+                Toast.makeText(requireContext(), "No se pudo obtener la imagen", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
