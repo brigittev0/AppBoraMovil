@@ -3,7 +3,9 @@ package pe.edu.idat.appborabora.view.fragments
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
@@ -21,16 +25,10 @@ import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.viewmodel.BrandProductViewModel
 import pe.edu.idat.appborabora.viewmodel.CategoryViewModel
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.provider.MediaStore
-import android.util.Base64
-import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class CrearProducto : Fragment() {
@@ -129,7 +127,7 @@ class CrearProducto : Fragment() {
             val byteArray = byteArrayOutputStream.toByteArray()
 
             // Convierte el byteArray a una cadena Base64
-            val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            val base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
 
             val categoryId = spinnerCategory.selectedItemPosition // Obtén la categoría seleccionada
             val brandProductId = spinnerBrandProduct.selectedItemPosition // Obtén la marca del producto seleccionada
@@ -147,8 +145,9 @@ class CrearProducto : Fragment() {
             )
 
             // Llama al método del ViewModel para crear el producto
-            productViewModel.createProduct(productDTO)
+            productViewModel.createProduct(requireContext(), productDTO)
         }
+
 
         return view
     }
@@ -204,4 +203,3 @@ class CrearProducto : Fragment() {
         }
     }
 }
-
