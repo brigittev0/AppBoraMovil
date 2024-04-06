@@ -1,5 +1,8 @@
 package pe.edu.idat.appborabora.view.fragments
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,7 +25,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.provider.MediaStore
 import android.util.Base64
+import androidx.core.graphics.drawable.toBitmap
 import java.io.ByteArrayOutputStream
 
 
@@ -44,8 +49,12 @@ class CrearProducto : Fragment() {
     private lateinit var tilExpirationDate: TextInputLayout
     private lateinit var etExpirationDate: TextInputEditText
     private lateinit var tilImagen: TextInputLayout
-    private lateinit var etImagen: ImageView
+    private lateinit var ivImagen: ImageView
     private lateinit var btnSave: Button
+
+    companion object {
+        private const val REQUEST_IMAGE_CAPTURE = 1
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,13 +75,16 @@ class CrearProducto : Fragment() {
         tilStock = view.findViewById(R.id.tilStock)
         etStock = view.findViewById(R.id.etStock)
         spinnerCategory = view.findViewById(R.id.spinnerCategory)
-        spinnerBrandProduct = view.findViewById(R.id.spinnerBrand) // Corrección en el ID
+        spinnerBrandProduct = view.findViewById(R.id.spinnerBrand)
         tilExpirationDate = view.findViewById(R.id.tilExpirationDate)
         etExpirationDate = view.findViewById(R.id.etExpirationDate)
         tilImagen = view.findViewById(R.id.tilImagen)
-        etImagen = view.findViewById(R.id.ivImagen)
+        ivImagen = view.findViewById(R.id.ivImagen)
         btnSave = view.findViewById(R.id.btnSave)
 
+        ivImagen.setOnClickListener {
+            selectImage()
+        }
 
         // Observa la lista de categorías y actualiza el spinner cuando cambie
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
@@ -97,11 +109,11 @@ class CrearProducto : Fragment() {
         brandProductViewModel.fetchAllBrandProducts()
 
         btnSave.setOnClickListener {
+            // Obtén los datos del formulario
             val productName = etProductName.text.toString()
             val productDescription = etProductDescription.text.toString()
             val price = etPrice.text.toString().toDouble()
             val stock = etStock.text.toString().toInt()
-            // Obtener la fecha de expiración como una cadena
             val expirationDateText = etExpirationDate.text.toString()
 
             // Convertir la fecha de expiración de String a LocalDate
@@ -109,7 +121,7 @@ class CrearProducto : Fragment() {
             val expirationDate = LocalDate.parse(expirationDateText, formatter)
 
             // Obtén la imagen como un ByteArray desde el ImageView
-            val bitmap = (etImagen.drawable as BitmapDrawable).bitmap
+            val bitmap = ivImagen.drawable.toBitmap()
             val byteArrayOutputStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
@@ -119,8 +131,8 @@ class CrearProducto : Fragment() {
 
             val categoryId = spinnerCategory.selectedItemPosition // Obtén la categoría seleccionada
             val brandProductId = spinnerBrandProduct.selectedItemPosition // Obtén la marca del producto seleccionada
-            // Crea el objeto ProductDTO con los datos obtenidos
 
+            // Crea el objeto ProductDTO con los datos obtenidos
             val productDTO = ProductDTO(
                 name = productName,
                 description = productDescription,
@@ -132,11 +144,47 @@ class CrearProducto : Fragment() {
                 brandProductId = brandProductId
             )
 
+            // Llama al método del ViewModel para crear el producto
             productViewModel.createProduct(productDTO)
         }
 
         return view
     }
-}
 
+    private fun selectImage() {
+        val items = arrayOf<CharSequence>("Tomar foto", "Elegir de la galería", "Cancelar")
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle("Agregar imagen")
+        builder?.setItems(items) { dialog, item ->
+            when {
+                items[item] == "Tomar foto" -> dispatchTakePictureIntent()
+                items[item] == "Elegir de la galería" -> dispatchChooseFromGalleryIntent()
+                items[item] == "Cancelar" -> dialog.dismiss()
+            }
+        }
+        builder?.show()
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+    }
+
+    private fun dispatchChooseFromGalleryIntent() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            ivImagen.setImageBitmap(imageBitmap)
+        }
+    }
+}
 
