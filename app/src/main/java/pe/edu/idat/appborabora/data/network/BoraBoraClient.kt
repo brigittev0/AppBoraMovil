@@ -21,6 +21,7 @@ class BoraBoraClient {
         boraboraService = retrofit.create(BoraBoraService::class.java)
     }
 
+
     //SOLICITUDES SIN TOKEN
     fun getInstance(): BoraBoraService {
         return boraboraService
@@ -30,9 +31,10 @@ class BoraBoraClient {
     fun getInstanceWithAuth(context: Context): BoraBoraService {
         val sharedPref = context.getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val jwt = sharedPref.getString("jwt", "")
+        val role = sharedPref.getString("role", "")
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(jwt ?: ""))
+            .addInterceptor(AuthInterceptor(jwt ?: "", role ?: ""))
             .build()
 
         val retrofitWithAuth = Retrofit.Builder()

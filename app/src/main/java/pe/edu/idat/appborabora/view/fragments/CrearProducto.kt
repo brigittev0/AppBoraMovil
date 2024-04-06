@@ -86,6 +86,8 @@ class CrearProducto : Fragment() {
             selectImage()
         }
 
+
+
         // Observa la lista de categorías y actualiza el spinner cuando cambie
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             val categoryNames = categories.map { it.name }
@@ -109,43 +111,41 @@ class CrearProducto : Fragment() {
         brandProductViewModel.fetchAllBrandProducts()
 
         btnSave.setOnClickListener {
-            // Obtén los datos del formulario
             val productName = etProductName.text.toString()
             val productDescription = etProductDescription.text.toString()
             val price = etPrice.text.toString().toDouble()
             val stock = etStock.text.toString().toInt()
             val expirationDateText = etExpirationDate.text.toString()
 
-            // Convertir la fecha de expiración de String a LocalDate
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // Ajusta el patrón según el formato de fecha de tu EditText
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val expirationDate = LocalDate.parse(expirationDateText, formatter)
 
-            // Obtén la imagen como un ByteArray desde el ImageView
             val bitmap = ivImagen.drawable.toBitmap()
             val byteArrayOutputStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
 
-            // Convierte el byteArray a una cadena Base64
             val base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
 
-            val categoryId = spinnerCategory.selectedItemPosition // Obtén la categoría seleccionada
-            val brandProductId = spinnerBrandProduct.selectedItemPosition // Obtén la marca del producto seleccionada
+            val selectedCategory = categoryViewModel.categories.value?.get(spinnerCategory.selectedItemPosition)
+            val selectedBrandProduct = brandProductViewModel.brandProducts.value?.get(spinnerBrandProduct.selectedItemPosition)
 
-            // Crea el objeto ProductDTO con los datos obtenidos
-            val productDTO = ProductDTO(
-                name = productName,
-                description = productDescription,
-                price = price,
-                stock = stock,
-                expirationDate = expirationDate,
-                image = base64Image,
-                categoryId = categoryId,
-                brandProductId = brandProductId
-            )
+            if (selectedCategory != null && selectedBrandProduct != null) {
+                val productDTO = ProductDTO(
+                    name = productName,
+                    description = productDescription,
+                    price = price,
+                    stock = stock,
+                    expirationDate = expirationDate,
+                    image = base64Image,
+                    categoryId = selectedCategory.id_category,
+                    brandProductId = selectedBrandProduct.cod_brand_product
+                )
 
-            // Llama al método del ViewModel para crear el producto
-            productViewModel.createProduct(requireContext(), productDTO)
+                productViewModel.createProduct(requireContext(), productDTO)
+            } else {
+                Toast.makeText(requireContext(), "Por favor, selecciona una categoría y una marca de producto", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
