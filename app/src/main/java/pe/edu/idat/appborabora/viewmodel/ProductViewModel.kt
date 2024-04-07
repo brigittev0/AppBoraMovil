@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
-import pe.edu.idat.appborabora.data.network.BoraBoraClient
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +14,7 @@ import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 
 class ProductViewModel : ViewModel() {
 
+    /*
     private val boraBoraClient = BoraBoraClient()
 
     private val _productCreated = MutableLiveData<Boolean>()
@@ -50,7 +50,7 @@ class ProductViewModel : ViewModel() {
 
     fun fetchAllBrandProducts() {
         // Aquí va tu código para obtener todas las marcas de productos y asignarlas a _brandProducts
-    }
+    }*/
 }
 
 

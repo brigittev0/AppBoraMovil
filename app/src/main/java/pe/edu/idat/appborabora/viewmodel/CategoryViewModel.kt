@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
-import pe.edu.idat.appborabora.data.network.BoraBoraClient
+import pe.edu.idat.appborabora.data.network.client.PublicClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +13,7 @@ class CategoryViewModel : ViewModel() {
     private val _categories = MutableLiveData<List<CategoryResponse>>()
     val categories: LiveData<List<CategoryResponse>> get() = _categories
 
-    private val service = BoraBoraClient().getInstance()
+    private val service = PublicClient().getInstance()
 
     fun fetchAllCategories() {
         service.getAllCategories().enqueue(object : Callback<List<CategoryResponse>> {

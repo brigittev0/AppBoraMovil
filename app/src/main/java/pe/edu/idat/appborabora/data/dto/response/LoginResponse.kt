@@ -5,5 +5,6 @@ data class LoginResponse(
     val message: String,
     val jwt: String,
     val status: Boolean,
-    val roles: List<String>
+    val roles: List<String>,
+    val identityDoc: Int
 )

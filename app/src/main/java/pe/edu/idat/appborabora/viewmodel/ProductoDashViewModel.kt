@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
-import pe.edu.idat.appborabora.data.network.BoraBoraClient
+import pe.edu.idat.appborabora.data.network.client.PublicClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProductoDashViewModel : ViewModel() {
-    private val service = BoraBoraClient().getInstance()
+    private val service = PublicClient().getInstance()
     private val _topSellingProducts = MutableLiveData<List<ProductoDashboardResponse>>()
     val topSellingProducts: LiveData<List<ProductoDashboardResponse>> get() = _topSellingProducts
 

@@ -18,11 +18,12 @@ import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
-import pe.edu.idat.appborabora.viewmodel.UpdateUserViewModel
 import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
+
 
 class Perfil : Fragment() {
 
+    /*
     private lateinit var perfilViewModel: PerfilViewModel
     private lateinit var updateUserViewModel: UpdateUserViewModel
     private lateinit var btnActualizarPerfil: Button
@@ -213,5 +214,5 @@ class Perfil : Fragment() {
         val patronCorreo = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
         // Verifica que el correo cumple con el patrón
         return correo.matches(patronCorreo)
-    }
+    }*/
 }

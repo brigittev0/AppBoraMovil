@@ -1,4 +1,4 @@
-package pe.edu.idat.appborabora.data.network
+package pe.edu.idat.appborabora.data.network.service
 
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
@@ -17,9 +17,8 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface BoraBoraService {
+interface PublicService {
 
-    //-- SIN TOKEN
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
@@ -32,13 +31,4 @@ interface BoraBoraService {
     @GET("user/findUser/{username}")
     fun getUserByUsername(@Path("username") username: String): Call<PerfilResponse>
 
-    // -- CON TOKEN
-    @PUT("user/updateUser/{identityDoc}")
-    fun updateUser(@Path("identityDoc") identityDoc: Int, @Body createUserRequest: CreateUserRequest): Call<ApiResponse>
-
-    @POST("products/createProduct")
-    fun createProduct(@Body productDTO: ProductDTO): Call<ProductDTO>
-
-    @GET("brand/all")
-    fun getAllBrandProducts(): Call<List<BrandProductDTO>>
 }

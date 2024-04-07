@@ -33,6 +33,7 @@ import java.time.format.DateTimeFormatter
 
 class CrearProducto : Fragment() {
 
+    /*
     private lateinit var productViewModel: ProductViewModel
     private lateinit var brandProductViewModel: BrandProductViewModel
     private lateinit var categoryViewModel: CategoryViewModel
@@ -201,5 +202,5 @@ class CrearProducto : Fragment() {
                 Toast.makeText(requireContext(), "No se pudo obtener la imagen", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 }

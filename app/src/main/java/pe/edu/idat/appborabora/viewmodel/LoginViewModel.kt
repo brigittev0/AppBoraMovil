@@ -8,18 +8,18 @@ import com.google.gson.Gson
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
-import pe.edu.idat.appborabora.data.network.BoraBoraClient
+import pe.edu.idat.appborabora.data.network.client.PublicClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel() : ViewModel() {
     private val _loginState = MutableLiveData<LoginState>()
     val loginState: LiveData<LoginState> = _loginState
 
     fun login(username: String, password: String) {
         try {
-            val apiService = BoraBoraClient().getInstance()
+            val apiService = PublicClient().getInstance()
             val loginRequest = LoginRequest()
 
             if (username.isNotBlank()) {
@@ -66,9 +66,10 @@ class LoginViewModel : ViewModel() {
             val username = body?.username
             val jwt = body?.jwt
             val roles = body?.roles
+            val identityDoc = body?.identityDoc
 
-            if (username != null && message != null && !roles.isNullOrEmpty()) {
-                _loginState.value = LoginState.Success(username, roles[0], jwt)
+            if (username != null && message != null && !roles.isNullOrEmpty() && identityDoc != null) {
+                _loginState.value = LoginState.Success(username, roles[0], jwt, identityDoc)
             } else {
                 _loginState.value = LoginState.Error("Usuario o contraseña inválidos")
             }
@@ -87,6 +88,6 @@ class LoginViewModel : ViewModel() {
 }
 
 sealed class LoginState {
-    data class Success(val username: String, val role: String, val jwt: String?) : LoginState()
+    data class Success(val username: String, val role: String, val jwt: String?, val identityDoc: Int) : LoginState()
     data class Error(val error: String) : LoginState()
 }
