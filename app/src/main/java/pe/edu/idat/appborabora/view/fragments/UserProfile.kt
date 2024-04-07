@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
-import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import pe.edu.idat.appborabora.viewmodel.UserViewModel
 import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 
@@ -68,7 +67,7 @@ class UserProfile : Fragment() {
         /*val productViewModel = ViewModelProvider(this, viewModelFactory).get(ProductViewModel::class.java)*/
 
         btnActualizarPerfil.setOnClickListener {
-            if (validarFormulario()) {
+            if (validateForm()) {
                 val createUserRequest = CreateUserRequest(
                     nombreEditText.text.toString(),
                     apellidoEditText.text.toString(),
@@ -112,101 +111,86 @@ class UserProfile : Fragment() {
 
     //--Falta validar el username
 
-    private fun validarFormulario(): Boolean {
-        var respuesta = false
+    private fun validateForm(): Boolean {
+        var response = false
 
-        if (!ingresoNombre()) {
-            binding.nombre.error = "Ingrese su nombre"
-        } else if (!ingresoApellido()) {
-            binding.apellido.error = "Ingrese su apellido"
-        } else if (!ingresoDni()) {
-            binding.dni.error = "Ingrese su DNI"
-        } else if (!validarDni()) {
-            binding.dni.error = "El DNI debe tener 8 digitos"
-        } else if (!ingresoCelular()) {
-            binding.celular.error = "Ingrese su número de celular"
-        } else if (!validarNumeroCelular()) {
-            binding.celular.error = "Numero de celular invalido"
-        } else if (!ingresoEmail()) {
+        if (!entryUsername()) {
+            binding.username.error = "Ingrese su username"
+        } else if (!entryEmail()) {
             binding.email.error = "Ingrese su correo electrónico"
-        } else if (!validarEmail()) {
+        } else if (!validateEmail()) {
             binding.email.error = "Correo invalido"
+        } else if (!entryName()) {
+            binding.nombre.error = "Ingrese su nombre"
+        } else if (!entryLastName()) {
+            binding.apellido.error = "Ingrese su apellido"
+        } else if (!entryPhone()) {
+            binding.celular.error = "Ingrese su número de celular"
+        } else if (!validatePhone()) {
+            binding.celular.error = "Numero de celular invalido"
         } else {
-            respuesta = true
+            response = true
         }
-        return respuesta
+        return response
     }
 
     //--VALIDACIONES
-    private fun ingresoNombre(): Boolean {
-        var respuesta = true
-        val nombre = binding.nombre.text.toString().trim()
-        if (nombre.isEmpty()) {
+    private fun entryUsername(): Boolean {
+        var response = true
+        val username = binding.username.text.toString().trim()
+        if (username.isEmpty()) {
+            binding.username.isFocusableInTouchMode = true
+            binding.username.requestFocus()
+            response = false
+        }
+        return response
+    }
+
+    private fun entryEmail(): Boolean {
+        val email = binding.email.text.toString().trim()
+        return email.isNotEmpty()
+    }
+
+    private fun validateEmail(): Boolean {
+        val email = binding.email.text.toString().trim()
+        // valida el formato de un correo electrónico
+        val patEmail = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+        // Verifica que el correo cumple con el patrón
+        return email.matches(patEmail)
+    }
+
+    private fun entryName(): Boolean {
+        var response = true
+        val name = binding.nombre.text.toString().trim()
+        if (name.isEmpty()) {
             binding.nombre.isFocusableInTouchMode = true
             binding.nombre.requestFocus()
-            respuesta = false
+            response = false
         }
-        return respuesta
+        return response
     }
 
-    private fun ingresoApellido(): Boolean {
-        var respuesta = true
-        val apellido = binding.apellido.text.toString().trim()
-        if (apellido.isEmpty()) {
+    private fun entryLastName(): Boolean {
+        var response = true
+        val lastName = binding.apellido.text.toString().trim()
+        if (lastName.isEmpty()) {
             binding.apellido.isFocusableInTouchMode = true
             binding.apellido.requestFocus()
-            respuesta = false
+            response = false
         }
-        return respuesta
+        return response
     }
 
-    private fun ingresoDni(): Boolean {
-        var respuesta = true
-        val dni = binding.dni.text.toString().trim()
-        if (dni.isEmpty()) {
-            binding.dni.isFocusableInTouchMode = true
-            binding.dni.requestFocus()
-            respuesta = false
-        }
-        return respuesta
+    private fun entryPhone(): Boolean {
+        val phone = binding.celular.text.toString().trim()
+        return phone.isNotEmpty()
     }
 
-    private fun validarDni(): Boolean {
-        val dni = binding.dni.text.toString().trim()
-        // Verifica que el DNI tenga exactamente 8 dígitos y sean todos números
-        return dni.length == 8 && esNumero(dni)
-    }
-
-    private fun esNumero(str: String): Boolean {
-        return try {
-            str.toLong()
-            true
-        } catch (e: NumberFormatException) {
-            false
-        }
-    }
-
-    private fun ingresoCelular(): Boolean {
-        val telefono = binding.celular.text.toString().trim()
-        return telefono.isNotEmpty()
-    }
-
-    private fun validarNumeroCelular(): Boolean {
-        val numeroCelular = binding.celular.text.toString().trim()
+    private fun validatePhone(): Boolean {
+        val numberPhone = binding.celular.text.toString().trim()
         // valida que el número de celular comience con '9' y tenga 9 dígitos en total
-        return numeroCelular.matches("^9\\d{8}$".toRegex())
+        return numberPhone.matches("^9\\d{8}$".toRegex())
     }
 
-    private fun ingresoEmail(): Boolean {
-        val correo = binding.email.text.toString().trim()
-        return correo.isNotEmpty()
-    }
 
-    private fun validarEmail(): Boolean {
-        val correo = binding.email.text.toString().trim()
-        // valida el formato de un correo electrónico
-        val patronCorreo = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
-        // Verifica que el correo cumple con el patrón
-        return correo.matches(patronCorreo)
-    }
 }
