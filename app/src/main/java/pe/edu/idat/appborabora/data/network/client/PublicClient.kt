@@ -8,18 +8,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 // SIN TOKEN
 class PublicClient {
 
-    private val boraboraService: PublicService
+    private val publicService: PublicService
 
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(ConstantsBoraBora.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        boraboraService = retrofit.create(PublicService::class.java)
+        publicService = retrofit.create(PublicService::class.java)
     }
 
     fun getInstance(): PublicService {
-        return boraboraService
+        return publicService
     }
 }
 
