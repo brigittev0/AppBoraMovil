@@ -2,10 +2,12 @@ package pe.edu.idat.appborabora.view.fragments
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +16,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,15 +29,16 @@ import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.viewmodel.BrandProductViewModel
 import pe.edu.idat.appborabora.viewmodel.CategoryViewModel
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
+import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 
 class CrearProducto : Fragment() {
 
-    /*
     private lateinit var productViewModel: ProductViewModel
     private lateinit var brandProductViewModel: BrandProductViewModel
     private lateinit var categoryViewModel: CategoryViewModel
@@ -47,11 +52,14 @@ class CrearProducto : Fragment() {
     private lateinit var etStock: TextInputEditText
     private lateinit var spinnerCategory: Spinner
     private lateinit var spinnerBrandProduct: Spinner
-    private lateinit var tilExpirationDate: TextInputLayout
-    private lateinit var etExpirationDate: TextInputEditText
     private lateinit var tilImagen: TextInputLayout
     private lateinit var ivImagen: ImageView
     private lateinit var btnSave: Button
+
+    private lateinit var btnShowDatePicker: AppCompatImageButton
+    private lateinit var tvSelectedDate: TextView
+    private var selectedDate: LocalDate? = null
+
 
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 1
@@ -67,6 +75,18 @@ class CrearProducto : Fragment() {
         brandProductViewModel = ViewModelProvider(this).get(BrandProductViewModel::class.java)
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
+        setupViews(view)
+        setupCategorySpinner()
+        setupBrandProductSpinner()
+
+        setupSaveButton()
+
+        return view
+    }
+
+
+    // Inicializa las vistas en el fragmento
+    private fun setupViews(view: View) {
         tilProductName = view.findViewById(R.id.tilProductName)
         etProductName = view.findViewById(R.id.etProductName)
         tilProductDescription = view.findViewById(R.id.tilProductDescription)
@@ -77,18 +97,25 @@ class CrearProducto : Fragment() {
         etStock = view.findViewById(R.id.etStock)
         spinnerCategory = view.findViewById(R.id.spinnerCategory)
         spinnerBrandProduct = view.findViewById(R.id.spinnerBrand)
-        tilExpirationDate = view.findViewById(R.id.tilExpirationDate)
-        etExpirationDate = view.findViewById(R.id.etExpirationDate)
         tilImagen = view.findViewById(R.id.tilImagen)
         ivImagen = view.findViewById(R.id.ivImagen)
         btnSave = view.findViewById(R.id.btnSave)
+        btnShowDatePicker = view.findViewById(R.id.btnShowDatePicker)
+        tvSelectedDate = view.findViewById(R.id.tvSelectedDate)
 
+        //Seleccion del boton subir imagen
         ivImagen.setOnClickListener {
             selectImage()
         }
 
+        //Seleccion del boton fecha
+        btnShowDatePicker.setOnClickListener {
+            selectDate()
+        }
+    }
 
-
+    // Configura el spinner para las categorías de productos
+    private fun setupCategorySpinner() {
         // Observa la lista de categorías y actualiza el spinner cuando cambie
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             val categoryNames = categories.map { it.name }
@@ -99,7 +126,10 @@ class CrearProducto : Fragment() {
 
         // Obtiene las categorías del ViewModel
         categoryViewModel.fetchAllCategories()
+    }
 
+    // Configura el spinner para las marcas de productos
+    private fun setupBrandProductSpinner() {
         // Observa la lista de marcas de productos y actualiza el spinner cuando cambie
         brandProductViewModel.brandProducts.observe(viewLifecycleOwner, Observer { brandProducts ->
             val brandProductNames = brandProducts.map { it.brand_product }
@@ -110,49 +140,93 @@ class CrearProducto : Fragment() {
 
         // Obtiene las marcas de productos del ViewModel
         brandProductViewModel.fetchAllBrandProducts()
+    }
+
+    // Configura el botón de guardar para crear un producto cuando se haga clic en él
+    private fun setupSaveButton() {
+
+        val viewModelFactory = ViewModelFactory(requireActivity().application)
+        val productViewModel = ViewModelProvider(this, viewModelFactory).get(ProductViewModel::class.java)
 
         btnSave.setOnClickListener {
-            val productName = etProductName.text.toString()
-            val productDescription = etProductDescription.text.toString()
-            val price = etPrice.text.toString().toDouble()
-            val stock = etStock.text.toString().toInt()
-            val expirationDateText = etExpirationDate.text.toString()
+            try {
+                Log.d("SaveButton", "Botón Guardar presionado")
 
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val expirationDate = LocalDate.parse(expirationDateText, formatter)
+                val productName = etProductName.text.toString()
+                val productDescription = etProductDescription.text.toString()
+                val price = etPrice.text.toString().toDouble()
+                val stock = etStock.text.toString().toInt()
 
-            val bitmap = ivImagen.drawable.toBitmap()
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            val byteArray = byteArrayOutputStream.toByteArray()
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val expirationDate = selectedDate?.format(formatter) ?: "sin fecha"
 
-            val base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
+                //---------
+                val bitmap = ivImagen.drawable.toBitmap()
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                val byteArray = byteArrayOutputStream.toByteArray()
 
-            val selectedCategory = categoryViewModel.categories.value?.get(spinnerCategory.selectedItemPosition)
-            val selectedBrandProduct = brandProductViewModel.brandProducts.value?.get(spinnerBrandProduct.selectedItemPosition)
+                //val base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
 
-            if (selectedCategory != null && selectedBrandProduct != null) {
-                val productDTO = ProductDTO(
-                    name = productName,
-                    description = productDescription,
-                    price = price,
-                    stock = stock,
-                    expirationDate = expirationDate,
-                    image = base64Image,
-                    categoryId = selectedCategory.id_category,
-                    brandProductId = selectedBrandProduct.cod_brand_product
-                )
+                val base64Image = "imagen"
 
-                productViewModel.createProduct(requireContext(), productDTO)
-            } else {
-                Toast.makeText(requireContext(), "Por favor, selecciona una categoría y una marca de producto", Toast.LENGTH_SHORT).show()
+                //---------
+
+                val selectedCategory = categoryViewModel.categories.value?.get(spinnerCategory.selectedItemPosition)
+                val selectedBrandProduct = brandProductViewModel.brandProducts.value?.get(spinnerBrandProduct.selectedItemPosition)
+
+                if (selectedCategory != null && selectedBrandProduct != null) {
+                    val productDTO = ProductDTO(
+                        name = productName,
+                        description = productDescription,
+                        price = price,
+                        stock = stock,
+                        expirationDate = expirationDate,
+                        image = base64Image,
+                        categoryId = selectedCategory.id_category,
+                        brandProductId = selectedBrandProduct.cod_brand_product
+                    )
+
+                    Log.d("SaveButton", "Creando producto: $productDTO")
+                    productViewModel.createProduct(productDTO)
+                } else {
+                    Log.d("SaveButton", "Categoría o marca de producto no seleccionada")
+                    Toast.makeText(requireContext(), "Por favor, selecciona una categoría y una marca de producto", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("SaveButton", "Error al guardar el producto", e)
             }
         }
 
-
-        return view
+        productViewModel.createProductResponse.observe(viewLifecycleOwner, Observer { apiResponse ->
+            if (apiResponse.status == 201) {
+                Log.d("SaveButton", "Producto creado con éxito")
+                Toast.makeText(requireContext(), "Producto creado con éxito", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.d("SaveButton", "Error al crear el producto: ${apiResponse.message}")
+                Toast.makeText(requireContext(), "Error al crear el producto: ${apiResponse.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
+
+    // ---- SELECCIONAR FECHA
+    private fun selectDate() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            selectedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
+            tvSelectedDate.setText("Fecha seleccionada: $selectedDate")
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
+    // ---- SELECCIONAR IMAGEN ----
+    // Método para seleccionar una imagen, ya sea tomando una foto o eligiendo de la galería
     private fun selectImage() {
         val items = arrayOf<CharSequence>("Tomar foto", "Elegir de la galería", "Cancelar")
         val builder = context?.let { AlertDialog.Builder(it) }
@@ -167,6 +241,7 @@ class CrearProducto : Fragment() {
         builder?.show()
     }
 
+    // Método para iniciar la cámara y tomar una foto
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
@@ -175,11 +250,13 @@ class CrearProducto : Fragment() {
         }
     }
 
+    // Método para abrir la galería y elegir una imagen
     private fun dispatchChooseFromGalleryIntent() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
+    // Método que se llama cuando una actividad que se inició con startActivityForResult() ha terminado
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -202,5 +279,5 @@ class CrearProducto : Fragment() {
                 Toast.makeText(requireContext(), "No se pudo obtener la imagen", Toast.LENGTH_SHORT).show()
             }
         }
-    }*/
+    }
 }

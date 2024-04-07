@@ -14,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.util.SharedPrefManager
 import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.viewmodel.LoginState
 import pe.edu.idat.appborabora.viewmodel.LoginViewModel
@@ -24,7 +23,6 @@ class Login : AppCompatActivity() {
     private lateinit var tUser: EditText
     private lateinit var tPassword: EditText
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var sharedPrefManager: SharedPrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +49,6 @@ class Login : AppCompatActivity() {
         // Inicializar ViewModel
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        // Inicializar SharedPrefManager
-        sharedPrefManager = SharedPrefManager(this)
-
         // Observar cambios en loginState
         loginViewModel.loginState.observe(this, Observer { loginState ->
             when (loginState) {
@@ -62,7 +57,7 @@ class Login : AppCompatActivity() {
                     // Limpiar los campos de texto
                     tUser.text.clear()
                     tPassword.text.clear()
-                    sharedPrefManager.saveToSharedPrefs(loginState.username, loginState.role, loginState.jwt, loginState.identityDoc)
+                    saveToSharedPrefs(loginState.username, loginState.role, loginState.jwt, loginState.identityDoc)
                     startHomeNavigation()
                 }
                 is LoginState.Error -> {
@@ -91,7 +86,8 @@ class Login : AppCompatActivity() {
 
 
     private fun startHomeNavigation() {
-        val role = sharedPrefManager.getRole()
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+        val role = sharedPref.getString("role", "")
 
         val intent = when (role) {
             "ROLE_ADMIN_FULL" -> Intent(this, HomeNavigation::class.java)
@@ -101,5 +97,17 @@ class Login : AppCompatActivity() {
         }
 
         startActivity(intent)
+    }
+
+    // Preferencias compartidas
+    private fun saveToSharedPrefs(username: String?, role: String?, jwt: String?, identityDoc: Int) {
+        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("username", username)
+            putString("role", role)
+            putString("jwt", jwt)
+            putString("identityDoc", identityDoc.toString())
+            apply()
+        }
     }
 }

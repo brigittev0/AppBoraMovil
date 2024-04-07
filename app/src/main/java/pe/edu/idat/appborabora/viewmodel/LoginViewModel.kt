@@ -8,7 +8,7 @@ import com.google.gson.Gson
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
-import pe.edu.idat.appborabora.data.network.client.PublicClient
+import pe.edu.idat.appborabora.data.network.public.PublicClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

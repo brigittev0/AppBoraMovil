@@ -10,20 +10,6 @@
     android:paddingLeft="25dp">
 
     <!-- Título del formulario -->
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="serif-monospace"
-        android:gravity="center_horizontal"
-        android:text="Crea un Producto"
-        android:textColor="@color/purple_900"
-        android:textSize="29sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Nombre del producto -->
     <com.google.android.material.textfield.TextInputLayout
@@ -31,18 +17,18 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre del Producto"
-            android:textColorHint="@color/black"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColorHint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,18 +38,18 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tilProductName"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tilProductName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etProductDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Descripción del Producto"
-            android:textColorHint="@color/black"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textColorHint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,18 +59,18 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tilProductDescription"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tilProductDescription">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Precio"
-            android:textColorHint="@color/black"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,18 +80,18 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tilPrice"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tilPrice">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etStock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Stock"
-            android:textColorHint="@color/black"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,77 +100,89 @@
         android:id="@+id/textViewCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Seleccione Categoría"
+        android:layout_marginTop="30dp"
+        android:text="Seleccione Categoría:"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tilStock"
-        app:layout_constraintStart_toStartOf="@id/tilStock"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerCategory"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilStock" />
 
     <Spinner
         android:id="@+id/spinnerCategory"
-        android:layout_width="357dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="154dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_spinner"
-        app:layout_constraintEnd_toEndOf="@id/tilStock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/tilStock" />
 
     <!-- Marca del producto -->
     <TextView
         android:id="@+id/textViewBrand"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Seleccione Marca"
+        android:layout_marginTop="30dp"
+        android:text="Seleccione Marca:"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tilStock"
-        app:layout_constraintStart_toStartOf="@id/tilStock"
-        app:layout_constraintTop_toBottomOf="@id/spinnerCategory" />
+        app:layout_constraintEnd_toStartOf="@+id/spinnerBrand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
     <Spinner
         android:id="@+id/spinnerBrand"
-        android:layout_width="357dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="154dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_spinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewBrand" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
-    <!-- Fecha de expiración -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilExpirationDate"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/spinnerBrand"
+    <ImageButton
+        android:id="@+id/btnShowDatePicker"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="26dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_select_date"
+        app:layout_constraintEnd_toStartOf="@+id/tvSelectedDate"
+        app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBrand"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etExpirationDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Fecha de Expiración"
-            android:textColorHint="@color/black" />
+    <TextView
+        android:id="@+id/tvSelectedDate"
+        android:layout_width="154dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:background="@drawable/bg_spinner"
+        android:hint="Fecha de Vencimiento"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBrand" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Campo de imagen -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilImagen"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="210dp"
         android:layout_height="104dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilExpirationDate">
+        app:layout_constraintTop_toBottomOf="@id/btnShowDatePicker">
 
         <TextView
             android:id="@+id/tvSelectImageLabel"
@@ -200,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:contentDescription="Imagen del Producto"
-            android:src="@drawable/default_image" />
+            android:src="@drawable/ic_product_save" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botón de guardar -->
@@ -208,13 +206,13 @@
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/purple_500"
         android:text="Guardar"
         android:textColor="@color/white"
-        android:background="@color/purple_500"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/tilImagen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tilImagen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

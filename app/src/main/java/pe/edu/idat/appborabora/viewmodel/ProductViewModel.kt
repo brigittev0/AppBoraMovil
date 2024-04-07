@@ -1,56 +1,42 @@
 package pe.edu.idat.appborabora.viewmodel
 
-import android.content.Context
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
-import pe.edu.idat.appborabora.data.dto.response.BrandProductDTO
-import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
+import pe.edu.idat.appborabora.data.network.authenticated.AuthClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ProductViewModel : ViewModel() {
+class ProductViewModel(application: Application) : AndroidViewModel(application) {
+    private val authClient = AuthClient(application.applicationContext)
+    private val authService = authClient.getInstance()
 
-    /*
-    private val boraBoraClient = BoraBoraClient()
+    val createProductResponse: MutableLiveData<ApiResponse> = MutableLiveData()
+    val errorMessage: MutableLiveData<String> = MutableLiveData()
 
-    private val _productCreated = MutableLiveData<Boolean>()
-    val productCreated: LiveData<Boolean> get() = _productCreated
-
-    private val _categories = MutableLiveData<List<CategoryResponse>>()
-    val categories: LiveData<List<CategoryResponse>> get() = _categories
-
-    private val _brandProducts = MutableLiveData<List<BrandProductDTO>>()
-    val brandProducts: LiveData<List<BrandProductDTO>> get() = _brandProducts
-
-    fun createProduct(context: Context, productDTO: ProductDTO) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                Log.d("ProductViewModel", "Datos del producto: $productDTO")
-                val response = boraBoraClient.getInstanceWithAuth(context).createProduct(productDTO).execute()
+    fun createProduct(productDTO: ProductDTO) {
+        authService.createProduct(productDTO).enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
-                    _productCreated.postValue(true)
+                    Log.d("ProductViewModel", "Respuesta exitosa al crear producto")
+                    createProductResponse.value = response.body()
                 } else {
-                    _productCreated.postValue(false)
-                    Log.e("ProductViewModel", "Error al crear el producto: ${response.errorBody()?.string()}")
+                    Log.d("ProductViewModel", "Error en la respuesta al crear producto: ${response.errorBody()?.string()}")
+                    errorMessage.value = "Error al crear el producto: ${response.errorBody()?.string()}"
                 }
-            } catch (e: Exception) {
-                Log.e("ProductViewModel", "Error al crear el producto: ${e.message}")
-                _productCreated.postValue(false)
             }
-        }
-    }
 
-    fun fetchAllCategories() {
-        // Aquí va tu código para obtener todas las categorías y asignarlas a _categories
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("ProductViewModel", "Fallo al crear producto", t)
+                errorMessage.value = "Error al crear el producto: ${t.message}"
+            }
+        })
     }
-
-    fun fetchAllBrandProducts() {
-        // Aquí va tu código para obtener todas las marcas de productos y asignarlas a _brandProducts
-    }*/
 }
 
 

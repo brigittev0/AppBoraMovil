@@ -1,7 +1,6 @@
-package pe.edu.idat.appborabora.data.network.client
+package pe.edu.idat.appborabora.data.network.public
 
-import pe.edu.idat.appborabora.data.network.service.PublicService
-import pe.edu.idat.appborabora.util.ConstantsBoraBora
+import pe.edu.idat.appborabora.util.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,7 +11,7 @@ class PublicClient {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl(ConstantsBoraBora.BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         publicService = retrofit.create(PublicService::class.java)
