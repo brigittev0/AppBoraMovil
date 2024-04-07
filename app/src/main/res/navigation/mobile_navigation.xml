@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/perfil"
-        android:name="pe.edu.idat.appborabora.view.fragments.Perfil"
+        android:name="pe.edu.idat.appborabora.view.fragments.UserProfile"
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment

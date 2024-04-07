@@ -1,6 +1,6 @@
 package pe.edu.idat.appborabora.data.dto.response
 
-data class PerfilResponse(
+data class UserProfileResponse(
 
     val identityDoc: Int,
     val name: String,

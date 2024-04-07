@@ -2,30 +2,26 @@ package pe.edu.idat.appborabora.view.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import org.json.JSONObject
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
-import pe.edu.idat.appborabora.viewmodel.PerfilViewModel
-import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
+import pe.edu.idat.appborabora.viewmodel.UserViewModel
 
 
-class Perfil : Fragment() {
 
-    /*
-    private lateinit var perfilViewModel: PerfilViewModel
-    private lateinit var updateUserViewModel: UpdateUserViewModel
+class UserProfile : Fragment() {
+
+    private lateinit var userViewModel: UserViewModel
+    /*private lateinit var updateUserViewModel: UpdateUserViewModel*/
     private lateinit var btnActualizarPerfil: Button
     private lateinit var nombreEditText: EditText
     private lateinit var apellidoEditText: EditText
@@ -42,7 +38,7 @@ class Perfil : Fragment() {
         binding = FragmentPerfilBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        perfilViewModel = ViewModelProvider(this).get(PerfilViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         // Inicializa las variables con las referencias a los EditTexts
         nombreEditText = view.findViewById(R.id.nombre)
@@ -55,9 +51,9 @@ class Perfil : Fragment() {
 
         listarUsuario(view)
 
-        //--
+        /*
         val factory = ViewModelFactory(requireContext())
-        updateUserViewModel = ViewModelProvider(this, factory).get(UpdateUserViewModel::class.java)
+        updateUserViewModel = ViewModelProvider(this, factory).get(UpdateUserViewModel::class.java)*/
 
         btnActualizarPerfil.setOnClickListener {
             if (validarFormulario()) {
@@ -70,27 +66,17 @@ class Perfil : Fragment() {
 
                 )
 
-                updateUserViewModel.updateUser(dniEditText.text.toString().toInt(), createUserRequest)
+                /*
+                updateUserViewModel.updateUser(dniEditText.text.toString().toInt(), createUserRequest)*/
             }
         }
 
-        updateUserViewModel.apiResponse.observe(viewLifecycleOwner, Observer { apiResponse ->
-            Log.d("PerfilFragment", "ApiResponse: $apiResponse")
-            Toast.makeText(context, apiResponse.message, Toast.LENGTH_LONG).show()
-        })
-
-        updateUserViewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            val jsonObject = JSONObject(error)
-            val message = jsonObject.getString("message")
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-        })
-        //--
         return view
     }
 
     private fun listarUsuario(view: View) {
 
-        //PARA OBTENER EL USERNMA DEL USUARIO LOGUEADO:
+        //PARA OBTENER EL USERNAME DEL USUARIO LOGUEADO:
         val sharedPref = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
 
         // Obtener la referencia de la vista del fragmento para buscar las vistas
@@ -104,14 +90,18 @@ class Perfil : Fragment() {
         val usernameUsuario = sharedPref.getString("username", null)
 
         if (usernameUsuario != null) {
-            perfilViewModel.getUserByUsername(usernameUsuario)
-            perfilViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-                username.text = user.name
-                userapellido.text = user.lastname
-                userEmail.text = user.email
-                nameuser.text = user.username
-                userCelular.text = user.cellphone.toString()
-                userDni.text = user.identityDoc.toString()
+            userViewModel.getUserByUsername(usernameUsuario)
+
+
+            userViewModel.userProfileResponse.observe(viewLifecycleOwner, Observer { userProfileResponse ->
+
+                username.text = userProfileResponse.username
+                userapellido.text = userProfileResponse.lastname
+                userDni.text = userProfileResponse.identityDoc.toString()
+                userEmail.text = userProfileResponse.email
+                nameuser.text = userProfileResponse.username
+                userCelular.text = userProfileResponse.cellphone.toString()
+
             })
         }
     }
@@ -214,5 +204,5 @@ class Perfil : Fragment() {
         val patronCorreo = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
         // Verifica que el correo cumple con el patrón
         return correo.matches(patronCorreo)
-    }*/
+    }
 }
