@@ -14,8 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
+import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import pe.edu.idat.appborabora.viewmodel.UserViewModel
-
+import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 
 
 class UserProfile : Fragment() {
@@ -40,7 +41,17 @@ class UserProfile : Fragment() {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        // Inicializa las variables con las referencias a los EditTexts
+        setupViews(view)
+        listUser(view)
+
+        setupUpdateButton()
+
+
+        return view
+    }
+
+    // Inicializa las vistas en el fragmento
+    private fun setupViews(view: View) {
         nombreEditText = view.findViewById(R.id.nombre)
         apellidoEditText = view.findViewById(R.id.apellido)
         dniEditText = view.findViewById(R.id.dni)
@@ -48,12 +59,13 @@ class UserProfile : Fragment() {
         usernameEditText = view.findViewById(R.id.username)
         celularEditText = view.findViewById(R.id.celular)
         btnActualizarPerfil = view.findViewById(R.id.btnActualizarPerfil)
+    }
 
-        listarUsuario(view)
+    // Configura el botón de guardar para crear un producto cuando se haga clic en él
+    private fun setupUpdateButton() {
 
-        /*
-        val factory = ViewModelFactory(requireContext())
-        updateUserViewModel = ViewModelProvider(this, factory).get(UpdateUserViewModel::class.java)*/
+        val viewModelFactory = ViewModelFactory(requireActivity().application)
+        /*val productViewModel = ViewModelProvider(this, viewModelFactory).get(ProductViewModel::class.java)*/
 
         btnActualizarPerfil.setOnClickListener {
             if (validarFormulario()) {
@@ -63,23 +75,16 @@ class UserProfile : Fragment() {
                     celularEditText.text.toString().toInt(),
                     emailEditText.text.toString(),
                     usernameEditText.text.toString(),
-
                 )
-
-                /*
-                updateUserViewModel.updateUser(dniEditText.text.toString().toInt(), createUserRequest)*/
             }
         }
-
-        return view
     }
 
-    private fun listarUsuario(view: View) {
+    private fun listUser(view: View) {
 
-        //PARA OBTENER EL USERNAME DEL USUARIO LOGUEADO:
+        //--Preferencias compartidas
         val sharedPref = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
 
-        // Obtener la referencia de la vista del fragmento para buscar las vistas
         val username = view.findViewById<TextView>(R.id.nombre)
         val userapellido = view.findViewById<TextView>(R.id.apellido)
         val userDni = view.findViewById<TextView>(R.id.dni)
@@ -91,7 +96,6 @@ class UserProfile : Fragment() {
 
         if (usernameUsuario != null) {
             userViewModel.getUserByUsername(usernameUsuario)
-
 
             userViewModel.userProfileResponse.observe(viewLifecycleOwner, Observer { userProfileResponse ->
 
