@@ -6,6 +6,7 @@ import pe.edu.idat.appborabora.data.dto.response.UserProfileResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -24,4 +25,11 @@ interface AuthService {
 
     @GET("products/all")
     fun getAllProducts(): Call<List<ProductDTO>>
+
+    @GET("products/{productId}")
+    fun getProductById(@Path("productId") productId: Int): Call<ProductDTO>
+
+    @DELETE("products/delete/{id}")
+    fun deleteProduct(@Path("id") id: Int): Call<Void>
+
 }
