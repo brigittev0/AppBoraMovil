@@ -5,9 +5,8 @@ import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
 
 interface AuthService {
 
@@ -18,4 +17,7 @@ interface AuthService {
 
     @POST("products/createProduct")
     fun createProduct(@Body productDTO: ProductDTO): Call<ApiResponse>
+
+    @GET("products/all")
+    fun getAllProducts(): Call<List<ProductDTO>>
 }
