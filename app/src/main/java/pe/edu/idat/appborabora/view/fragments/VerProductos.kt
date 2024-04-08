@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.ProductoAdapter
 import pe.edu.idat.appborabora.adapter.ProductoDashboardAdapter
+import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import pe.edu.idat.appborabora.viewmodel.VerProductoViewModel
 
 class VerProductos : Fragment() {
@@ -31,7 +32,7 @@ class VerProductos : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Inicializa el ViewModel
-        verProductoViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(VerProductoViewModel::class.java)
+        verProductoViewModel = ViewModelProvider(this).get(VerProductoViewModel::class.java)
 
         // Inicializa el adaptador
         productoAdapter = ProductoAdapter(requireContext())
