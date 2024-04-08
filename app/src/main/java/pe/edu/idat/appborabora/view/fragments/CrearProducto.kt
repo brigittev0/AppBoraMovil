@@ -145,9 +145,6 @@ class CrearProducto : Fragment() {
     // Configura el botón de guardar para crear un producto cuando se haga clic en él
     private fun setupSaveButton() {
 
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        val productViewModel = ViewModelProvider(this, viewModelFactory).get(ProductViewModel::class.java)
-
         btnSave.setOnClickListener {
             try {
                 Log.d("SaveButton", "Botón Guardar presionado")
