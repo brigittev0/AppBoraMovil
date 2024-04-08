@@ -1,6 +1,6 @@
 package pe.edu.idat.appborabora.data.network.authenticated
 
-import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
+import pe.edu.idat.appborabora.data.dto.request.UpdateUserRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.UserProfileResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
@@ -17,7 +17,7 @@ interface AuthService {
     fun getUserByUsername(@Path("username") username: String): Call<UserProfileResponse>
 
     @PUT("user/updateUser/{identityDoc}")
-    fun updateUser(@Path("identityDoc") identityDoc: Int, @Body createUserRequest: CreateUserRequest): Call<ApiResponse>
+    fun updateUser(@Path("identityDoc") identityDoc: Int, @Body updateUserRequest: UpdateUserRequest): Call<ApiResponse>
 
     @POST("products/createProduct")
     fun createProduct(@Body productDTO: ProductDTO): Call<ApiResponse>

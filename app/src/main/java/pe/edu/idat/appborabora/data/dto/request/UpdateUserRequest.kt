@@ -1,7 +1,7 @@
 package pe.edu.idat.appborabora.data.dto.request
 
 
-class CreateUserRequest(
+class UpdateUserRequest(
     val name: String? = null,
     val lastname: String? = null,
     val cellphone: Int? = null,

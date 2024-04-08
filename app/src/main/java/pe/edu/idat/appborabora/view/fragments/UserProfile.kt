@@ -2,26 +2,26 @@ package pe.edu.idat.appborabora.view.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
+import pe.edu.idat.appborabora.data.dto.request.UpdateUserRequest
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.UserViewModel
-import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 
 
 class UserProfile : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-    /*private lateinit var updateUserViewModel: UpdateUserViewModel*/
     private lateinit var btnActualizarPerfil: Button
     private lateinit var nombreEditText: EditText
     private lateinit var apellidoEditText: EditText
@@ -42,9 +42,7 @@ class UserProfile : Fragment() {
 
         setupViews(view)
         listUser(view)
-
         setupUpdateButton()
-
 
         return view
     }
@@ -63,20 +61,39 @@ class UserProfile : Fragment() {
     // Configura el botón de guardar para crear un producto cuando se haga clic en él
     private fun setupUpdateButton() {
 
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        /*val productViewModel = ViewModelProvider(this, viewModelFactory).get(ProductViewModel::class.java)*/
-
         btnActualizarPerfil.setOnClickListener {
             if (validateForm()) {
-                val createUserRequest = CreateUserRequest(
+                val updateUserRequest = UpdateUserRequest(
                     nombreEditText.text.toString(),
                     apellidoEditText.text.toString(),
                     celularEditText.text.toString().toInt(),
                     emailEditText.text.toString(),
                     usernameEditText.text.toString(),
                 )
+
+                // Obtiene el documento de identidad del usuario de las preferencias compartidas
+                val sharedPreferences = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+                val identityDoc = sharedPreferences.getString("identityDoc", "0")?.toInt() ?: 0
+
+                userViewModel.updateUser(identityDoc, updateUserRequest)
             }
         }
+
+        //--OBSERVAR RESPUESTA DE LA API
+        userViewModel.apiResponse.observe(viewLifecycleOwner, Observer { apiResponse ->
+            if (apiResponse.status == 200) {
+                Log.d("UpdateButton", "Usuario actualizado con éxito")
+                Toast.makeText(requireContext(), "Usuario actualizado con éxito", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        userViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            if (errorMessage != null) {
+                Log.d("UpdateButton", "Error al actualizar el usuario: $errorMessage")
+                Toast.makeText(requireContext(), "$errorMessage", Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 
     private fun listUser(view: View) {
@@ -109,8 +126,7 @@ class UserProfile : Fragment() {
         }
     }
 
-    //--Falta validar el username
-
+    //--VALIDACIONES
     private fun validateForm(): Boolean {
         var response = false
 
@@ -134,7 +150,6 @@ class UserProfile : Fragment() {
         return response
     }
 
-    //--VALIDACIONES
     private fun entryUsername(): Boolean {
         var response = true
         val username = binding.username.text.toString().trim()
