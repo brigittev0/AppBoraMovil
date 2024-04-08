@@ -195,13 +195,18 @@ class CrearProducto : Fragment() {
             }
         }
 
+        //--OBSERVAR RESPUESTA DE LA API
         productViewModel.createProductResponse.observe(viewLifecycleOwner, Observer { apiResponse ->
             if (apiResponse.status == 201) {
                 Log.d("SaveButton", "Producto creado con éxito")
                 Toast.makeText(requireContext(), "Producto creado con éxito", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.d("SaveButton", "Error al crear el producto: ${apiResponse.message}")
-                Toast.makeText(requireContext(), "Error al crear el producto: ${apiResponse.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        productViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            if (errorMessage != null) {
+                Log.d("SaveButton", "Error al crear el producto: $errorMessage")
+                Toast.makeText(requireContext(), "$errorMessage", Toast.LENGTH_SHORT).show()
             }
         })
     }
