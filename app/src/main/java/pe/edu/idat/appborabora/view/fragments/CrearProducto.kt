@@ -29,7 +29,6 @@ import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.viewmodel.BrandProductViewModel
 import pe.edu.idat.appborabora.viewmodel.CategoryViewModel
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
-import pe.edu.idat.appborabora.viewmodel.ViewModelFactory
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.time.LocalDate
