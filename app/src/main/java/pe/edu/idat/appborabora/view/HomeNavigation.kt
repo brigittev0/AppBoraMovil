@@ -51,7 +51,7 @@ class HomeNavigation : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val navUsername = headerView.findViewById<TextView>(R.id.headerUsername)
 
-        val username = sharedPref.getString("username", "!Bienvenido!")
+        val username = sharedPref.getString("username", "Invitado")
 
         navUsername.text = username
 
@@ -110,11 +110,12 @@ class HomeNavigation : AppCompatActivity() {
 
         val isLoggedIn = jwt != null
         val isAdminBasic = role == "ROLE_ADMIN_BASIC"
+        val isAdminFull = role == "ROLE_ADMIN_FULL"
 
         menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
-        menu.findItem(R.id.administrarProductos).isVisible = isAdminBasic
+        menu.findItem(R.id.administrarProductos).isVisible = isAdminBasic || isAdminFull
     }
 }
 

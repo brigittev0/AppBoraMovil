@@ -149,6 +149,10 @@ class CrearProducto : Fragment() {
             try {
                 Log.d("SaveButton", "Botón Guardar presionado")
 
+                if (!validateForm()) {
+                    return@setOnClickListener
+                }
+
                 val productName = etProductName.text.toString()
                 val productDescription = etProductDescription.text.toString()
                 val price = etPrice.text.toString().toDouble()
@@ -211,6 +215,40 @@ class CrearProducto : Fragment() {
         })
     }
 
+    //--VALIDACIONES
+    private fun validateForm(): Boolean {
+        val productName = etProductName.text.toString()
+        val productDescription = etProductDescription.text.toString()
+        val price = etPrice.text.toString()
+        val stock = etStock.text.toString()
+
+        if (productName.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, ingrese el nombre del producto", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (productDescription.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, ingrese la descripción del producto", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (price.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, ingrese el precio del producto", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (stock.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, ingrese el stock del producto", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (selectedDate == null) {
+            Toast.makeText(requireContext(), "Por favor, seleccione una fecha de vencimiento", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
 
     // ---- SELECCIONAR FECHA
     private fun selectDate() {
