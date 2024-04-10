@@ -118,8 +118,8 @@
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/yellow_oscuro"
-                        android:backgroundTint="@color/yellow"
+                        android:background="@color/btn_oscuro"
+                        android:backgroundTint="@color/btn_oscuro"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/white"
@@ -152,8 +152,8 @@
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/yellow_oscuro"
-                        android:backgroundTint="@color/yellow_oscuro"
+                        android:background="@color/btn_oscuro"
+                        android:backgroundTint="@color/btn_oscuro"
                         android:gravity="center"
                         android:text="+"
                         android:textColor="@color/white"

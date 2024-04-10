@@ -4,10 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.ui.AppBarConfiguration
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import lib.visanet.com.pe.visanetlib.VisaNet
@@ -19,16 +23,43 @@ import java.lang.Exception
 import java.util.HashMap
 
 class Compra : AppCompatActivity() {
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var drawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compra)
 
-        val payButton : Button = findViewById(R.id.pay)
+        val payButton: Button = findViewById(R.id.pay)
         payButton.setOnClickListener {
             Visanet().getTokenSecurityProvider(this)
         }
 
+        // Inicializa la Toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        // Habilita la flecha de retroceso en la barra de herramientas
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        // Cambia el título en la barra de herramientas
+        supportActionBar?.title = "Carrito de compras"
     }
+
+    // Maneja el clic en la flecha de retroceso
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 
     fun receiveToken(token : String , pinHash : String){
 

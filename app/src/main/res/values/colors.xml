@@ -30,6 +30,7 @@
 
 
     <color name="purple_1200">#8102D8</color>  //Color bar header
-    <color name="yellow_oscuro">#fec842</color>  //botones + -
+    <color name="btn_oscuro">#fec842</color>  //botones yellow
+    <color name="btn_purple">#7100e1</color>  //botones purple
 
 </resources>
