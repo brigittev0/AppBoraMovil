@@ -13,19 +13,19 @@ class EliminarProductoViewModel(application: Application) : AndroidViewModel(app
     private val authClient = AuthClient(application)
     val product = MutableLiveData<ProductoEmptyRequest>()
     val deleteStatus = MutableLiveData<Boolean>()
-
+    val message = MutableLiveData<String>()
     fun getProductById(id: Int) {
         authClient.getInstance().getProductById(id).enqueue(object : Callback<ProductoEmptyRequest> {
             override fun onResponse(call: Call<ProductoEmptyRequest>, response: Response<ProductoEmptyRequest>) {
                 if (response.isSuccessful) {
                     product.value = response.body()
                 } else {
-                    // Handle error
+                    message.value = "Producto no encontrado"
                 }
             }
 
             override fun onFailure(call: Call<ProductoEmptyRequest>, t: Throwable) {
-                // Handle failure
+                message.value = "Error al obtener el producto"
             }
         })
     }
@@ -34,10 +34,11 @@ class EliminarProductoViewModel(application: Application) : AndroidViewModel(app
         authClient.getInstance().deleteProduct(id).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 deleteStatus.value = response.isSuccessful
+                message.value = "Producto eliminado con éxito"
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                // Handle failure
+                message.value = "Error al eliminar el producto"
             }
         })
     }

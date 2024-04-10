@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
@@ -46,7 +47,7 @@ class EliminarProducto : Fragment() {
 
         viewModel.product.observe(viewLifecycleOwner, Observer { product ->
             productName.text = "Producto: ${product.name}"
-            productDescription.text = "Descripción: ${product.description}"
+            productDescription.text = "Descripción: \n${product.description}"
             productPrice.text = "Precio: ${product.price}"
             productStock.text = "Stock: ${product.stock}"
 
@@ -57,21 +58,12 @@ class EliminarProducto : Fragment() {
             productStock.visibility = View.VISIBLE
             deleteButton.visibility = View.VISIBLE
             }
-            if(product.deleted){
-                productName.visibility = View.GONE
-                productDescription.visibility = View.GONE
-                productPrice.visibility = View.GONE
-                productStock.visibility = View.GONE
-                deleteButton.visibility = View.GONE
-            }            })
-
-        viewModel.deleteStatus.observe(viewLifecycleOwner, Observer { success ->
-            if (success) {
-                // Handle the successful delete
-            } else {
-                // Handle the error
-            }
+              })
+        //mensajes
+        viewModel.message.observe(viewLifecycleOwner, Observer { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         })
+        //limpiar
        fun clearFields() {
             productName.text = ""
             productDescription.text = ""
