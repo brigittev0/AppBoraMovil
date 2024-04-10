@@ -1,8 +1,6 @@
 package pe.edu.idat.appborabora.data.dto.response
 
-import java.time.LocalDate
-
-data class ProductDTO (
+data class ProductoEmptyRequest (
     val name: String,
     val description: String,
     val price: Double,
@@ -11,4 +9,5 @@ data class ProductDTO (
     val image: String,
     val categoryId: Int,
     val brandProductId: Int,
+    val deleted: Boolean
 )
