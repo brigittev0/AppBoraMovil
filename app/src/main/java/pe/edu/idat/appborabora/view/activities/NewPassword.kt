@@ -35,6 +35,13 @@ class NewPassword : AppCompatActivity() {
 
             // Verificar si se ingresaron todos los datos necesarios
             if (email.isNotEmpty() && cellphone > 0 && identityDoc > 0 && newPassword.isNotEmpty()) {
+                // Validar la contraseña
+                val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.-@#$%^&+=])(?=\\S+$).{8,15}$"
+                if (!newPassword.matches(passwordPattern.toRegex())) {
+                    Toast.makeText(this, "La contraseña debe contener entre 8 y 15 caracteres, incluyendo mayúsculas, números y caracteres especiales.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 // Crear el objeto PasswordUpdateRequest
                 val passwordUpdateRequest = PasswordUpdateRequest(email, cellphone, identityDoc, newPassword)
 
