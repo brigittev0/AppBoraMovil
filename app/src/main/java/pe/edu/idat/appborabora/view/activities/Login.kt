@@ -37,6 +37,9 @@ class Login : AppCompatActivity() {
         val tvregistrolog = findViewById<TextView>(R.id.tvregisterlog)
         tvregistrolog.setOnClickListener { register() }
 
+        val tvpassword = findViewById<TextView>(R.id.tvpassword)
+        tvpassword.setOnClickListener { updatePassword() }
+
         // Animacion
         val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
         findViewById<ConstraintLayout>(R.id.innerConstraintLayout).startAnimation(slideUp)
@@ -81,6 +84,11 @@ class Login : AppCompatActivity() {
 
     private fun register() {
         val intent = Intent(this, RegisterUser::class.java)
+        startActivity(intent)
+    }
+
+    private fun updatePassword() {
+        val intent = Intent(this, NewPassword::class.java)
         startActivity(intent)
     }
 

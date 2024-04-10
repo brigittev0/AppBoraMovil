@@ -115,6 +115,7 @@ class HomeNavigation : AppCompatActivity() {
         menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
+        menu.findItem(R.id.historialCompra).isVisible = isLoggedIn
         menu.findItem(R.id.administrarProductos).isVisible = isAdminBasic || isAdminFull
     }
 }
