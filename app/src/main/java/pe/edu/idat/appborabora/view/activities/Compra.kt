@@ -12,12 +12,16 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import lib.visanet.com.pe.visanetlib.VisaNet
 import lib.visanet.com.pe.visanetlib.data.custom.Channel
 import lib.visanet.com.pe.visanetlib.presentation.custom.VisaNetViewAuthorizationCustom
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.adapter.CartAdapter
+import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
 import java.lang.Exception
 import java.util.HashMap
@@ -46,18 +50,20 @@ class Compra : AppCompatActivity() {
 
         // Cambia el título en la barra de herramientas
         supportActionBar?.title = "Carrito de compras"
+
+        //-----------------
+        val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
+        rvproductoscart.layoutManager = LinearLayoutManager(this)
+        val productList = listOf(
+            ProductDTO("Arroz ", "Arroz Extra Faraón de 5 Kg", 25.20,123,"2023-12-24", "https://mundoabarrotes.com/wp-content/uploads/2019/09/Arroz-Faraon-Naranja-50-kg-ver2.webp",  1, 2),
+            ProductDTO("Arroz ", "Avena Hojuelas Gruesas Grano de Oro 900 g",17.20, 34, "2025-01-15", "https://plazavea.vteximg.com.br/arquivos/ids/561742-450-450/20192034.jpg?v=637427442451830000", 1, 2),
+            ProductDTO("Arroz ", "Avena Tradicional Quaker de 900 g",15.70, 72, "2024-02-12", "https://wongfood.vtexassets.com/arquivos/ids/606790/Mantequilla-con-Sal-Gloria-90g-1-351640701.jpg?v=638074246405000000", 1, 2),
+        )
+        val adapter = CartAdapter(productList)
+        rvproductoscart.adapter = adapter
+        //-----------------
     }
 
-    // Maneja el clic en la flecha de retroceso
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
 
 

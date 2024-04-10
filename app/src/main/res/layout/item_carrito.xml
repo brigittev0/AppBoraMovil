@@ -26,7 +26,7 @@
 
 
             <TextView
-                android:id="@+id/tvProdCard"
+                android:id="@+id/tvProdCart"
                 android:layout_width="203dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -68,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvProdCard" />
+                app:layout_constraintTop_toBottomOf="@+id/tvProdCart" />
 
             <ImageView
                 android:id="@+id/img_cart"
@@ -82,7 +82,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:srcCompat="@drawable/ic_launcher_background" />
+                tools:srcCompat="@drawable/ctg_bebida" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
