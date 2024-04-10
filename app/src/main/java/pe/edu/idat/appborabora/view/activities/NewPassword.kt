@@ -1,5 +1,6 @@
 package pe.edu.idat.appborabora.view.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -34,6 +35,13 @@ class NewPassword : AppCompatActivity() {
 
             // Verificar si se ingresaron todos los datos necesarios
             if (email.isNotEmpty() && cellphone > 0 && identityDoc > 0 && newPassword.isNotEmpty()) {
+                // Validar la contraseña
+                val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.-@#$%^&+=])(?=\\S+$).{8,15}$"
+                if (!newPassword.matches(passwordPattern.toRegex())) {
+                    Toast.makeText(this, "La contraseña debe contener entre 8 y 15 caracteres, incluyendo mayúsculas, números y caracteres especiales.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 // Crear el objeto PasswordUpdateRequest
                 val passwordUpdateRequest = PasswordUpdateRequest(email, cellphone, identityDoc, newPassword)
 
@@ -45,6 +53,12 @@ class NewPassword : AppCompatActivity() {
                     if (response != null) {
                         // Manejar la respuesta de la solicitud de cambio de contraseña
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+
+                        // Si la actualización de la contraseña fue exitosa, navegar a la actividad de inicio de sesión
+                        if (response.status == 200) {
+                            val intent = Intent(this, Login::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
             } else {
