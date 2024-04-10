@@ -50,13 +50,20 @@ class EliminarProducto : Fragment() {
             productPrice.text = "Precio: ${product.price}"
             productStock.text = "Stock: ${product.stock}"
 
-            // Make the views visible
+            if (product.deleted != null){
             productName.visibility = View.VISIBLE
             productDescription.visibility = View.VISIBLE
             productPrice.visibility = View.VISIBLE
             productStock.visibility = View.VISIBLE
             deleteButton.visibility = View.VISIBLE
-        })
+            }
+            if(product.deleted){
+                productName.visibility = View.GONE
+                productDescription.visibility = View.GONE
+                productPrice.visibility = View.GONE
+                productStock.visibility = View.GONE
+                deleteButton.visibility = View.GONE
+            }            })
 
         viewModel.deleteStatus.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
@@ -65,10 +72,23 @@ class EliminarProducto : Fragment() {
                 // Handle the error
             }
         })
+       fun clearFields() {
+            productName.text = ""
+            productDescription.text = ""
+            productPrice.text = ""
+            productStock.text = ""
+            productName.visibility = View.GONE
+            productDescription.visibility = View.GONE
+            productPrice.visibility = View.GONE
+            productStock.visibility = View.GONE
+            deleteButton.visibility = View.GONE
+        }
 
         examineButton.setOnClickListener {
+            clearFields()
             val id = productId.text.toString().toInt()
             viewModel.getProductById(id)
+
         }
 
         deleteButton.setOnClickListener {

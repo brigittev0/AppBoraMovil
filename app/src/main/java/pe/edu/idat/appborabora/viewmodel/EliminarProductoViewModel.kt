@@ -4,19 +4,19 @@ package pe.edu.idat.appborabora.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.data.dto.response.ProductoEmptyRequest
 import pe.edu.idat.appborabora.data.network.authenticated.AuthClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 class EliminarProductoViewModel(application: Application) : AndroidViewModel(application) {
     private val authClient = AuthClient(application)
-    val product = MutableLiveData<ProductDTO>()
+    val product = MutableLiveData<ProductoEmptyRequest>()
     val deleteStatus = MutableLiveData<Boolean>()
 
     fun getProductById(id: Int) {
-        authClient.getInstance().getProductById(id).enqueue(object : Callback<ProductDTO> {
-            override fun onResponse(call: Call<ProductDTO>, response: Response<ProductDTO>) {
+        authClient.getInstance().getProductById(id).enqueue(object : Callback<ProductoEmptyRequest> {
+            override fun onResponse(call: Call<ProductoEmptyRequest>, response: Response<ProductoEmptyRequest>) {
                 if (response.isSuccessful) {
                     product.value = response.body()
                 } else {
@@ -24,7 +24,7 @@ class EliminarProductoViewModel(application: Application) : AndroidViewModel(app
                 }
             }
 
-            override fun onFailure(call: Call<ProductDTO>, t: Throwable) {
+            override fun onFailure(call: Call<ProductoEmptyRequest>, t: Throwable) {
                 // Handle failure
             }
         })
