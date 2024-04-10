@@ -123,4 +123,6 @@
     </string>
     <string name="valDatos">Ingrese sus datos</string>
     <string name="welcome">"¡Hola! "</string>
+    <string name="calCelular">Celular</string>
+    <string name="valDni">DNI</string>
 </resources>

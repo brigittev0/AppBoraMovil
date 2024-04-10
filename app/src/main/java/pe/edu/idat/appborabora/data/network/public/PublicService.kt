@@ -1,6 +1,8 @@
 package pe.edu.idat.appborabora.data.network.public
 
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
+import pe.edu.idat.appborabora.data.dto.request.PasswordUpdateRequest
+import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.BrandProductDTO
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
@@ -15,6 +17,9 @@ interface PublicService {
 
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
+
+    @POST("user/updatePassword")
+    fun updatePassword(@Body passwordUpdateRequest: PasswordUpdateRequest): Call<ApiResponse>
 
     @GET("categories/all")
     fun getAllCategories(): Call<List<CategoryResponse>>
