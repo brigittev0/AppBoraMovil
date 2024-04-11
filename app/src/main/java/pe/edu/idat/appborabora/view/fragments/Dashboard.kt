@@ -92,7 +92,7 @@ class Dashboard : Fragment(), View.OnClickListener {
         svCarrusel.setSliderAdapter(sliderAdapter)
         svCarrusel.setIndicatorAnimation(IndicatorAnimationType.WORM)
         svCarrusel.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        svCarrusel.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
+        svCarrusel.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT)
         svCarrusel.setIndicatorSelectedColor(Color.WHITE)
         svCarrusel.setIndicatorUnselectedColor(Color.GRAY)
         svCarrusel.setScrollTimeInSec(4)

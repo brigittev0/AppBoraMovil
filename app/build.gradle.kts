@@ -85,7 +85,7 @@ dependencies {
     implementation ("com.github.f0ris.sweetalert:library:1.6.2")
 
     // Biblioteca para crear un deslizador de imágenes automático.
-    implementation ("com.github.smarteist:autoimageslider:1.4.0")
+    implementation ("com.github.smarteist:autoimageslider:1.3.9")
 
     //--------Dependencias para integrar Niubiz
     implementation("com.android.support:multidex:1.0.3")

@@ -18,6 +18,9 @@ interface PublicService {
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
 
+    @POST("auth/sign-up")
+    fun createUser(@Body data: LoginRequest): Call<LoginResponse>
+
     @POST("user/updatePassword")
     fun updatePassword(@Body passwordUpdateRequest: PasswordUpdateRequest): Call<ApiResponse>
 
