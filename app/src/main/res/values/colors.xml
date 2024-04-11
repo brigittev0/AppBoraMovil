@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_200">#FFFFFFFF</color>
     <color name="purple_500">#FF6200EE</color>
 
 
@@ -16,7 +16,7 @@
     <color name="purple_default">#673AB7</color>
     <color name="medio_black">#5E5E5E</color>
 
-    <color name="gris_oscuro">#777676</color>
+    <color name="gris_oscuro">#777676</color>//---------------
 
 
     <color name="purple_700">#FF3700B3</color>
@@ -45,6 +45,7 @@
 
     //--Resources
     <color name="gray_line">#f4ebfc</color> //linea gris claro
+    <color name="gray_line_form">#c4c4c4</color> //linea gris claro
 
 
 </resources>

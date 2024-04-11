@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -28,9 +29,6 @@ import java.util.HashMap
 
 class Compra : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var drawerLayout: DrawerLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compra)
@@ -40,18 +38,35 @@ class Compra : AppCompatActivity() {
             Visanet().getTokenSecurityProvider(this)
         }
 
-        // Inicializa la Toolbar
+        //--Redirrecion a otra interfaz segun la opcion seleccionada en metodo de entrega
+        val radioButtonStorePickup: RadioButton = findViewById(R.id.radioButtonStorePickup)
+        radioButtonStorePickup.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Redirige a la nueva interfaz para recojo en tienda
+                val intent = Intent(this, Pickup::class.java)
+                startActivity(intent)
+            }
+        }
+
+        val radioButtonHomeDelivery: RadioButton = findViewById(R.id.radioButtonHomeDelivery)
+        radioButtonHomeDelivery.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Redirige a la nueva interfaz para envío a domicilio
+                val intent = Intent(this, Delivery::class.java)
+                startActivity(intent)
+            }
+        }
+
+        //--Toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Habilita la flecha de retroceso en la barra de herramientas
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        // Cambia el título en la barra de herramientas
         supportActionBar?.title = "Carrito de compras"
+        //--
 
-        //-----------------
+        //----Adapter Producto
         val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
         rvproductoscart.layoutManager = LinearLayoutManager(this)
         val productList = listOf(
@@ -61,7 +76,7 @@ class Compra : AppCompatActivity() {
         )
         val adapter = CartAdapter(productList)
         rvproductoscart.adapter = adapter
-        //-----------------
+        //--
     }
 
     // Maneja el clic en la flecha de retroceso
@@ -75,6 +90,7 @@ class Compra : AppCompatActivity() {
         }
     }
 
+    //--Niubiz
     fun receiveToken(token : String , pinHash : String){
 
         val TAG = "NIUBIZ"
@@ -116,7 +132,6 @@ class Compra : AppCompatActivity() {
         }
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -162,4 +177,5 @@ class Compra : AppCompatActivity() {
         button.isEnabled = true
         progressBar.visibility = View.GONE
     }
+    //--
 }
