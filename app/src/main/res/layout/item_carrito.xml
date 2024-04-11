@@ -30,28 +30,32 @@
                 android:layout_width="203dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="ProductoProducto ProductoProducto"
-                android:textColor="#302E2E"
+                android:textColor="@color/text_color"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.84"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/btnDeleteCart"
                 android:layout_width="24dp"
-                android:layout_height="31dp"
+                android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="112dp"
+                android:layout_marginTop="107dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/btn_delete_ripple"
                 android:src="@drawable/btn_delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.922"
+                app:layout_constraintHorizontal_bias="0.925"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,26 +66,26 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="8dp"
                 android:text="S/. 20.00"
-                android:textColor="@color/purple_1200"
+                android:textColor="@color/purple_title"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.084"
+                app:layout_constraintStart_toEndOf="@+id/img_cart"
                 app:layout_constraintTop_toBottomOf="@+id/tvProdCart" />
 
             <ImageView
                 android:id="@+id/img_cart"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
+                android:layout_width="74dp"
+                android:layout_height="77dp"
                 android:layout_marginTop="28dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="28dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.122"
+                app:layout_constraintEnd_toStartOf="@+id/tvProdCart"
+                app:layout_constraintHorizontal_bias="0.92"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 tools:srcCompat="@drawable/ctg_bebida" />
 
             <LinearLayout
@@ -104,7 +108,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="5dp"
                     android:text="Cantidad: "
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="13sp" />
 
                 <androidx.cardview.widget.CardView
@@ -137,7 +141,7 @@
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:text="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="12sp" />
 
                 <androidx.cardview.widget.CardView
