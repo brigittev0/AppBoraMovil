@@ -22,6 +22,8 @@ import pe.edu.idat.appborabora.viewmodel.BrandProductViewModel
 import pe.edu.idat.appborabora.viewmodel.CategoryViewModel
 import pe.edu.idat.appborabora.viewmodel.EliminarProductoViewModel
 import java.util.Calendar
+import android.graphics.BitmapFactory
+import android.util.Base64
 
 class ActualizarProducto : Fragment() {
     private lateinit var viewModel: EliminarProductoViewModel
@@ -112,6 +114,11 @@ class ActualizarProducto : Fragment() {
             spinnerBrand.setSelection(brandIndex)
 
             tvSelectedDate.text = product.expirationDate
+
+            // Decodificar y mostrar la imagen
+            val decodedString = Base64.decode(product.image, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            ivImagen.setImageBitmap(decodedByte)
         })
 
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->

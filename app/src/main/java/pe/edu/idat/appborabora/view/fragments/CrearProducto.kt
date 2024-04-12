@@ -5,9 +5,11 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +21,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
@@ -160,17 +161,12 @@ class CrearProducto : Fragment() {
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 val expirationDate = selectedDate?.format(formatter) ?: "sin fecha"
 
-                //---------
-                val bitmap = ivImagen.drawable.toBitmap()
+                // Convertir la imagen a base64
+                val bitmap = (ivImagen.drawable as BitmapDrawable).bitmap
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
                 val byteArray = byteArrayOutputStream.toByteArray()
-
-                //val base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
-
-                val base64Image = "imagen"
-
-                //---------
+                val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
 
                 val selectedCategory = categoryViewModel.categories.value?.get(spinnerCategory.selectedItemPosition)
                 val selectedBrandProduct = brandProductViewModel.brandProducts.value?.get(spinnerBrandProduct.selectedItemPosition)
