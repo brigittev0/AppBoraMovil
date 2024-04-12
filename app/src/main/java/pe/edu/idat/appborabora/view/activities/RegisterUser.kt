@@ -109,8 +109,8 @@ class RegisterUser : AppCompatActivity() {
     }
 
     private fun validateCelular(celular: String): Boolean {
-        if (celular.isEmpty() || celular.length != 9) {
-            Toast.makeText(this, "El número de celular debe tener 9 dígitos", Toast.LENGTH_SHORT).show()
+        if (celular.isEmpty() || celular.length != 9 || celular[0] != '9') {
+            Toast.makeText(this, "Por favor, introduce un número de celular válido", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
