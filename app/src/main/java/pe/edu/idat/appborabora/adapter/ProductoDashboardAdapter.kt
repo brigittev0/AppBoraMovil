@@ -4,14 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.util.Cart
 
 class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adapter<ProductoDashboardAdapter.ViewHolder>() {
+
     private var productList: List<ProductoDashboardResponse> = ArrayList()
 
     fun setProductList(productList: List<ProductoDashboardResponse>) {
@@ -33,12 +37,23 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         holder.tvNombre.text = product.name
         holder.tvPrecio.text = product.price.toString()
         Glide.with(holder.itemView.context).load(product.image).into(holder.ivProducto)
-        // Aquí puedes cargar la imagen del producto usando Glide o Picasso
+
+        // Botón de ordenar
+        holder.btnOrdenar.setOnClickListener {
+            val productoAgregado = Cart.agregarProducto(product)
+            if (productoAgregado) {
+                Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "El producto ya está en el carrito", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNombre: TextView = view.findViewById(R.id.tvNombre)
         val tvPrecio: TextView = view.findViewById(R.id.tvPrecio)
         val ivProducto: ImageView = view.findViewById(R.id.ivProducto)
+        val btnOrdenar: Button = view.findViewById(R.id.btnOrdenar)
     }
 }

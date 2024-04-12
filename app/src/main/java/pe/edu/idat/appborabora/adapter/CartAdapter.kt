@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.util.Cart
 
-class CartAdapter(private val productList: List<ProductDTO>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private var productList: List<ProductoDashboardResponse>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvProdCard: TextView = itemView.findViewById(R.id.tvProdCart)
@@ -26,7 +28,7 @@ class CartAdapter(private val productList: List<ProductDTO>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val currentItem = productList[position]
         holder.tvProdCard.text = currentItem.description
-        holder.tvPrecioPDC.text = "S/. ${currentItem.price.toInt()}"
+        holder.tvPrecioPDC.text = "S/. ${currentItem.price}"
 
         Glide.with(holder.itemView.context)
             .load(currentItem.image)
@@ -34,4 +36,9 @@ class CartAdapter(private val productList: List<ProductDTO>) : RecyclerView.Adap
     }
 
     override fun getItemCount() = productList.size
+
+    fun actualizarProductos(productos: List<ProductoDashboardResponse>) {
+        this.productList = productos
+        notifyDataSetChanged()
+    }
 }

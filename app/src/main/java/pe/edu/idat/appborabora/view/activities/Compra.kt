@@ -23,11 +23,15 @@ import lib.visanet.com.pe.visanetlib.presentation.custom.VisaNetViewAuthorizatio
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.CartAdapter
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
+import pe.edu.idat.appborabora.util.Cart
 import java.lang.Exception
 import java.util.HashMap
 
 class Compra : AppCompatActivity() {
+
+    private lateinit var adapter: CartAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,15 +73,16 @@ class Compra : AppCompatActivity() {
         //----Adapter Producto
         val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
         rvproductoscart.layoutManager = LinearLayoutManager(this)
-        val productList = listOf(
-            ProductDTO("Arroz ", "Arroz Extra Faraón de 5 Kg", 25.20,123,"2023-12-24", "https://mundoabarrotes.com/wp-content/uploads/2019/09/Arroz-Faraon-Naranja-50-kg-ver2.webp",  1, 2),
-            ProductDTO("Arroz ", "Avena Hojuelas Gruesas Grano de Oro 900 g",17.20, 34, "2025-01-15", "https://plazavea.vteximg.com.br/arquivos/ids/561742-450-450/20192034.jpg?v=637427442451830000", 1, 2),
-            ProductDTO("Arroz ", "Avena Tradicional Quaker de 900 g",15.70, 72, "2024-02-12", "https://wongfood.vtexassets.com/arquivos/ids/606790/Mantequilla-con-Sal-Gloria-90g-1-351640701.jpg?v=638074246405000000", 1, 2),
-        )
-        val adapter = CartAdapter(productList)
+        adapter = CartAdapter(Cart.obtenerProductos())
         rvproductoscart.adapter = adapter
         //--
     }
+
+    fun agregarProducto(product: ProductoDashboardResponse) {
+        Cart.agregarProducto(product)
+        adapter.actualizarProductos(Cart.obtenerProductos())
+    }
+
 
     // Maneja el clic en la flecha de retroceso
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
