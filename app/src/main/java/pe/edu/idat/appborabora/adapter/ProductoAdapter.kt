@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.util.Base64
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import pe.edu.idat.appborabora.R
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,10 +40,17 @@ class ProductoAdapter(private val context: Context) : RecyclerView.Adapter<Produ
         holder.tvPrecio.text = "Precio: ${product.price}"
         holder.tvStock.text = "Stock: ${product.stock}"
         holder.tvDescripcion.text = product.description
-        Glide.with(holder.itemView.context).load(product.image).into(holder.ivProducto)
+        // Decodifica la imagen en base64 y la carga en ivProducto
+        val imageBitmap = decodeImage(product.image)
+        holder.ivProducto.setImageBitmap(imageBitmap)
     }
 
     override fun getItemCount(): Int {
         return productList.size
+    }
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 }
