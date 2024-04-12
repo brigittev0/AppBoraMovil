@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -51,21 +52,20 @@ class Compra : AppCompatActivity() {
         }
 
         //--Redirrecion a otra interfaz segun la opcion seleccionada en metodo de entrega
-        val radioButtonStorePickup: RadioButton = findViewById(R.id.radioButtonStorePickup)
-        radioButtonStorePickup.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                // Redirige a la nueva interfaz para recojo en tienda
-                val intent = Intent(this, Pickup::class.java)
-                startActivity(intent)
-            }
-        }
+        val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
 
-        val radioButtonHomeDelivery: RadioButton = findViewById(R.id.radioButtonHomeDelivery)
-        radioButtonHomeDelivery.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                // Redirige a la nueva interfaz para envío a domicilio
-                val intent = Intent(this, Delivery::class.java)
-                startActivity(intent)
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radioButtonStorePickup -> {
+                    // Navega a la interfaz para recoger en tienda
+                    val intent = Intent(this, Pickup::class.java)
+                    startActivity(intent)
+                }
+                R.id.radioButtonHomeDelivery -> {
+                    // Navega a la interfaz para el envío a domicilio
+                    val intent = Intent(this, Delivery::class.java)
+                    startActivity(intent)
+                }
             }
         }
 

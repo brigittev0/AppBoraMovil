@@ -35,21 +35,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <TextView
-            android:id="@+id/textView70"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:text="Selecciona tu ubicación:"
-            android:textColor="@color/purple_title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
-            app:layout_constraintHorizontal_bias="0.005"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
@@ -62,17 +47,18 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintHorizontal_bias="0.004"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/textView70" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spDepartamento"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/custom_spinner_background"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:textColor="@color/gris_oscuro"
+            android:background="@drawable/custom_plain_text_input"
+            android:ems="10"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:text="Lima"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -92,15 +78,16 @@
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toBottomOf="@+id/spDepartamento" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spProvincia"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/custom_spinner_background"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:textColor="@color/gris_oscuro"
+            android:background="@drawable/custom_plain_text_input"
+            android:ems="10"
+            android:inputType="none"
+            android:paddingStart="16dp"
+            android:text="Cañete"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintHorizontal_bias="1.0"
@@ -195,11 +182,54 @@
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
+        <TextView
+            android:id="@+id/textView63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Fecha de entrega"
+            android:textColor="@color/text_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintHorizontal_bias="0.005"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toBottomOf="@+id/etDireccion" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toBottomOf="@+id/textView63">
+
+            <ImageButton
+                android:id="@+id/btnDateDelivery"
+                android:layout_width="137dp"
+                android:layout_height="59dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_date_select"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/tvSelectDateDelivery"
+                android:layout_width="137dp"
+                android:layout_height="35dp"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Fecha" />
+
+        </FrameLayout>
+
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="38dp"
             android:backgroundTint="@color/btn_purple"
             android:text="Guardar"
             android:textSize="20sp"
@@ -209,8 +239,8 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/etDireccion"
-            app:layout_constraintVertical_bias="0.916" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"
