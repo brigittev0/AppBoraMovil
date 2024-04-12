@@ -9,7 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import android.util.Base64
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
@@ -38,7 +40,9 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         val product = productList[position]
         holder.tvNombre.text = product.name
         holder.tvPrecio.text = product.price.toString()
-        Glide.with(holder.itemView.context).load(product.image).into(holder.ivProducto)
+        // Decodifica la imagen en base64 y la carga en ivProducto
+        val imageBitmap = decodeImage(product.image)
+        holder.ivProducto.setImageBitmap(imageBitmap)
 
         // Carrito
         // Botón de ordenar
@@ -61,6 +65,11 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         val tvPrecio: TextView = view.findViewById(R.id.tvPrecio)
         val ivProducto: ImageView = view.findViewById(R.id.ivProducto)
         val btnOrdenar: Button = view.findViewById(R.id.btnOrdenar)
+    }
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 }
 
