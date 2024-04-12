@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
@@ -20,7 +21,11 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
         val tvProdCard: TextView = itemView.findViewById(R.id.tvProdCart)
         val tvPrecioPDC: TextView = itemView.findViewById(R.id.tvPrecioPDC)
         val imgcart: ImageView = itemView.findViewById(R.id.img_cart)
-        val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidad) // Asegúrate de tener un TextView para la cantidad en tu layout
+        val tvCantidad: TextView = itemView.findViewById(R.id.tvCantidad)
+
+        val incrementButton: CardView = itemView.findViewById(R.id.increment)
+        val decrementButton: CardView = itemView.findViewById(R.id.decrement)
+        val quantityTextView: TextView = itemView.findViewById(R.id.tvCantidad)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -47,6 +52,25 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
             productList = Cart.obtenerProductos()
             notifyDataSetChanged()
             Toast.makeText(holder.itemView.context, "Producto eliminado", Toast.LENGTH_SHORT).show()
+        }
+
+
+
+        //Incremento - Decremento
+        holder.quantityTextView.text = currentItem.cantidad.toString()
+
+        holder.incrementButton.setOnClickListener {
+            currentItem.cantidad++
+            holder.quantityTextView.text = currentItem.cantidad.toString()
+            notifyItemChanged(position)
+        }
+
+        holder.decrementButton.setOnClickListener {
+            if (currentItem.cantidad > 1) {
+                currentItem.cantidad--
+                holder.quantityTextView.text = currentItem.cantidad.toString()
+                notifyItemChanged(position)
+            }
         }
     }
 
