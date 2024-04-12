@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,9 +31,19 @@ class Compra : AppCompatActivity() {
 
     private lateinit var adapter: CartAdapter
 
+    private lateinit var subtotalTextView: TextView
+    private lateinit var igvTextView: TextView
+    private lateinit var shippingTextView: TextView
+    private lateinit var totalTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compra)
+
+        subtotalTextView = findViewById(R.id.tvsubtotal)
+        igvTextView = findViewById(R.id.tvigv)
+        shippingTextView = findViewById(R.id.tvgastoenvio)
+        totalTextView = findViewById(R.id.tvtotalcompra)
 
         val payButton: Button = findViewById(R.id.pay)
         payButton.setOnClickListener {
@@ -69,8 +80,25 @@ class Compra : AppCompatActivity() {
         //----Adapter Producto Carrito
         val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
         rvproductoscart.layoutManager = LinearLayoutManager(this)
-        adapter = CartAdapter(Cart.obtenerProductos())
+        adapter = CartAdapter(Cart.obtenerProductos()) {
+            updateTotals()
+        }
         rvproductoscart.adapter = adapter
+        updateTotals()
+    }
+
+    //--Actualizar resumen compra
+    fun updateTotals() {
+        val subtotal = Cart.obtenerProductos().sumOf { it.subtotal }
+        val igv = Cart.obtenerProductos().sumOf { it.igv }
+        val shipping = Cart.obtenerProductos().sumOf { it.shipping }
+        val total = Cart.obtenerProductos().sumOf { it.total }
+
+        // Actualiza los totales en la interfaz de usuario
+        subtotalTextView.text = "S/. ${String.format("%.2f", subtotal)}"
+        igvTextView.text = "S/. ${String.format("%.2f", igv)}"
+        shippingTextView.text =  "S/. ${String.format("%.2f", shipping)}"
+        totalTextView.text = "S/. ${String.format("%.2f", total)}"
     }
 
     // Maneja el clic en la flecha de retroceso

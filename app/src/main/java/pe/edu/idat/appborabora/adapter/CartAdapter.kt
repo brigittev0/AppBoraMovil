@@ -15,7 +15,7 @@ import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.util.ProductCart
 
-class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private var productList: List<ProductCart>, private val onProductQuantityChanged: () -> Unit) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvProdCard: TextView = itemView.findViewById(R.id.tvProdCart)
@@ -25,7 +25,6 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
 
         val incrementButton: CardView = itemView.findViewById(R.id.increment)
         val decrementButton: CardView = itemView.findViewById(R.id.decrement)
-        val quantityTextView: TextView = itemView.findViewById(R.id.tvCantidad)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -37,7 +36,7 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
         val currentItem = productList[position]
         holder.tvProdCard.text = currentItem.producto.description
         val unitPrice = currentItem.producto.price
-        holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
+        holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.cantidad * unitPrice)}"
         holder.tvCantidad.text = currentItem.cantidad.toString()
 
         Glide.with(holder.itemView.context)
@@ -53,17 +52,19 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
             productList = Cart.obtenerProductos()
             notifyDataSetChanged()
             Toast.makeText(holder.itemView.context, "Producto eliminado", Toast.LENGTH_SHORT).show()
+            onProductQuantityChanged.invoke() // Llama al callback cuando se elimina un producto
         }
 
         //Incremento - Decremento
-        holder.quantityTextView.text = currentItem.cantidad.toString()
+        holder.tvCantidad.text = currentItem.cantidad.toString()
 
         holder.incrementButton.setOnClickListener {
             if (currentItem.cantidad < currentItem.producto.stock) {
                 currentItem.cantidad++
-                holder.quantityTextView.text = currentItem.cantidad.toString()
-                holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
+                holder.tvCantidad.text = currentItem.cantidad.toString()
+                holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
+                onProductQuantityChanged.invoke() // Llama al callback cuando se incrementa la cantidad
             } else {
                 Toast.makeText(holder.itemView.context, "No puedes agregar más de este producto. Stock limitado.", Toast.LENGTH_SHORT).show()
             }
@@ -72,9 +73,10 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
         holder.decrementButton.setOnClickListener {
             if (currentItem.cantidad > 1) {
                 currentItem.cantidad--
-                holder.quantityTextView.text = currentItem.cantidad.toString()
-                holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
+                holder.tvCantidad.text = currentItem.cantidad.toString()
+                holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
+                onProductQuantityChanged.invoke() // Llama al callback cuando se decrementa la cantidad
             }
         }
     }
