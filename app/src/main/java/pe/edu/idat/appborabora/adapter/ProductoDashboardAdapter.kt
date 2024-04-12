@@ -45,7 +45,7 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         holder.btnOrdenar.setOnClickListener {
             val productCart = ProductCart(ProductDTO(product.name, product.description,
                 product.price, product.stock, product.expirationDate, product.image, product.categoryId,
-                product.brandProductId), 0)
+                product.brandProductId), 1)
 
             val productoAgregado = Cart.agregarProducto(productCart)
             if (productoAgregado) {

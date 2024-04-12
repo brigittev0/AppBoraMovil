@@ -36,7 +36,8 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val currentItem = productList[position]
         holder.tvProdCard.text = currentItem.producto.description
-        holder.tvPrecioPDC.text = "S/. ${currentItem.producto.price}"
+        val unitPrice = currentItem.producto.price
+        holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
         holder.tvCantidad.text = currentItem.cantidad.toString()
 
         Glide.with(holder.itemView.context)
@@ -54,14 +55,13 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
             Toast.makeText(holder.itemView.context, "Producto eliminado", Toast.LENGTH_SHORT).show()
         }
 
-
-
         //Incremento - Decremento
         holder.quantityTextView.text = currentItem.cantidad.toString()
 
         holder.incrementButton.setOnClickListener {
             currentItem.cantidad++
             holder.quantityTextView.text = currentItem.cantidad.toString()
+            holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
             notifyItemChanged(position)
         }
 
@@ -69,6 +69,7 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
             if (currentItem.cantidad > 1) {
                 currentItem.cantidad--
                 holder.quantityTextView.text = currentItem.cantidad.toString()
+                holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
                 notifyItemChanged(position)
             }
         }
