@@ -34,7 +34,7 @@ class CreateUserViewModel (application: Application) : AndroidViewModel(applicat
 
                 override fun onFailure(call: Call<CreateUserResponse>, t: Throwable) {
                     // Handle failure
-                    val errorResponse = CreateUserResponse("Error al crear usuario", status = true)
+                    val errorResponse = CreateUserResponse("No se puedo crear el usuario", status = true)
                     registerResponseMutableLiveData.value = errorResponse
                     Log.e("CreateUser", "Request failed", t)
                 }
