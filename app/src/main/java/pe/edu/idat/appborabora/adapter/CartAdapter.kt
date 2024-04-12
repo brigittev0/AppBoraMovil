@@ -59,10 +59,14 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
         holder.quantityTextView.text = currentItem.cantidad.toString()
 
         holder.incrementButton.setOnClickListener {
-            currentItem.cantidad++
-            holder.quantityTextView.text = currentItem.cantidad.toString()
-            holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
-            notifyItemChanged(position)
+            if (currentItem.cantidad < currentItem.producto.stock) {
+                currentItem.cantidad++
+                holder.quantityTextView.text = currentItem.cantidad.toString()
+                holder.tvPrecioPDC.text = "S/. ${String.format("%.1f", currentItem.cantidad * unitPrice)}"
+                notifyItemChanged(position)
+            } else {
+                Toast.makeText(holder.itemView.context, "No puedes agregar más de este producto. Stock limitado.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         holder.decrementButton.setOnClickListener {
