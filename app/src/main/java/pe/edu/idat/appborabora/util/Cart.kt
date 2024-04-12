@@ -1,12 +1,10 @@
 package pe.edu.idat.appborabora.util
 
-import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
-
 object Cart {
 
-    val productosSeleccionados = mutableListOf<ProductoDashboardResponse>()
+    val productosSeleccionados = mutableListOf<ProductCart>()
 
-    fun agregarProducto(producto: ProductoDashboardResponse): Boolean {
+    fun agregarProducto(producto: ProductCart): Boolean {
         return if (!productosSeleccionados.contains(producto)) {
             productosSeleccionados.add(producto)
             true
@@ -15,11 +13,11 @@ object Cart {
         }
     }
 
-    fun removerProducto(producto: ProductoDashboardResponse) {
+    fun removerProducto(producto: ProductCart) {
         productosSeleccionados.remove(producto)
     }
 
-    fun obtenerProductos(): List<ProductoDashboardResponse> {
+    fun obtenerProductos(): List<ProductCart> {
         return productosSeleccionados
     }
 }

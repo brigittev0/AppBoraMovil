@@ -11,8 +11,6 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -22,7 +20,6 @@ import lib.visanet.com.pe.visanetlib.data.custom.Channel
 import lib.visanet.com.pe.visanetlib.presentation.custom.VisaNetViewAuthorizationCustom
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.CartAdapter
-import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
 import pe.edu.idat.appborabora.util.Cart
@@ -68,21 +65,13 @@ class Compra : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Carrito de compras"
-        //--
 
-        //----Adapter Producto
+        //----Adapter Producto Carrito
         val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
         rvproductoscart.layoutManager = LinearLayoutManager(this)
         adapter = CartAdapter(Cart.obtenerProductos())
         rvproductoscart.adapter = adapter
-        //--
     }
-
-    fun agregarProducto(product: ProductoDashboardResponse) {
-        Cart.agregarProducto(product)
-        adapter.actualizarProductos(Cart.obtenerProductos())
-    }
-
 
     // Maneja el clic en la flecha de retroceso
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

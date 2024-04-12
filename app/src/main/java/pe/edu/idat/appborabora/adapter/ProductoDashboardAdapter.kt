@@ -11,11 +11,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.util.Cart
+import pe.edu.idat.appborabora.util.ProductCart
+
 
 class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adapter<ProductoDashboardAdapter.ViewHolder>() {
-
     private var productList: List<ProductoDashboardResponse> = ArrayList()
 
     fun setProductList(productList: List<ProductoDashboardResponse>) {
@@ -38,9 +40,14 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         holder.tvPrecio.text = product.price.toString()
         Glide.with(holder.itemView.context).load(product.image).into(holder.ivProducto)
 
+        // Carrito
         // Botón de ordenar
         holder.btnOrdenar.setOnClickListener {
-            val productoAgregado = Cart.agregarProducto(product)
+            val productCart = ProductCart(ProductDTO(product.name, product.description,
+                product.price, product.stock, product.expirationDate, product.image, product.categoryId,
+                product.brandProductId), 0)
+
+            val productoAgregado = Cart.agregarProducto(productCart)
             if (productoAgregado) {
                 Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
             } else {
@@ -49,7 +56,6 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         }
     }
 
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNombre: TextView = view.findViewById(R.id.tvNombre)
         val tvPrecio: TextView = view.findViewById(R.id.tvPrecio)
@@ -57,3 +63,6 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         val btnOrdenar: Button = view.findViewById(R.id.btnOrdenar)
     }
 }
+
+
+
