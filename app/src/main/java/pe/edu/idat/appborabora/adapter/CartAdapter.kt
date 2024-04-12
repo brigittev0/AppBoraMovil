@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
@@ -36,6 +37,17 @@ class CartAdapter(private var productList: List<ProductCart>) : RecyclerView.Ada
         Glide.with(holder.itemView.context)
             .load(currentItem.producto.image)
             .into(holder.imgcart)
+
+        // Eliminar
+        val btnDelete: ImageView = holder.itemView.findViewById(R.id.btnDeleteCart)
+        btnDelete.setOnClickListener {
+            // Elimina el producto de la lista en Cart
+            Cart.eliminarProducto(position)
+            // Actualiza la lista en el adaptador
+            productList = Cart.obtenerProductos()
+            notifyDataSetChanged()
+            Toast.makeText(holder.itemView.context, "Producto eliminado", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount() = productList.size

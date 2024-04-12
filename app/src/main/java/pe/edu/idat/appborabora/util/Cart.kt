@@ -13,8 +13,10 @@ object Cart {
         }
     }
 
-    fun removerProducto(producto: ProductCart) {
-        productosSeleccionados.remove(producto)
+    fun eliminarProducto(position: Int) {
+        if (position >= 0 && position < productosSeleccionados.size) {
+            productosSeleccionados.removeAt(position)
+        }
     }
 
     fun obtenerProductos(): List<ProductCart> {
