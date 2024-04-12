@@ -26,7 +26,7 @@ class CreateUserViewModel (application: Application) : AndroidViewModel(applicat
                         registerResponseMutableLiveData.value = response.body()
                     } else {
                         // Handle unsuccessful response
-                        val errorResponse = CreateUserResponse("Error al crear usuario", status = true)
+                        val errorResponse = CreateUserResponse("No se puedo crear el usuario", status = true)
                         registerResponseMutableLiveData.value = errorResponse
                         Log.e("CreateUser", "Unsuccessful response: ${response.errorBody()?.string()}")
                     }
