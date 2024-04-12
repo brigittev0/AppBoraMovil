@@ -1,10 +1,12 @@
 package pe.edu.idat.appborabora.data.network.public
 
+import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
 import pe.edu.idat.appborabora.data.dto.request.PasswordUpdateRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.BrandProductDTO
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
+import pe.edu.idat.appborabora.data.dto.response.CreateUserResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import retrofit2.Call
@@ -17,6 +19,9 @@ interface PublicService {
 
     @POST("auth/log-in")
     fun login(@Body data: LoginRequest): Call<LoginResponse>
+
+    @POST("auth/sign-up")
+    fun createUser(@Body createUserRequest: CreateUserRequest): Call<CreateUserResponse>
 
     @POST("user/updatePassword")
     fun updatePassword(@Body passwordUpdateRequest: PasswordUpdateRequest): Call<ApiResponse>

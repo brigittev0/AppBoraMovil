@@ -29,6 +29,19 @@
                 android:layout_width="281dp"
                 android:layout_height="559dp">
 
+                <EditText
+                    android:id="@+id/t_username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/valUsername"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/t_celular" />
+
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
@@ -44,8 +57,8 @@
 
                 <EditText
                     android:id="@+id/t_nom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="276dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="4dp"
                     android:ems="10"
                     android:hint="@string/nombres"
@@ -59,7 +72,6 @@
                     android:id="@+id/t_apellido"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="@string/apellidos"
                     android:inputType="text"
@@ -72,7 +84,6 @@
                     android:id="@+id/t_dni"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="@string/documento"
                     android:inputType="phone"
@@ -85,12 +96,12 @@
                     android:id="@+id/t_passw"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="@string/contra"
                     android:inputType="text"
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/t_correo" />
 
@@ -106,7 +117,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/t_celular" />
+                    app:layout_constraintTop_toBottomOf="@+id/t_username" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -164,7 +175,6 @@
                     android:id="@+id/t_celular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="@string/celular"
                     android:inputType="phone"
@@ -175,14 +185,15 @@
 
                 <EditText
                     android:id="@+id/t_correo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="277dp"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="4dp"
                     android:ems="10"
                     android:hint="@string/correo"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
