@@ -317,7 +317,7 @@
                             app:srcCompat="@drawable/ic_entrega" />
 
                         <RadioGroup
-                            android:id="@+id/radioGroup"
+                            android:id="@+id/rgOptionSelect"
                             android:layout_width="299dp"
                             android:layout_height="69dp"
                             android:orientation="horizontal"

@@ -22,8 +22,6 @@ import java.util.Calendar
 
 class Delivery : AppCompatActivity() {
 
-    private lateinit var spDepartamento: EditText
-    private lateinit var spProvincia: EditText
     private lateinit var spDistrito: Spinner
     private lateinit var etUbigeo: EditText
     private lateinit var etDireccion: EditText
@@ -48,6 +46,7 @@ class Delivery : AppCompatActivity() {
         loadFormData()
     }
 
+    //-- Inicializando
     private fun setupViews() {
         spDistrito = findViewById(R.id.spDistrito)
         etUbigeo = findViewById(R.id.etUbigeo)
@@ -57,6 +56,7 @@ class Delivery : AppCompatActivity() {
         tvSelectDateDelivery = findViewById(R.id.tvSelectDateDelivery)
     }
 
+    //-- Toolbar
     private fun setupToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -66,6 +66,7 @@ class Delivery : AppCompatActivity() {
         supportActionBar?.title = "Envio a domicilio"
     }
 
+    //-- Spinner
     private fun setupSpinner() {
         val distritos = arrayOf(
             "Asia",
@@ -90,12 +91,14 @@ class Delivery : AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, distritos)
     }
 
+    //-- Seleccion boton fecha
     private fun setupDateButton() {
         btnDateDelivery.setOnClickListener {
             selectDate()
         }
     }
 
+    //-- Boton Guardar
     private fun setupSaveButton() {
         btnGuardar.setOnClickListener {
             val departamento = "Lima"
@@ -113,6 +116,22 @@ class Delivery : AppCompatActivity() {
         }
     }
 
+    // Cargar los datos de las preferencias compartidas
+    private fun loadFormData() {
+        val distrito = sharedPreferences.getString("distrito", "")
+        spDistrito.setSelection((spDistrito.adapter as ArrayAdapter<String>).getPosition(distrito))
+        etUbigeo.setText(sharedPreferences.getString("ubigeo", ""))
+        etDireccion.setText(sharedPreferences.getString("direccion", ""))
+        val fecha = sharedPreferences.getString("fecha", null)
+        if (fecha != null) {
+            selectedDate = LocalDate.parse(fecha)
+            tvSelectDateDelivery.text = fecha
+        }
+    }
+
+    //----- METODOS -----
+
+    //-- Validaciones
     private fun validateFields(ubigeo: String, direccion: String, fecha: LocalDate?): Boolean {
 
         if (ubigeo.isEmpty()) {
@@ -133,10 +152,9 @@ class Delivery : AppCompatActivity() {
         return true
     }
 
+    //-- Guardar datos en Preferencias compartidas
     private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, ubigeo: String, direccion: String, fecha: LocalDate?) {
         Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
-
-        val intent = Intent(this, Compra::class.java)
 
         // Guardar los datos en las preferencias compartidas
         sharedPreferences.edit().apply {
@@ -148,22 +166,10 @@ class Delivery : AppCompatActivity() {
             putString("fecha", fecha.toString())
             apply()
         }
-        startActivity(intent)
+        navigateTo(Compra::class.java)
     }
 
-    // Cargar los datos de las preferencias compartidas
-    private fun loadFormData() {
-        val distrito = sharedPreferences.getString("distrito", "")
-        spDistrito.setSelection((spDistrito.adapter as ArrayAdapter<String>).getPosition(distrito))
-        etUbigeo.setText(sharedPreferences.getString("ubigeo", ""))
-        etDireccion.setText(sharedPreferences.getString("direccion", ""))
-        val fecha = sharedPreferences.getString("fecha", null)
-        if (fecha != null) {
-            selectedDate = LocalDate.parse(fecha)
-            tvSelectDateDelivery.text = fecha
-        }
-    }
-
+    //-- Seleccionar fecha
     private fun selectDate() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -176,6 +182,13 @@ class Delivery : AppCompatActivity() {
         }, year, month, day)
 
         datePickerDialog.show()
+    }
+
+    //-- Navegacion
+    private fun navigateTo(activity: Class<*>) {
+        val intent = Intent(this, activity)
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        startActivity(intent)
     }
 
     // Maneja el clic en la flecha de retroceso

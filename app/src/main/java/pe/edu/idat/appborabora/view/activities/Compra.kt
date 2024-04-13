@@ -1,5 +1,6 @@
 package pe.edu.idat.appborabora.view.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,9 +23,9 @@ import lib.visanet.com.pe.visanetlib.data.custom.Channel
 import lib.visanet.com.pe.visanetlib.presentation.custom.VisaNetViewAuthorizationCustom
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.CartAdapter
-import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
 import pe.edu.idat.appborabora.util.Cart
+import pe.edu.idat.appborabora.view.HomeNavigation
 import java.lang.Exception
 import java.util.HashMap
 
@@ -37,57 +38,56 @@ class Compra : AppCompatActivity() {
     private lateinit var shippingTextView: TextView
     private lateinit var totalTextView: TextView
 
+    private val sharedPreferences by lazy { getSharedPreferences("OptionDeliveryPickup", Context.MODE_PRIVATE) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compra)
 
+        initViews()
+        setupToolbar()
+        setupRecyclerView()
+        updateTotals()
+        setupRadioGroup()
+
+        setupPayButton()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadSelectedOption()
+    }
+
+    //-- Inicializando
+    private fun initViews() {
         subtotalTextView = findViewById(R.id.tvsubtotal)
         igvTextView = findViewById(R.id.tvigv)
         shippingTextView = findViewById(R.id.tvgastoenvio)
         totalTextView = findViewById(R.id.tvtotalcompra)
+    }
 
-        val payButton: Button = findViewById(R.id.pay)
-        payButton.setOnClickListener {
-            Visanet().getTokenSecurityProvider(this)
-        }
-
-        //--Redirrecion a otra interfaz segun la opcion seleccionada en metodo de entrega
-        val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
-
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.radioButtonStorePickup -> {
-                    // Navega a la interfaz para recoger en tienda
-                    val intent = Intent(this, Pickup::class.java)
-                    startActivity(intent)
-                }
-                R.id.radioButtonHomeDelivery -> {
-                    // Navega a la interfaz para el envío a domicilio
-                    val intent = Intent(this, Delivery::class.java)
-                    startActivity(intent)
-                }
-            }
-        }
-
-        //--Toolbar
+    //-- Toolbar
+    private fun setupToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Carrito de compras"
+    }
 
-        //----Adapter Producto Carrito
+    //-- Carrito de compras
+    private fun setupRecyclerView() {
         val rvproductoscart: RecyclerView = findViewById(R.id.rvproductoscart)
         rvproductoscart.layoutManager = LinearLayoutManager(this)
         adapter = CartAdapter(Cart.obtenerProductos()) {
             updateTotals()
         }
         rvproductoscart.adapter = adapter
-        updateTotals()
     }
 
-    //--Actualizar resumen compra
+    //-- Actualizar resumen compra
     fun updateTotals() {
         val subtotal = Cart.obtenerProductos().sumOf { it.subtotal }
         val igv = Cart.obtenerProductos().sumOf { it.igv }
@@ -101,18 +101,72 @@ class Compra : AppCompatActivity() {
         totalTextView.text = "S/. ${String.format("%.2f", total)}"
     }
 
+    //-- Radio Button -- redirigir interfaz
+    private fun setupRadioGroup() {
+        val rgOptionSelect: RadioGroup = findViewById(R.id.rgOptionSelect)
+
+        rgOptionSelect.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radioButtonStorePickup -> {
+                    Toast.makeText(this, "Entrega a domicilio seleccionada", Toast.LENGTH_SHORT).show()
+                    navigateTo(Pickup::class.java)
+                    saveSelectedOption(R.id.radioButtonStorePickup)
+                }
+                R.id.radioButtonHomeDelivery -> {
+                    Toast.makeText(this, "Retiro en tienda seleccionada.", Toast.LENGTH_SHORT).show()
+                    navigateTo(Delivery::class.java)
+                    saveSelectedOption(R.id.radioButtonHomeDelivery)
+                }
+            }
+        }
+    }
+
+    //-- Boton Pagar
+    private fun setupPayButton() {
+        val payButton: Button = findViewById(R.id.pay)
+        payButton.setOnClickListener {
+            Visanet().getTokenSecurityProvider(this)
+        }
+    }
+
+    //-- Cargar opcion de Delivery/Pickup
+    private fun loadSelectedOption() {
+        val selectedOption = sharedPreferences.getInt("OptionDeliveryPickup", -1)
+        if (selectedOption != -1) {
+            findViewById<RadioButton>(selectedOption).isChecked = true
+        }
+
+    }
+
+    //----- METODOS -----
+
+    //-- Guardar Opcion seleccionada
+    private fun saveSelectedOption(optionId: Int) {
+        sharedPreferences.edit().apply {
+            putInt("selectedOption", optionId)
+            apply()
+        }
+    }
+
+    //-- Navegacion
+    private fun navigateTo(activity: Class<*>) {
+        val intent = Intent(this, activity)
+        startActivity(intent)
+    }
+
     // Maneja el clic en la flecha de retroceso
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                navigateTo(HomeNavigation::class.java)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    //--Niubiz
+
+    //---- Niubiz ---
     fun receiveToken(token : String , pinHash : String){
 
         val TAG = "NIUBIZ"
