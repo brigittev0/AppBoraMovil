@@ -26,7 +26,7 @@ class Pickup : AppCompatActivity() {
     private lateinit var tvSelectDatePickup: TextView
     private var selectedDate: LocalDate? = null
 
-    private val sharedPreferences by lazy { getSharedPreferences("PickupForm", Context.MODE_PRIVATE) }
+    private val sharedPreferences by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

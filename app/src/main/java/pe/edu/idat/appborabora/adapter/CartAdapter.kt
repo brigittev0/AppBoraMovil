@@ -1,5 +1,8 @@
 package pe.edu.idat.appborabora.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +42,9 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.cantidad * unitPrice)}"
         holder.tvCantidad.text = currentItem.cantidad.toString()
 
-        Glide.with(holder.itemView.context)
-            .load(currentItem.producto.image)
-            .into(holder.imgcart)
+        // Decodifica la imagen en base64
+        val imageBitmap = decodeImage(currentItem.producto.image)
+        holder.imgcart.setImageBitmap(imageBitmap)
 
         // Eliminar
         val btnDelete: ImageView = holder.itemView.findViewById(R.id.btnDeleteCart)
@@ -86,5 +89,10 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
     fun actualizarProductos(productos: List<ProductCart>) {
         this.productList = productos
         notifyDataSetChanged()
+    }
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 }

@@ -38,7 +38,7 @@ class Purchase : AppCompatActivity() {
     private lateinit var shippingTextView: TextView
     private lateinit var totalTextView: TextView
 
-    private val sharedPreferences by lazy { getSharedPreferences("OptionDeliveryPickup", Context.MODE_PRIVATE) }
+    private val sharedPreferences by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class Purchase : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        loadSelectedOption()
+        updateTotals()
     }
 
     //-- Inicializando
@@ -91,14 +91,24 @@ class Purchase : AppCompatActivity() {
     fun updateTotals() {
         val subtotal = Cart.obtenerProductos().sumOf { it.subtotal }
         val igv = Cart.obtenerProductos().sumOf { it.igv }
-        val shipping = Cart.obtenerProductos().sumOf { it.shipping }
+        var shipping = Cart.obtenerProductos().sumOf { it.shipping }
         val total = Cart.obtenerProductos().sumOf { it.total }
+
+        // Verifica la opción seleccionada en las preferencias compartidas
+        val selectedOption = sharedPreferences.getInt("selectedOption", 0)
+        if (selectedOption == R.id.radioButtonHomeDelivery) {
+            // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
+            shipping += 5.90
+        } else if (selectedOption == R.id.radioButtonStorePickup) {
+            // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
+            shipping = 0.0
+        }
 
         // Actualiza los totales en la interfaz de usuario
         subtotalTextView.text = "S/. ${String.format("%.2f", subtotal)}"
         igvTextView.text = "S/. ${String.format("%.2f", igv)}"
         shippingTextView.text =  "S/. ${String.format("%.2f", shipping)}"
-        totalTextView.text = "S/. ${String.format("%.2f", total)}"
+        totalTextView.text = "S/. ${String.format("%.2f", total + shipping)}" // Agrega el costo de envío al total
     }
 
     //-- Radio Button -- redirigir interfaz
@@ -125,17 +135,31 @@ class Purchase : AppCompatActivity() {
     private fun setupPayButton() {
         val payButton: Button = findViewById(R.id.pay)
         payButton.setOnClickListener {
+            // Imprimir la lista de productos en el log
+            val productos = Cart.obtenerProductos()
+
+            productos.forEach { producto ->
+                Log.d("Pago", "Producto: ${producto.producto.name}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}, IGV: ${producto.igv}, Total: ${producto.total}")
+            }
+
+            val selectedOption = sharedPreferences.getInt("selectedOption", 0)
+            Log.d("Pago", "Opción de envío: $selectedOption")
+
+            // Imprimir todos los datos de las preferencias compartidas en el log
+            val departamento = sharedPreferences.getString("departamento", "")
+            val provincia = sharedPreferences.getString("provincia", "")
+            val distrito = sharedPreferences.getString("distrito", "")
+            val ubigeo = sharedPreferences.getString("ubigeo", "")
+            val direccion = sharedPreferences.getString("direccion", "")
+            val fechaDelivery = sharedPreferences.getString("fechaDelivery", "")
+            val sede = sharedPreferences.getString("sede", "")
+            val fechaPickup = sharedPreferences.getString("fechaPickup", "")
+
+            Log.d("Pago", "Departamento: $departamento, Provincia: $provincia, Distrito: $distrito, Ubigeo: $ubigeo, Dirección: $direccion, Fecha de Delivery: $fechaDelivery, Sede: $sede, Fecha de Pickup: $fechaPickup")
+
+
             Visanet().getTokenSecurityProvider(this)
         }
-    }
-
-    //-- Cargar opcion de Delivery/Pickup
-    private fun loadSelectedOption() {
-        val selectedOption = sharedPreferences.getInt("OptionDeliveryPickup", -1)
-        if (selectedOption != -1) {
-            findViewById<RadioButton>(selectedOption).isChecked = true
-        }
-
     }
 
     //----- METODOS -----

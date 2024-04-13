@@ -30,7 +30,7 @@ class Delivery : AppCompatActivity() {
     private lateinit var tvSelectDateDelivery: TextView
     private var selectedDate: LocalDate? = null
 
-    private val sharedPreferences by lazy { getSharedPreferences("DeliveryForm", Context.MODE_PRIVATE) }
+    private val sharedPreferences by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +121,7 @@ class Delivery : AppCompatActivity() {
         spDistrito.setSelection((spDistrito.adapter as ArrayAdapter<String>).getPosition(distrito))
         etUbigeo.setText(sharedPreferences.getString("ubigeo", ""))
         etDireccion.setText(sharedPreferences.getString("direccion", ""))
-        val fecha = sharedPreferences.getString("fecha", null)
+        val fecha = sharedPreferences.getString("fechaDelivery", null)
         if (fecha != null) {
             selectedDate = LocalDate.parse(fecha)
             tvSelectDateDelivery.text = fecha
