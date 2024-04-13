@@ -108,12 +108,12 @@ class Compra : AppCompatActivity() {
         rgOptionSelect.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radioButtonStorePickup -> {
-                    Toast.makeText(this, "Entrega a domicilio seleccionada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Retiro en tienda seleccionada", Toast.LENGTH_SHORT).show()
                     navigateTo(Pickup::class.java)
                     saveSelectedOption(R.id.radioButtonStorePickup)
                 }
                 R.id.radioButtonHomeDelivery -> {
-                    Toast.makeText(this, "Retiro en tienda seleccionada.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Entrega a domicilio seleccionada", Toast.LENGTH_SHORT).show()
                     navigateTo(Delivery::class.java)
                     saveSelectedOption(R.id.radioButtonHomeDelivery)
                 }

@@ -16,7 +16,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.content.ContentProviderCompat.requireContext
 import java.time.LocalDate
 import java.util.Calendar
 
@@ -25,7 +24,7 @@ class Delivery : AppCompatActivity() {
     private lateinit var spDistrito: Spinner
     private lateinit var etUbigeo: EditText
     private lateinit var etDireccion: EditText
-    private lateinit var btnGuardar: Button
+    private lateinit var btnSaveDelivery: Button
 
     private lateinit var btnDateDelivery: AppCompatImageButton
     private lateinit var tvSelectDateDelivery: TextView
@@ -51,7 +50,7 @@ class Delivery : AppCompatActivity() {
         spDistrito = findViewById(R.id.spDistrito)
         etUbigeo = findViewById(R.id.etUbigeo)
         etDireccion = findViewById(R.id.etDireccion)
-        btnGuardar = findViewById(R.id.btnGuardar)
+        btnSaveDelivery = findViewById(R.id.btnSaveDelivery)
         btnDateDelivery = findViewById(R.id.btnDateDelivery)
         tvSelectDateDelivery = findViewById(R.id.tvSelectDateDelivery)
     }
@@ -100,7 +99,7 @@ class Delivery : AppCompatActivity() {
 
     //-- Boton Guardar
     private fun setupSaveButton() {
-        btnGuardar.setOnClickListener {
+        btnSaveDelivery.setOnClickListener {
             val departamento = "Lima"
             val provincia = "Cañete"
             val distritoSeleccionado = spDistrito.selectedItem.toString()
@@ -153,7 +152,7 @@ class Delivery : AppCompatActivity() {
     }
 
     //-- Guardar datos en Preferencias compartidas
-    private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, ubigeo: String, direccion: String, fecha: LocalDate?) {
+    private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, ubigeo: String, direccion: String, fechaDelivery: LocalDate?) {
         Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
 
         // Guardar los datos en las preferencias compartidas
@@ -163,7 +162,7 @@ class Delivery : AppCompatActivity() {
             putString("distrito", distrito)
             putString("ubigeo", ubigeo)
             putString("direccion", direccion)
-            putString("fecha", fecha.toString())
+            putString("fechaDelivery", fechaDelivery.toString())
             apply()
         }
         navigateTo(Compra::class.java)
