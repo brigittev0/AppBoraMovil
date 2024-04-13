@@ -1,11 +1,15 @@
 package pe.edu.idat.appborabora.view.fragments
 
+import android.app.Activity
 import android.util.Base64
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +43,8 @@ class ActualizarProducto : Fragment() {
     private lateinit var actualizarViewModel: ActualizarProductoViewModel
 
     private var selectedDate: LocalDate? = null
+    private var selectedImage: Bitmap? = null
+    private var ivImagen: ImageView? = null
     private var categories: List<CategoryResponse> = listOf()
     private var brandProducts: List<BrandProductDTO> = listOf()
 
@@ -100,6 +106,12 @@ class ActualizarProducto : Fragment() {
             }, year, month, day).show()
         }
 
+        ivImagen.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, IMAGE_PICK_CODE)
+        }
+
         // Obtener el producto cuando se hace clic en el botón
         btnExamine.setOnClickListener {
             val productIdText = view.findViewById<EditText>(R.id.productId).text.toString()
@@ -132,6 +144,7 @@ class ActualizarProducto : Fragment() {
             val decodedString = Base64.decode(product.image, Base64.DEFAULT)
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             ivImagen.setImageBitmap(decodedByte)
+            selectedImage = decodedByte
         })
 
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
@@ -148,9 +161,8 @@ class ActualizarProducto : Fragment() {
             val stock = etStock.text.toString().toInt()
             val expirationDate = tvSelectedDate.text.toString()
             //imagen a base64
-            val bitmap = (ivImagen.drawable as BitmapDrawable).bitmap
             val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            selectedImage?.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val image = Base64.encodeToString(byteArray, Base64.DEFAULT)
 
@@ -179,5 +191,20 @@ class ActualizarProducto : Fragment() {
         return view
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            val imageUri = data?.data
+            Log.d("ActualizarProducto", "imageUri: $imageUri")
+            val imageBitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri)
+            Log.d("ActualizarProducto", "imageBitmap: $imageBitmap")
+            ivImagen?.setImageBitmap(imageBitmap)
+            selectedImage = imageBitmap
+        }
+    }
+
+    companion object {
+        private const val IMAGE_PICK_CODE = 1000
+    }
 }
