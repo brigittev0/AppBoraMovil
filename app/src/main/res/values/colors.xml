@@ -31,21 +31,23 @@
     <color name="purple_1000">#58148e</color>  //Input
 
     //--------
-    //--Purple
-    <color name="purple_title">#6e0acf</color> //Titulos
     <color name="purple_1200">#8102D8</color>  //Color bar header menu principal
-    <color name="purple_header_card">#f4ebfc</color> //Color header de card
+
+
+    //--Purple
+    <color name="purple_title">#6e0acf</color> //Titulos - Iconos - Bordes input
+    <color name="purple_header_card">#f4ebfc</color> //Color header de cardView
 
     //--Boton
     <color name="btn_oscuro">#fec842</color>  //botones yellow
     <color name="btn_purple">#7100e1</color>  //botones purple
 
     //--Text
-    <color name="text_color">#302E2E</color>
+    <color name="text_color">#302E2E</color> //Color gris oscuro
 
     //--Resources
     <color name="gray_line">#f4ebfc</color> //linea gris claro
-    <color name="gray_line_form">#c4c4c4</color> //linea gris claro
+    <color name="gray_line_form">#c4c4c4</color> //linea gris claro - InputText
 
 
 </resources>

@@ -1,6 +1,7 @@
 package pe.edu.idat.appborabora.view.activities
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +20,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import java.time.LocalDate
 import java.util.Calendar
 
-
 class Delivery : AppCompatActivity() {
 
     private lateinit var spDepartamento: EditText
@@ -33,29 +33,40 @@ class Delivery : AppCompatActivity() {
     private lateinit var tvSelectDateDelivery: TextView
     private var selectedDate: LocalDate? = null
 
+    private val sharedPreferences by lazy { getSharedPreferences("DeliveryForm", Context.MODE_PRIVATE) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delivery)
 
-        spDepartamento = findViewById(R.id.spDepartamento)
-        spProvincia = findViewById(R.id.spProvincia)
+        setupViews()
+        setupToolbar()
+        setupSpinner()
+        setupDateButton()
+        setupSaveButton()
+
+        loadFormData()
+    }
+
+    private fun setupViews() {
         spDistrito = findViewById(R.id.spDistrito)
         etUbigeo = findViewById(R.id.etUbigeo)
         etDireccion = findViewById(R.id.etDireccion)
         btnGuardar = findViewById(R.id.btnGuardar)
         btnDateDelivery = findViewById(R.id.btnDateDelivery)
         tvSelectDateDelivery = findViewById(R.id.tvSelectDateDelivery)
+    }
 
-        //--Toolbar
+    private fun setupToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = "Envio a domicilio"
+    }
 
-        val departamentos = "Lima"
-        val provincias = "Cañete"
+    private fun setupSpinner() {
         val distritos = arrayOf(
             "Asia",
             "Calango",
@@ -75,28 +86,81 @@ class Delivery : AppCompatActivity() {
             "Zúñiga"
         )
 
-        spDistrito.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, distritos)
+        spDistrito.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, distritos)
+    }
 
-        //Seleccion del boton fecha
+    private fun setupDateButton() {
         btnDateDelivery.setOnClickListener {
             selectDate()
         }
+    }
 
-        // Configurar el botón de guardar
+    private fun setupSaveButton() {
         btnGuardar.setOnClickListener {
-            val departamentoSeleccionado = spDepartamento.text.toString()
-            val provinciaSeleccionada = spProvincia.text.toString()
+            val departamento = "Lima"
+            val provincia = "Cañete"
             val distritoSeleccionado = spDistrito.selectedItem.toString()
             val ubigeoIngresado = etUbigeo.text.toString()
             val direccionIngresada = etDireccion.text.toString()
             val fechaSeleccionada = selectedDate
 
-            // ----GUARDAR DATOS
+            if (!validateFields(ubigeoIngresado, direccionIngresada, fechaSeleccionada)) {
+                return@setOnClickListener
+            }
 
-            Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
+            saveDataSharedPref(departamento, provincia, distritoSeleccionado, ubigeoIngresado, direccionIngresada, fechaSeleccionada)
+        }
+    }
 
-            val intent = Intent(this, Compra::class.java)
-            startActivity(intent)
+    private fun validateFields(ubigeo: String, direccion: String, fecha: LocalDate?): Boolean {
+
+        if (ubigeo.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingrese el ubigeo", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (direccion.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingrese la dirección", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (fecha == null) {
+            Toast.makeText(this, "Por favor, seleccione la fecha", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
+
+    private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, ubigeo: String, direccion: String, fecha: LocalDate?) {
+        Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, Compra::class.java)
+
+        // Guardar los datos en las preferencias compartidas
+        sharedPreferences.edit().apply {
+            putString("departamento", departamento)
+            putString("provincia", provincia)
+            putString("distrito", distrito)
+            putString("ubigeo", ubigeo)
+            putString("direccion", direccion)
+            putString("fecha", fecha.toString())
+            apply()
+        }
+        startActivity(intent)
+    }
+
+    // Cargar los datos de las preferencias compartidas
+    private fun loadFormData() {
+        val distrito = sharedPreferences.getString("distrito", "")
+        spDistrito.setSelection((spDistrito.adapter as ArrayAdapter<String>).getPosition(distrito))
+        etUbigeo.setText(sharedPreferences.getString("ubigeo", ""))
+        etDireccion.setText(sharedPreferences.getString("direccion", ""))
+        val fecha = sharedPreferences.getString("fecha", null)
+        if (fecha != null) {
+            selectedDate = LocalDate.parse(fecha)
+            tvSelectDateDelivery.text = fecha
         }
     }
 
@@ -125,4 +189,3 @@ class Delivery : AppCompatActivity() {
         }
     }
 }
-
