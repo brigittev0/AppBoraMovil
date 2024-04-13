@@ -47,7 +47,7 @@
 
     <string name="menu_catalogo">Catalogo</string>
     <string name="menu_dashboard">Dashboard</string>
-    <string name="menu_compra">Compra</string>
+    <string name="menu_compra">Mi Compra</string>
     <string name="men_historial_compra">Historial Compra</string>
     <string name="menu_perfil">Perfil</string>
     <string name="menu_admin_prod">Administrar Productos</string>

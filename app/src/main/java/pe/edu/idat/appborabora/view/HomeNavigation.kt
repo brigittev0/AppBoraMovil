@@ -3,7 +3,6 @@ package pe.edu.idat.appborabora.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
@@ -16,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.navigateUp
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
-import pe.edu.idat.appborabora.view.activities.Compra
+import pe.edu.idat.appborabora.view.activities.Purchase
 import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
 
@@ -58,7 +57,7 @@ class HomeNavigation : AppCompatActivity() {
 
         // Manejar la navegación a CompraAct
         navView.menu.findItem(R.id.compra).setOnMenuItemClickListener {
-            val intent = Intent(this, Compra::class.java)
+            val intent = Intent(this, Purchase::class.java)
             startActivity(intent)
             true
         }

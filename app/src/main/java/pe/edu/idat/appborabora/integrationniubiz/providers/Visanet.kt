@@ -17,12 +17,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pe.edu.idat.appborabora.view.activities.Compra
+import pe.edu.idat.appborabora.view.activities.Purchase
 import retrofit2.Retrofit
 
 class Visanet {
 
-    fun getTokenSecurityProvider(activity: Compra) {
+    fun getTokenSecurityProvider(activity: Purchase) {
 
         enableComponents(activity)
 
@@ -67,7 +67,7 @@ class Visanet {
                             val certificate = gson2.toJson(JsonParser.parseString(response2.body()?.string()))
                             val gsonConverter = Gson()
                             val data = gsonConverter.fromJson(certificate, CertificateApp::class.java)
-                            if (activity is Compra) {
+                            if (activity is Purchase) {
                                 activity.receiveToken(token, data.pinHash)
                             }
                             Log.d("cert :", certificate)
@@ -89,7 +89,7 @@ class Visanet {
         }
     }
 
-    private fun enableComponents(activity: Compra){
+    private fun enableComponents(activity: Purchase){
         val button : Button = activity.findViewById(R.id.pay)
         val progressBar : ProgressBar = activity.findViewById(R.id.progress)
 
@@ -97,7 +97,7 @@ class Visanet {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun disableComponents(activity: Compra){
+    private fun disableComponents(activity: Purchase){
         val button : Button = activity.findViewById(R.id.pay)
         val progressBar : ProgressBar = activity.findViewById(R.id.progress)
 

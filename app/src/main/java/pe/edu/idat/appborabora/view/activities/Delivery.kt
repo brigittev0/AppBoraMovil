@@ -165,7 +165,7 @@ class Delivery : AppCompatActivity() {
             putString("fechaDelivery", fechaDelivery.toString())
             apply()
         }
-        navigateTo(Compra::class.java)
+        navigateTo(Purchase::class.java)
     }
 
     //-- Seleccionar fecha

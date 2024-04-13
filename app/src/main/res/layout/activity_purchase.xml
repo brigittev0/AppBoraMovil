@@ -7,7 +7,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.Compra">
+    tools:context=".view.activities.Purchase">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,6 +51,62 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Carrito de compra -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="26dp"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:id="@+id/header3"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:background="@color/purple_header_card"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView45"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/header3"
+                            app:layout_constraintEnd_toStartOf="@+id/textView46"
+                            app:layout_constraintHorizontal_bias="0.761"
+                            app:layout_constraintStart_toStartOf="@+id/header3"
+                            app:layout_constraintTop_toTopOf="@+id/header3"
+                            app:srcCompat="@drawable/ic_cart" />
+
+                        <TextView
+                            android:id="@+id/textView46"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carrito"
+                            android:textColor="@color/purple_title"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/header3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.224"
+                            app:layout_constraintStart_toStartOf="@+id/header3"
+                            app:layout_constraintTop_toTopOf="@+id/header3"
+                            app:layout_constraintVertical_bias="0.521" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Resumen de Compra -->
                 <androidx.recyclerview.widget.RecyclerView
 
                     android:id="@+id/rvproductoscart"
@@ -61,11 +117,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <!-- Resumen de Compra -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,15 +163,16 @@
                             android:id="@+id/textView31"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Resumen de tu compra"
+                            android:text="Resumen del pedido"
                             android:textColor="@color/purple_title"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/header"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.453"
+                            app:layout_constraintHorizontal_bias="0.39"
                             app:layout_constraintStart_toStartOf="@+id/header"
-                            app:layout_constraintTop_toTopOf="@+id/header" />
+                            app:layout_constraintTop_toTopOf="@+id/header"
+                            app:layout_constraintVertical_bias="0.478" />
 
                         <TextView
                             android:id="@+id/textView28"
@@ -333,7 +389,7 @@
                                 android:layout_marginTop="16dp"
                                 android:buttonTint="@drawable/radio_button_selector"
                                 android:text="Retiro en tienda"
-                                android:textColor="@drawable/radio_button_selector"
+                                android:textColor="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.863"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -348,7 +404,7 @@
                                 android:layout_marginBottom="16dp"
                                 android:buttonTint="@drawable/radio_button_selector"
                                 android:text="Envío a domicilio"
-                                android:textColor="@drawable/radio_button_selector"
+                                android:textColor="@color/black"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/radioButtonStorePickup"
                                 app:layout_constraintHorizontal_bias="0.34"

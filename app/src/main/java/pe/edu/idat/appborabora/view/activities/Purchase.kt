@@ -29,7 +29,7 @@ import pe.edu.idat.appborabora.view.HomeNavigation
 import java.lang.Exception
 import java.util.HashMap
 
-class Compra : AppCompatActivity() {
+class Purchase : AppCompatActivity() {
 
     private lateinit var adapter: CartAdapter
 
@@ -42,7 +42,7 @@ class Compra : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_compra)
+        setContentView(R.layout.activity_purchase)
 
         initViews()
         setupToolbar()
@@ -74,7 +74,7 @@ class Compra : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.title = "Carrito de compras"
+        supportActionBar?.title = "Mi Compra"
     }
 
     //-- Carrito de compras

@@ -126,7 +126,7 @@ class Pickup : AppCompatActivity() {
             putString("fechaPickup", fechaPickup.toString())
             apply()
         }
-        navigateTo(Compra::class.java)
+        navigateTo(Purchase::class.java)
     }
 
     //-- Seleccionar fecha
