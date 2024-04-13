@@ -74,7 +74,7 @@ class Purchase : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.title = "Mi Compra"
+        supportActionBar?.title = "Mi Carrito de compra"
     }
 
     //-- Carrito de compras

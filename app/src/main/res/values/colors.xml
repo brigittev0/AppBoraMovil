@@ -44,6 +44,7 @@
 
     //--Text
     <color name="text_color">#302E2E</color> //Color gris oscuro
+    <color name="text_color_light">#7e7e7e</color> //Color gris claro
 
     //--Resources
     <color name="gray_line">#f4ebfc</color> //linea gris claro
