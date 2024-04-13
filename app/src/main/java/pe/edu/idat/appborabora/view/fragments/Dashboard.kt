@@ -57,7 +57,7 @@ class Dashboard : Fragment(), View.OnClickListener {
         sliderView.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_RIGHT
         sliderView.indicatorSelectedColor = Color.WHITE
         sliderView.indicatorUnselectedColor = Color.GRAY
-        sliderView.scrollTimeInSec = 3
+        sliderView.scrollTimeInSec = 2
         sliderView.isAutoCycle = true
         sliderView.startAutoCycle()
 
