@@ -60,26 +60,34 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                tools:cardCornerRadius="10dp" />
+                android:layout_margin="2dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/svCarrusel"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                tools:sliderAnimationDuration="600"
-                tools:sliderAutoCycleDirection="back_and_forth"
-                tools:sliderAutoCycleEnabled="true"
-                tools:sliderIndicatorAnimationDuration="600"
-                tools:sliderIndicatorGravity="center_horizontal|bottom"
-                tools:sliderIndicatorMargin="15dp"
-                tools:sliderIndicatorOrientation="horizontal"
-                tools:sliderIndicatorPadding="3dp"
-                tools:sliderIndicatorRadius="2dp"
-                tools:sliderIndicatorSelectedColor="#5A5A5A"
-                tools:sliderIndicatorUnselectedColor="#FFF"
-                tools:sliderScrollTimeInSec="1"
-                tools:sliderStartAutoCycle="true" />
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/svCarrusel"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginLeft="-10dp"
+                    android:layout_marginRight="-10dp"
+                    android:layout_marginBottom="0dp"
+                    tools:sliderAnimationDuration="600"
+                    tools:sliderAutoCycleDirection="back_and_forth"
+                    tools:sliderAutoCycleEnabled="true"
+                    tools:sliderIndicatorAnimationDuration="600"
+                    tools:sliderIndicatorGravity="center_horizontal|bottom"
+                    tools:sliderIndicatorMargin="15dp"
+                    tools:sliderIndicatorOrientation="horizontal"
+                    tools:sliderIndicatorPadding="3dp"
+                    tools:sliderIndicatorRadius="2dp"
+                    tools:sliderIndicatorSelectedColor="#5A5A5A"
+                    tools:sliderIndicatorUnselectedColor="#FFF"
+                    tools:sliderScrollTimeInSec="1"
+                    tools:sliderStartAutoCycle="true" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
