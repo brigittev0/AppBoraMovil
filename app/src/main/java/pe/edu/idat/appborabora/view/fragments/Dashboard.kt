@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +23,6 @@ import pe.edu.idat.appborabora.adapter.ProductoDashboardAdapter
 import pe.edu.idat.appborabora.slider.SliderItem
 import pe.edu.idat.appborabora.adapter.SliderAdapter
 import pe.edu.idat.appborabora.view.activities.Login
-import pe.edu.idat.appborabora.view.activities.MainActivity
 import pe.edu.idat.appborabora.view.activities.RegisterUser
 import pe.edu.idat.appborabora.viewmodel.ProductoDashViewModel
 

@@ -10,5 +10,5 @@ data class ProductDTO (
     val expirationDate: String,
     val image: String,
     val categoryId: Int,
-    val brandProductId: Int,
+    val brandProductId: Int
 )

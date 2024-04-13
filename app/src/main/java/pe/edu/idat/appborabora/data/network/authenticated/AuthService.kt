@@ -33,4 +33,6 @@ interface AuthService {
     @DELETE("products/delete/{id}")
     fun deleteProduct(@Path("id") id: Int): Call<Void>
 
+    @PUT("products/update/{id}")
+    fun updateProduct(@Path("id") id: Int, @Body productDTO: ProductDTO): Call<ApiResponse>
 }

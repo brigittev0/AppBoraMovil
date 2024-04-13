@@ -263,26 +263,16 @@ class CrearProducto : Fragment() {
     // ---- SELECCIONAR IMAGEN ----
     // Método para seleccionar una imagen, ya sea tomando una foto o eligiendo de la galería
     private fun selectImage() {
-        val items = arrayOf<CharSequence>("Tomar foto", "Elegir de la galería", "Cancelar")
+        val items = arrayOf<CharSequence>("Elegir de la galería", "Cancelar")
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle("Agregar imagen")
         builder?.setItems(items) { dialog, item ->
             when {
-                items[item] == "Tomar foto" -> dispatchTakePictureIntent()
                 items[item] == "Elegir de la galería" -> dispatchChooseFromGalleryIntent()
                 items[item] == "Cancelar" -> dialog.dismiss()
             }
         }
         builder?.show()
-    }
-
-    // Método para iniciar la cámara y tomar una foto
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
     }
 
     // Método para abrir la galería y elegir una imagen
