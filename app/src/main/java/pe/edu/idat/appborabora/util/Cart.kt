@@ -5,10 +5,12 @@ object Cart {
     val productosSeleccionados = mutableListOf<ProductCart>()
 
     fun agregarProducto(producto: ProductCart): Boolean {
-        return if (!productosSeleccionados.contains(producto)) {
+        val existingProduct = productosSeleccionados.find { it.idProducto == producto.idProducto }
+        return if (existingProduct == null) {
             productosSeleccionados.add(producto)
             true
         } else {
+            existingProduct.quantity++
             false
         }
     }
@@ -22,4 +24,5 @@ object Cart {
     fun obtenerProductos(): List<ProductCart> {
         return productosSeleccionados
     }
+
 }

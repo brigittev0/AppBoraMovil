@@ -4,10 +4,11 @@ import kotlin.math.round
 
 data class ProductCart(
     val producto: ProductPurchase,
-    var cantidad: Int
+    var idProducto: Int,
+    var quantity: Int
 ) {
     val subtotal: Double
-        get() = round(cantidad * producto.price * 100) / 100
+        get() = round(quantity * producto.price * 100) / 100
 
     val igv: Double
         get() = round(subtotal * 0.18 * 100) / 100

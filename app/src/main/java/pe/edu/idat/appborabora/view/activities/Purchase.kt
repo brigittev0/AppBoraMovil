@@ -42,6 +42,7 @@ import java.lang.Exception
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.HashMap
+import kotlin.math.round
 
 class Purchase : AppCompatActivity() {
 
@@ -153,35 +154,84 @@ class Purchase : AppCompatActivity() {
     private fun setupPayButton() {
         val payButton: Button = findViewById(R.id.pay)
         payButton.setOnClickListener {
-            // Crear una solicitud de compra con datos de ejemplo
-            val user = User(12345678)
-            val cardType = CardType(1)
-            val status = Status(1)
-            val payment = Payment(100.0, "1234567812345678", "PEN", "1", "123456", "2022-12-31", cardType, status)
-            val headquarter = Headquarter(1)
-            val district = District(1)
-            val order = Order("DELIVERY", "DELIVERY", "2022-12-31", headquarter, "dd", "dd", district, "dfdf", 987569)
-            val product = Product(1, 1)
-            val purchaseRequest = PurchaseRequest(100.0, 18.0, 82.0, "2022-12-31", user, payment, order, listOf(product))
+            val purchaseRequest = createPurchaseRequest()
+            createPurchase(purchaseRequest)
+            observePurchaseResponse()
+            observeErrorMessage()
 
-            // Crear la compra
-            purchaseViewModel.createPurchase("DELIVERY", purchaseRequest)
-
-            // Observar la respuesta de la creación de la compra
-            purchaseViewModel.createPurchaseResponse.observe(this, Observer { apiResponse ->
-                // Manejar la respuesta de la creación de la compra
-                // Por ejemplo, puedes mostrar un mensaje de éxito
-                Toast.makeText(this, "Compra creada con éxito", Toast.LENGTH_SHORT).show()
-            })
-
-            // Observar los mensajes de error
-            purchaseViewModel.errorMessage.observe(this, Observer { errorMessage ->
-                // Manejar el mensaje de error
-                // Por ejemplo, puedes mostrar el mensaje de error
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-            })
+            //NIUBIZ
         }
     }
+
+    //-- Crear compra
+    private fun createPurchaseRequest(): PurchaseRequest {
+
+        //--USER
+        val identityDoc = sPUserLogged.getString("identityDoc", "0")?.toInt() ?: 0
+        val user = User(identityDoc)
+
+        //--NIUBIZ
+        val cardType = CardType(1)
+        val status = Status(1)
+        val payment = Payment(100.0, "1234567812345678", "PEN", "1", "123456", "2022-12-31", cardType, status)
+
+        //--PICKUP
+        val headquarterId = sPDeliveryPickup.getInt("sedePosition", 1)
+        val headquarter = Headquarter(headquarterId+1)
+
+        //--DELIVERY
+        val districtId = sPDeliveryPickup.getInt("distritoPosition", 1)
+        val district = District(districtId+1)
+        val deliveryDate = sPDeliveryPickup.getString("fechaDelivery", "2022-12-31") ?: "2022-12-31"
+        val address = sPDeliveryPickup.getString("direccion", "empty") ?: "empty"
+        val province = sPDeliveryPickup.getString("provincia", "empty") ?: "empty"
+        val department = sPDeliveryPickup.getString("departamento", "empty") ?: "empty"
+
+        //--ORDER
+        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
+        val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, 987569)
+
+        //--CARRITO
+        val products = Cart.obtenerProductos().map { Product(it.idProducto, it.quantity) }
+        val subtotal = (round(Cart.obtenerProductos().sumOf { it.subtotal } * 100) / 100)
+        val igv = (round(Cart.obtenerProductos().sumOf { it.igv } * 100) / 100)
+        var shipping = Cart.obtenerProductos().sumOf { it.shipping }
+
+
+        // Verifica la opción seleccionada en las preferencias compartidas
+        val selectedOption = sPDeliveryPickup.getString("optionOrder", "")
+        if (selectedOption == "DELIVERY") {
+            // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
+            shipping += 5.90
+        } else if (selectedOption == "PICKUP") {
+            // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
+            shipping = 0.0
+        }
+
+        val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
+
+        return PurchaseRequest(total, igv, subtotal, deliveryDate, user, payment, order, products)
+    }
+
+    //Crear compra segun typeorder
+    private fun createPurchase(purchaseRequest: PurchaseRequest) {
+        purchaseViewModel.createPurchase("DELIVERY", purchaseRequest)
+    }
+
+    //-- Observadores
+    private fun observePurchaseResponse() {
+        purchaseViewModel.createPurchaseResponse.observe(this, Observer { apiResponse ->
+            Toast.makeText(this, "Compra creada con éxito", Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun observeErrorMessage() {
+        purchaseViewModel.errorMessage.observe(this, Observer { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+
 
     //----- METODOS -----
 

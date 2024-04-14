@@ -50,8 +50,9 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         holder.btnOrdenar.setOnClickListener {
             val productCart = ProductCart(
                 ProductPurchase(product.id_product, product.name, product.description,
-                product.price, product.stock, product.expirationDate, product.image, product.categoryId,
-                product.brandProductId), 1)
+                    product.price, product.stock, product.expirationDate, product.image, product.categoryId,
+                    product.brandProductId), product.id_product,1
+            )
 
             Log.d("ProductoDashboardAdapter", "${product.name}idProduct: ${product.id_product}")
 
@@ -61,6 +62,7 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
             } else {
                 Toast.makeText(context, "El producto ya está en el carrito", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 

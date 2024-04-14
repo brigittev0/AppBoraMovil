@@ -39,8 +39,8 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         val currentItem = productList[position]
         holder.tvProdCard.text = currentItem.producto.description
         val unitPrice = currentItem.producto.price
-        holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.cantidad * unitPrice)}"
-        holder.tvCantidad.text = currentItem.cantidad.toString()
+        holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.quantity * unitPrice)}"
+        holder.tvCantidad.text = currentItem.quantity.toString()
 
         // Decodifica la imagen en base64
         val imageBitmap = decodeImage(currentItem.producto.image)
@@ -59,12 +59,12 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         }
 
         //Incremento - Decremento
-        holder.tvCantidad.text = currentItem.cantidad.toString()
+        holder.tvCantidad.text = currentItem.quantity.toString()
 
         holder.incrementButton.setOnClickListener {
-            if (currentItem.cantidad < currentItem.producto.stock) {
-                currentItem.cantidad++
-                holder.tvCantidad.text = currentItem.cantidad.toString()
+            if (currentItem.quantity < currentItem.producto.stock) {
+                currentItem.quantity++
+                holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
                 onProductQuantityChanged.invoke() // Llama al callback cuando se incrementa la cantidad
@@ -74,9 +74,9 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         }
 
         holder.decrementButton.setOnClickListener {
-            if (currentItem.cantidad > 1) {
-                currentItem.cantidad--
-                holder.tvCantidad.text = currentItem.cantidad.toString()
+            if (currentItem.quantity > 1) {
+                currentItem.quantity--
+                holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
                 onProductQuantityChanged.invoke() // Llama al callback cuando se decrementa la cantidad
