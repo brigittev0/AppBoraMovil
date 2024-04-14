@@ -3,10 +3,8 @@ package pe.edu.idat.appborabora.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import pe.edu.idat.appborabora.data.dto.request.UpdateUserRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.network.authenticated.AuthClient
@@ -15,7 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
-    private val authClient = AuthClient(application.applicationContext)
+    private val authClient = AuthClient(application)
     private val authService = authClient.getInstance()
 
     val createProductResponse: MutableLiveData<ApiResponse> = MutableLiveData()

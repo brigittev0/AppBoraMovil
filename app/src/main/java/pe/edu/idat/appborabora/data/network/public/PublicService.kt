@@ -1,5 +1,6 @@
 package pe.edu.idat.appborabora.data.network.public
 
+import okhttp3.ResponseBody
 import pe.edu.idat.appborabora.data.dto.request.CreateUserRequest
 import pe.edu.idat.appborabora.data.dto.request.LoginRequest
 import pe.edu.idat.appborabora.data.dto.request.PasswordUpdateRequest
@@ -9,10 +10,12 @@ import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.CreateUserResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
+import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PublicService {
@@ -32,8 +35,8 @@ interface PublicService {
     @GET("products/topSelling")
     fun getTopSellingProducts(@Query("limit") limit: Int = 10): Call<List<ProductoDashboardResponse>>
 
-
-
     @GET("brand/all")
     fun getAllBrandProducts(): Call<List<BrandProductDTO>>
+
+
 }
