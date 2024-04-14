@@ -190,7 +190,7 @@ class Purchase : AppCompatActivity() {
     }
 
 
-    //---- Niubiz ---
+    //--------------------- PROCESO DE NIUBIZ ---------------------
     fun receiveToken(token : String , pinHash : String){
 
         val TAG = "NIUBIZ"
