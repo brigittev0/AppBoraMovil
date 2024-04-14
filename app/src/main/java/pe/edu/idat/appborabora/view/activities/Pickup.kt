@@ -81,21 +81,22 @@ class Pickup : AppCompatActivity() {
     //-- Boton Guardar
     private fun setupSaveButton() {
         btnSavePickup.setOnClickListener {
-            val sedeSeleccionada = spPickup.selectedItem.toString()
+            val sedePosition = spPickup.selectedItemPosition
             val fechaSeleccionada = selectedDate
+            val sede = spPickup.selectedItem as String
 
             if (!validateFields(fechaSeleccionada)) {
                 return@setOnClickListener
             }
 
-            saveDataSharedPref(sedeSeleccionada, fechaSeleccionada)
+            saveDataSharedPref(sede, sedePosition, fechaSeleccionada)
         }
     }
 
     // Cargar los datos de las preferencias compartidas
     private fun loadFormData() {
-        val distrito = sharedPreferences.getString("sede", "")
-        spPickup.setSelection((spPickup.adapter as ArrayAdapter<String>).getPosition(distrito))
+        val sedePosition = sharedPreferences.getInt("sedePosition", 1)
+        spPickup.setSelection(sedePosition)
         val fecha = sharedPreferences.getString("fechaPickup", null)
         if (fecha != null) {
             selectedDate = LocalDate.parse(fecha)
@@ -117,12 +118,13 @@ class Pickup : AppCompatActivity() {
     }
 
     //-- Guardar datos en Preferencias compartidas
-    private fun saveDataSharedPref(sede: String, fechaPickup: LocalDate?) {
+    private fun saveDataSharedPref(sede: String, sedePosition: Int, fechaPickup: LocalDate?) {
         Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
 
         // Guardar los datos en las preferencias compartidas
         sharedPreferences.edit().apply {
             putString("sede", sede)
+            putInt("sedePosition", sedePosition)
             putString("fechaPickup", fechaPickup.toString())
             apply()
         }

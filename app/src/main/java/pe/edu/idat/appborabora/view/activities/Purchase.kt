@@ -14,6 +14,8 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -23,10 +25,22 @@ import lib.visanet.com.pe.visanetlib.data.custom.Channel
 import lib.visanet.com.pe.visanetlib.presentation.custom.VisaNetViewAuthorizationCustom
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.CartAdapter
-import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
+import pe.edu.idat.appborabora.data.dto.request.CardType
+import pe.edu.idat.appborabora.data.dto.request.District
+import pe.edu.idat.appborabora.data.dto.request.Headquarter
+import pe.edu.idat.appborabora.data.dto.request.Order
+import pe.edu.idat.appborabora.data.dto.request.Payment
+import pe.edu.idat.appborabora.data.dto.request.Product
+import pe.edu.idat.appborabora.data.dto.request.PurchaseRequest
+import pe.edu.idat.appborabora.data.dto.request.Status
+import pe.edu.idat.appborabora.data.dto.request.User
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.HomeNavigation
+import pe.edu.idat.appborabora.viewmodel.ProductViewModel
+import pe.edu.idat.appborabora.viewmodel.PurchaseViewModel
 import java.lang.Exception
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.HashMap
 
 class Purchase : AppCompatActivity() {
@@ -37,12 +51,16 @@ class Purchase : AppCompatActivity() {
     private lateinit var igvTextView: TextView
     private lateinit var shippingTextView: TextView
     private lateinit var totalTextView: TextView
+    private lateinit var purchaseViewModel: PurchaseViewModel
 
-    private val sharedPreferences by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
+    private val sPDeliveryPickup by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
+    private val sPUserLogged by lazy { getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchase)
+
+        purchaseViewModel = ViewModelProvider(this).get(PurchaseViewModel::class.java)
 
         initViews()
         setupToolbar()
@@ -74,7 +92,7 @@ class Purchase : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.title = "Mi Carrito de compra"
+        supportActionBar?.title = "Mi Carrito de compras"
     }
 
     //-- Carrito de compras
@@ -95,11 +113,11 @@ class Purchase : AppCompatActivity() {
         val total = Cart.obtenerProductos().sumOf { it.total }
 
         // Verifica la opción seleccionada en las preferencias compartidas
-        val selectedOption = sharedPreferences.getInt("selectedOption", 0)
-        if (selectedOption == R.id.radioButtonHomeDelivery) {
+        val selectedOption = sPDeliveryPickup.getString("optionOrder", "")
+        if (selectedOption == "DELIVERY") {
             // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
             shipping += 5.90
-        } else if (selectedOption == R.id.radioButtonStorePickup) {
+        } else if (selectedOption == "PICKUP") {
             // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
             shipping = 0.0
         }
@@ -120,12 +138,12 @@ class Purchase : AppCompatActivity() {
                 R.id.radioButtonStorePickup -> {
                     Toast.makeText(this, "Retiro en tienda seleccionada", Toast.LENGTH_SHORT).show()
                     navigateTo(Pickup::class.java)
-                    saveSelectedOption(R.id.radioButtonStorePickup)
+                    saveSelectedOption("PICKUP")
                 }
                 R.id.radioButtonHomeDelivery -> {
                     Toast.makeText(this, "Entrega a domicilio seleccionada", Toast.LENGTH_SHORT).show()
                     navigateTo(Delivery::class.java)
-                    saveSelectedOption(R.id.radioButtonHomeDelivery)
+                    saveSelectedOption( "DELIVERY")
                 }
             }
         }
@@ -135,39 +153,42 @@ class Purchase : AppCompatActivity() {
     private fun setupPayButton() {
         val payButton: Button = findViewById(R.id.pay)
         payButton.setOnClickListener {
-            // Imprimir la lista de productos en el log
-            val productos = Cart.obtenerProductos()
+            // Crear una solicitud de compra con datos de ejemplo
+            val user = User(12345678)
+            val cardType = CardType(1)
+            val status = Status(1)
+            val payment = Payment(100.0, "1234567812345678", "PEN", "1", "123456", "2022-12-31", cardType, status)
+            val headquarter = Headquarter(1)
+            val district = District(1)
+            val order = Order("DELIVERY", "DELIVERY", "2022-12-31", headquarter, "dd", "dd", district, "dfdf", 987569)
+            val product = Product(1, 1)
+            val purchaseRequest = PurchaseRequest(100.0, 18.0, 82.0, "2022-12-31", user, payment, order, listOf(product))
 
-            productos.forEach { producto ->
-                Log.d("Pago", "Producto: ${producto.producto.name}, Cantidad: ${producto.cantidad}, Subtotal: ${producto.subtotal}, IGV: ${producto.igv}, Total: ${producto.total}")
-            }
+            // Crear la compra
+            purchaseViewModel.createPurchase("DELIVERY", purchaseRequest)
 
-            val selectedOption = sharedPreferences.getInt("selectedOption", 0)
-            Log.d("Pago", "Opción de envío: $selectedOption")
+            // Observar la respuesta de la creación de la compra
+            purchaseViewModel.createPurchaseResponse.observe(this, Observer { apiResponse ->
+                // Manejar la respuesta de la creación de la compra
+                // Por ejemplo, puedes mostrar un mensaje de éxito
+                Toast.makeText(this, "Compra creada con éxito", Toast.LENGTH_SHORT).show()
+            })
 
-            // Imprimir todos los datos de las preferencias compartidas en el log
-            val departamento = sharedPreferences.getString("departamento", "")
-            val provincia = sharedPreferences.getString("provincia", "")
-            val distrito = sharedPreferences.getString("distrito", "")
-            val ubigeo = sharedPreferences.getString("ubigeo", "")
-            val direccion = sharedPreferences.getString("direccion", "")
-            val fechaDelivery = sharedPreferences.getString("fechaDelivery", "")
-            val sede = sharedPreferences.getString("sede", "")
-            val fechaPickup = sharedPreferences.getString("fechaPickup", "")
-
-            Log.d("Pago", "Departamento: $departamento, Provincia: $provincia, Distrito: $distrito, Ubigeo: $ubigeo, Dirección: $direccion, Fecha de Delivery: $fechaDelivery, Sede: $sede, Fecha de Pickup: $fechaPickup")
-
-
-            Visanet().getTokenSecurityProvider(this)
+            // Observar los mensajes de error
+            purchaseViewModel.errorMessage.observe(this, Observer { errorMessage ->
+                // Manejar el mensaje de error
+                // Por ejemplo, puedes mostrar el mensaje de error
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            })
         }
     }
 
     //----- METODOS -----
 
     //-- Guardar Opcion seleccionada
-    private fun saveSelectedOption(optionId: Int) {
-        sharedPreferences.edit().apply {
-            putInt("selectedOption", optionId)
+    private fun saveSelectedOption(optionType: String) {
+        sPDeliveryPickup.edit().apply {
+            putString("optionOrder", optionType)
             apply()
         }
     }

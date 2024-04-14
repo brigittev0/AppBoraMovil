@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Base64
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.util.Log
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.util.ProductPurchase
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.util.ProductCart
@@ -47,9 +48,12 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         // Carrito
         // Botón de ordenar
         holder.btnOrdenar.setOnClickListener {
-            val productCart = ProductCart(ProductDTO(product.name, product.description,
+            val productCart = ProductCart(
+                ProductPurchase(product.id_product, product.name, product.description,
                 product.price, product.stock, product.expirationDate, product.image, product.categoryId,
                 product.brandProductId), 1)
+
+            Log.d("ProductoDashboardAdapter", "${product.name}idProduct: ${product.id_product}")
 
             val productoAgregado = Cart.agregarProducto(productCart)
             if (productoAgregado) {

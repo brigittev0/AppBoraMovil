@@ -1,10 +1,9 @@
 package pe.edu.idat.appborabora.util
 
-import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import kotlin.math.round
 
 data class ProductCart(
-    val producto: ProductDTO,
+    val producto: ProductPurchase,
     var cantidad: Int
 ) {
     val subtotal: Double

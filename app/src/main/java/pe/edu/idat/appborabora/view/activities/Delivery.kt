@@ -102,7 +102,8 @@ class Delivery : AppCompatActivity() {
         btnSaveDelivery.setOnClickListener {
             val departamento = "Lima"
             val provincia = "Cañete"
-            val distritoSeleccionado = spDistrito.selectedItem.toString()
+            val distrito = spDistrito.selectedItem as String
+            val distritoPosition = spDistrito.selectedItemPosition
             val ubigeoIngresado = etUbigeo.text.toString()
             val direccionIngresada = etDireccion.text.toString()
             val fechaSeleccionada = selectedDate
@@ -111,14 +112,14 @@ class Delivery : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            saveDataSharedPref(departamento, provincia, distritoSeleccionado, ubigeoIngresado, direccionIngresada, fechaSeleccionada)
+            saveDataSharedPref(departamento, provincia, distrito, distritoPosition, ubigeoIngresado, direccionIngresada, fechaSeleccionada)
         }
     }
 
     // Cargar los datos de las preferencias compartidas
     private fun loadFormData() {
-        val distrito = sharedPreferences.getString("distrito", "")
-        spDistrito.setSelection((spDistrito.adapter as ArrayAdapter<String>).getPosition(distrito))
+        val distritoPosition = sharedPreferences.getInt("distritoPosition", 1)
+        spDistrito.setSelection(distritoPosition)
         etUbigeo.setText(sharedPreferences.getString("ubigeo", ""))
         etDireccion.setText(sharedPreferences.getString("direccion", ""))
         val fecha = sharedPreferences.getString("fechaDelivery", null)
@@ -152,7 +153,7 @@ class Delivery : AppCompatActivity() {
     }
 
     //-- Guardar datos en Preferencias compartidas
-    private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, ubigeo: String, direccion: String, fechaDelivery: LocalDate?) {
+    private fun saveDataSharedPref(departamento: String, provincia: String, distrito: String, distritoPosition: Int, ubigeo: String, direccion: String, fechaDelivery: LocalDate?) {
         Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()
 
         // Guardar los datos en las preferencias compartidas
@@ -160,6 +161,7 @@ class Delivery : AppCompatActivity() {
             putString("departamento", departamento)
             putString("provincia", provincia)
             putString("distrito", distrito)
+            putInt("distritoPosition", distritoPosition)
             putString("ubigeo", ubigeo)
             putString("direccion", direccion)
             putString("fechaDelivery", fechaDelivery.toString())
