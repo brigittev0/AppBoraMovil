@@ -11,4 +11,6 @@ data class ProductDTO (
     val image: String,
     val categoryId: Int,
     val brandProductId: Int
+
+
 )
