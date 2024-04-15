@@ -37,6 +37,7 @@ import pe.edu.idat.appborabora.data.dto.request.Status
 import pe.edu.idat.appborabora.data.dto.request.User
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.HomeNavigation
+import pe.edu.idat.appborabora.view.fragments.Dashboard
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import pe.edu.idat.appborabora.viewmodel.PurchaseViewModel
 import java.lang.Exception
@@ -173,6 +174,8 @@ class Purchase : AppCompatActivity() {
         }
     }
 
+
+
     //----- METODOS -----
     //-- Crear compra
     private fun createPurchaseRequest(): PurchaseRequest {
@@ -225,18 +228,29 @@ class Purchase : AppCompatActivity() {
 
         val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
 
-        return PurchaseRequest(total, igv, subtotal, deliveryDate, user, payment, order, purchaseProducts)
+        val currentDate = LocalDate.now()
+        val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        return PurchaseRequest(total, igv, subtotal, formattedDate, user, payment, order, purchaseProducts)
     }
 
     //Crear compra segun typeorder
     private fun createPurchase(purchaseRequest: PurchaseRequest) {
-        purchaseViewModel.createPurchase("DELIVERY", purchaseRequest)
+        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
+        purchaseViewModel.createPurchase(optionOrder, purchaseRequest)
     }
 
     //-- Observadores
     private fun observePurchaseResponse() {
         purchaseViewModel.createPurchaseResponse.observe(this, Observer { apiResponse ->
             Toast.makeText(this, "Compra creada con éxito", Toast.LENGTH_SHORT).show()
+
+            sPDeliveryPickup.edit().clear().apply()
+            Cart.limpiarCarrito()
+
+            val intent = Intent(this, HomeNavigation::class.java)
+            startActivity(intent)
+            finish()
         })
     }
 

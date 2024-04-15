@@ -32,4 +32,8 @@ object Cart {
     fun obtenerProductos(): List<ProductCart> {
         return productosSeleccionados
     }
+
+    fun limpiarCarrito() {
+        productosSeleccionados.clear()
+    }
 }

@@ -62,9 +62,9 @@ class Pickup : AppCompatActivity() {
     //-- Spinner
     private fun setupSpinner() {
         val sedes = arrayOf(
-            "BodegaBoraBora - Asia",
-            "BodegaBoraBora - Cerro Azul",
-            "BodegaBoraBora - Lunahuaná",
+            "Bodega BoraBora - Asia",
+            "Bodega BoraBora - Cerro Azul",
+            "Bodega BoraBora - Lunahuaná",
         )
 
         spPickup.adapter =
