@@ -4,25 +4,35 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
 
-class PurchaseAdapter(private val context: Context) : RecyclerView.Adapter<PurchaseAdapter.CompraViewHolder>() {
+class PurchaseAdapter(private val context: Context, private val navController: NavController) : RecyclerView.Adapter<PurchaseAdapter.CompraViewHolder>() {
 
 
     private var listaCompras: List<PurchaseDTO> = ArrayList()
+    private var listener: OnDetalleCompraClickListener? = null
+
 
     fun setProductList(listaCompras: List<PurchaseDTO>) {
         this.listaCompras = listaCompras
         notifyDataSetChanged()
+    }
+
+    fun setOnDetalleCompraClickListener(listener: OnDetalleCompraClickListener) {
+        this.listener = listener
     }
     class CompraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNroCompra: TextView = itemView.findViewById(R.id.tvnrocompra)
         val tvFCompra: TextView = itemView.findViewById(R.id.tvfcompra)
         val tvMPago: TextView = itemView.findViewById(R.id.tvmpago)
         val tvTotal: TextView = itemView.findViewById(R.id.tvtotal)
+        val btnDetalleProducto: Button = itemView.findViewById(R.id.btnDetalleProductos)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompraViewHolder {
@@ -33,12 +43,21 @@ class PurchaseAdapter(private val context: Context) : RecyclerView.Adapter<Purch
     override fun onBindViewHolder(holder: CompraViewHolder, position: Int) {
         val compra = listaCompras[position]
         holder.tvNroCompra.text = compra.orderId.toString()
-        holder.tvFCompra.text = compra.purchaseDate
+        holder.tvFCompra.text = compra.purchaseDate.toString()
         holder.tvMPago.text = compra.paymentId.toString()
         holder.tvTotal.text = compra.total.toString()
             // Aquí puedes manejar el evento de clic en el botón
+        /*holder.btnDetalleProducto.setOnClickListener {
+            val action = HistorialCompraDirections.actionHistorialCompraToDetalleHistorialCompra(compra.orderId)
+            navController.navigate(action)
+        } */
         }
 
     override fun getItemCount() = listaCompras.size
+
+
+    interface OnDetalleCompraClickListener {
+        fun onDetalleCompraClick(compra: PurchaseDTO)
+    }
 
 }

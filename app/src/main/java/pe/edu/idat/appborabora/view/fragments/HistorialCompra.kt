@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
@@ -28,7 +29,10 @@ class HistorialCompra : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        historialCompraAdapter = PurchaseAdapter(requireContext())
+
+
+        val navController = findNavController()
+        historialCompraAdapter = PurchaseAdapter(requireContext(), navController)
 
         val rvHistorialCompras: RecyclerView = view.findViewById(R.id.rvhistorialcompras)
         rvHistorialCompras.layoutManager = LinearLayoutManager(context)
@@ -44,5 +48,8 @@ class HistorialCompra : Fragment() {
         // Aquí obtienes tus datos de las compras
         // Asegúrate de reemplazar "userId" con el ID de usuario correcto
         purchaseViewModel.fetchAllPurchases(identityDoc)
+
+
     }
+
 }
