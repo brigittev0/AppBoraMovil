@@ -29,7 +29,6 @@ import pe.edu.idat.appborabora.viewmodel.ProductoDashViewModel
 class Dashboard : Fragment(), View.OnClickListener {
 
     private lateinit var sliderAdapter: SliderAdapter
-    private lateinit var svCarrusel: SliderView
     private lateinit var loginOption: RelativeLayout
     private lateinit var rvTopProductos: RecyclerView
     private lateinit var productoDashViewModel: ProductoDashViewModel
@@ -49,8 +48,19 @@ class Dashboard : Fragment(), View.OnClickListener {
         btnlogindash.setOnClickListener(this)
         btncuenta.setOnClickListener(this)
 
-        init(view)
-        initAdapter()
+        val sliderView = view.findViewById<SliderView>(R.id.svCarrusel)
+        sliderAdapter = SliderAdapter(requireContext(), mutableListOf())
+        sliderView.setSliderAdapter(sliderAdapter)
+
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM)
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+        sliderView.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_RIGHT
+        sliderView.indicatorSelectedColor = Color.WHITE
+        sliderView.indicatorUnselectedColor = Color.GRAY
+        sliderView.scrollTimeInSec = 2
+        sliderView.isAutoCycle = true
+        sliderView.startAutoCycle()
+
         loadData()
 
         rvTopProductos.layoutManager = LinearLayoutManager(requireContext())
@@ -82,32 +92,16 @@ class Dashboard : Fragment(), View.OnClickListener {
     }
 
     // Carrusel
-    private fun init(v: View) {
-        svCarrusel = v.findViewById(R.id.svCarrusel)
-    }
-
-    private fun initAdapter() {
-        sliderAdapter = SliderAdapter(requireContext())
-        svCarrusel.setSliderAdapter(sliderAdapter)
-        svCarrusel.setIndicatorAnimation(IndicatorAnimationType.WORM)
-        svCarrusel.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        svCarrusel.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT)
-        svCarrusel.setIndicatorSelectedColor(Color.WHITE)
-        svCarrusel.setIndicatorUnselectedColor(Color.GRAY)
-        svCarrusel.setScrollTimeInSec(4)
-        svCarrusel.startAutoCycle()
-    }
-
     private fun loadData() {
         val lista = mutableListOf<SliderItem>(
-            SliderItem(R.drawable.rul_img_06, ""),
-            SliderItem(R.drawable.rul_img_05, ""),
-            SliderItem(R.drawable.rul_img_01, ""),
-            SliderItem(R.drawable.rul_img_03, ""),
-            SliderItem(R.drawable.rul_img_04, "")
+            SliderItem(R.drawable.rul_img_05),
+            SliderItem(R.drawable.rul_img_06),
+            SliderItem(R.drawable.rul_img_01),
+            SliderItem(R.drawable.rul_img_04),
+            SliderItem(R.drawable.rul_img_02)
         )
 
-        sliderAdapter.updateItem(lista)
+        sliderAdapter.renewItems(lista)
     }
 
     override fun onClick(v: View?) {
