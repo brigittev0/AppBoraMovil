@@ -15,8 +15,8 @@
     <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:minHeight">15dp</item>
         <item name="android:maxHeight">15dp</item>
-        <item name="colorControlNormal">@color/gris_oscuro</item>
-        <item name="colorControlActivated">@color/purple_mas_oscuro</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/purple_800</item>
     </style>
 
     <style name="Theme.AppBoraBora.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

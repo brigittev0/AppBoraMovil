@@ -88,7 +88,7 @@
             android:padding="8dp"
             android:text="@string/registropregunta"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,6 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/bg_input"
+                android:textColor="@color/black"
                 android:drawablePadding="1dp"
                 android:hint="@string/username"
                 android:padding="1dp" />
@@ -151,6 +152,7 @@
                 android:layout_height="56dp"
                 android:background="@drawable/bg_input"
                 android:drawablePadding="1dp"
+                android:textColor="@color/black"
                 android:hint="@string/contra"
                 android:inputType="textPassword"
                 android:padding="1dp" />
