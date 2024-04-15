@@ -156,7 +156,14 @@ class Purchase : AppCompatActivity() {
     //-- Boton Pagar
     private fun setupPayButton() {
         val payButton: Button = findViewById(R.id.pay)
+        val rgOptionSelect: RadioGroup = findViewById(R.id.rgOptionSelect)
         payButton.setOnClickListener {
+
+            if (rgOptionSelect.checkedRadioButtonId == -1) {
+                Toast.makeText(this, "Por favor, selecciona una opción de entrega", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val purchaseRequest = createPurchaseRequest()
             createPurchase(purchaseRequest)
             observePurchaseResponse()
@@ -166,6 +173,7 @@ class Purchase : AppCompatActivity() {
         }
     }
 
+    //----- METODOS -----
     //-- Crear compra
     private fun createPurchaseRequest(): PurchaseRequest {
 
@@ -184,6 +192,8 @@ class Purchase : AppCompatActivity() {
 
         //--DELIVERY
         val districtId = sPDeliveryPickup.getInt("distritoPosition", 1)
+        val ubigeoString = sPDeliveryPickup.getString("ubigeo", "111111") ?: "111111"
+        val ubigeo = ubigeoString.toIntOrNull() ?: 111111
         val district = District(districtId+1)
         val deliveryDate = sPDeliveryPickup.getString("fechaDelivery", "2022-12-31") ?: "2022-12-31"
         val address = sPDeliveryPickup.getString("direccion", "empty") ?: "empty"
@@ -192,7 +202,7 @@ class Purchase : AppCompatActivity() {
 
         //--ORDER
         val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
-        val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, 987569)
+        val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, ubigeo)
 
         //--CARRITO
         val purchaseProducts = Cart.obtenerProductos().map {
@@ -235,10 +245,6 @@ class Purchase : AppCompatActivity() {
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         })
     }
-
-
-
-    //----- METODOS -----
 
     //-- Guardar Opcion seleccionada
     private fun saveSelectedOption(optionType: String) {

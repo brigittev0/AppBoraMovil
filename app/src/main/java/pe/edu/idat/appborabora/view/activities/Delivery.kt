@@ -139,6 +139,15 @@ class Delivery : AppCompatActivity() {
             return false
         }
 
+        if (ubigeo.length != 6) {
+            Toast.makeText(
+                this,
+                "El ubigeo debe tener exactamente 6 dígitos",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
         if (direccion.isEmpty()) {
             Toast.makeText(this, "Por favor, ingrese la dirección", Toast.LENGTH_SHORT).show()
             return false

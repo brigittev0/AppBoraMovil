@@ -151,7 +151,7 @@
             android:background="@drawable/custom_plain_text_input"
             android:ems="10"
             android:hint="Ingrese su ubigeo"
-            android:inputType="text"
+            android:inputType="number"
             android:paddingStart="16dp"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
