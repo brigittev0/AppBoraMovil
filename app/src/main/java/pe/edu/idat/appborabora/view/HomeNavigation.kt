@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.navigateUp
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.databinding.ActivityHomeNavigationBinding
+import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.activities.Purchase
 import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
@@ -86,10 +87,13 @@ class HomeNavigation : AppCompatActivity() {
 
     // Cierre de sesion
     private fun logout() {
-        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        sharedPref.edit().remove("username").apply()
-        sharedPref.edit().remove("role").apply()
-        sharedPref.edit().remove("jwt").apply()
+        //Limpieza
+        val sPUserLogged= getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+        sPUserLogged.edit().clear().apply()
+
+        val sPDeliveryPickup = getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE)
+        sPDeliveryPickup.edit().clear().apply()
+        Cart.limpiarCarrito()
 
         // Actualiza la visibilidad de los elementos del menú
         updateMenu(binding.navView.menu)
