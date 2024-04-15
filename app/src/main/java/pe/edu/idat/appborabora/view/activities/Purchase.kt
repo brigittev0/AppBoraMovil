@@ -31,6 +31,7 @@ import pe.edu.idat.appborabora.data.dto.request.Headquarter
 import pe.edu.idat.appborabora.data.dto.request.Order
 import pe.edu.idat.appborabora.data.dto.request.Payment
 import pe.edu.idat.appborabora.data.dto.request.Product
+import pe.edu.idat.appborabora.data.dto.request.PurchaseProduct
 import pe.edu.idat.appborabora.data.dto.request.PurchaseRequest
 import pe.edu.idat.appborabora.data.dto.request.Status
 import pe.edu.idat.appborabora.data.dto.request.User
@@ -121,6 +122,8 @@ class Purchase : AppCompatActivity() {
         } else if (selectedOption == "PICKUP") {
             // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
             shipping = 0.0
+        } else if (selectedOption == "") {
+            shipping = 0.0
         }
 
         // Actualiza los totales en la interfaz de usuario
@@ -192,7 +195,9 @@ class Purchase : AppCompatActivity() {
         val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, 987569)
 
         //--CARRITO
-        val products = Cart.obtenerProductos().map { Product(it.idProducto, it.quantity) }
+        val purchaseProducts = Cart.obtenerProductos().map {
+            PurchaseProduct(Product(it.producto.id_product), it.quantity)
+        }
         val subtotal = (round(Cart.obtenerProductos().sumOf { it.subtotal } * 100) / 100)
         val igv = (round(Cart.obtenerProductos().sumOf { it.igv } * 100) / 100)
         var shipping = Cart.obtenerProductos().sumOf { it.shipping }
@@ -210,7 +215,7 @@ class Purchase : AppCompatActivity() {
 
         val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
 
-        return PurchaseRequest(total, igv, subtotal, deliveryDate, user, payment, order, products)
+        return PurchaseRequest(total, igv, subtotal, deliveryDate, user, payment, order, purchaseProducts)
     }
 
     //Crear compra segun typeorder

@@ -54,8 +54,6 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
                     product.brandProductId), product.id_product,1
             )
 
-            Log.d("ProductoDashboardAdapter", "${product.name}idProduct: ${product.id_product}")
-
             val productoAgregado = Cart.agregarProducto(productCart)
             if (productoAgregado) {
                 Toast.makeText(context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()

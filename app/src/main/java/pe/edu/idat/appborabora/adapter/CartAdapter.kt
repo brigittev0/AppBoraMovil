@@ -3,6 +3,7 @@ package pe.edu.idat.appborabora.adapter
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,8 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         holder.incrementButton.setOnClickListener {
             if (currentItem.quantity < currentItem.producto.stock) {
                 currentItem.quantity++
+                Log.d("CartAdapter", "Incrementar cantidad: ${currentItem.quantity}") // Agrega un mensaje de registro
+                Cart.actualizarCantidadProducto(currentItem, currentItem.quantity)
                 holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
@@ -76,6 +79,8 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         holder.decrementButton.setOnClickListener {
             if (currentItem.quantity > 1) {
                 currentItem.quantity--
+                Log.d("CartAdapter", "Decrementar cantidad: ${currentItem.quantity}") // Agrega un mensaje de registro
+                Cart.actualizarCantidadProducto(currentItem, currentItem.quantity)
                 holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)

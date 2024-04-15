@@ -1,6 +1,5 @@
 package pe.edu.idat.appborabora.data.dto.request
 
-import com.google.gson.annotations.SerializedName
 
 data class PurchaseRequest(
     val total: Double,
@@ -10,7 +9,7 @@ data class PurchaseRequest(
     val user: User,
     val payment: Payment,
     val order: Order,
-    val products: List<Product>
+    val purchaseProducts: List<PurchaseProduct>
 )
 
 data class User(val identityDoc: Int)
@@ -46,4 +45,6 @@ data class Headquarter(val cod_headquarter: Int)
 
 data class District(val cod_district: Int)
 
-data class Product(val id_product: Int, val quantity: Int)
+data class PurchaseProduct(val product: Product, val quantity: Int)
+
+data class Product(val id_product: Int)
