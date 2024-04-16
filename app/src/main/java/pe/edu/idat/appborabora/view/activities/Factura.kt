@@ -1,8 +1,10 @@
 package pe.edu.idat.appborabora.view.activities
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import pe.edu.idat.appborabora.R
 
@@ -10,20 +12,22 @@ class Factura : AppCompatActivity() {
 
     private val sPPayment by lazy { getSharedPreferences("Payment", Context.MODE_PRIVATE) }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factura)
 
         val purchaseNumber = sPPayment.getString("purchaseNumber", "N/A") ?: "N/A"
         val purchaseDate = sPPayment.getString("purchaseDate", "N/A") ?: "N/A"
-        val fullName = sPPayment.getString("fullName", "N/A") ?: "N/A"
-        val email = sPPayment.getString("email", "N/A") ?: "N/A"
-        val document = sPPayment.getString("document", "N/A") ?: "N/A"
-        val phone = sPPayment.getString("phone", "N/A") ?: "N/A"
+        val fullName = sPPayment.getString("fullName", "N/A")
+        val email = sPPayment.getString("email", "N/A")
+        val document = sPPayment.getString("document", "N/A")
+        val phone = sPPayment.getString("phone", "N/A")
         val paymentMethod = sPPayment.getString("paymentMethod", "N/A") ?: "N/A"
         val subtotal = sPPayment.getFloat("subtotal", 0.0f) ?: "0.0"
         val igv = sPPayment.getFloat("igv", 0.0f) ?: "0.0"
         val total = sPPayment.getFloat("total", 0.0f) ?: "0.0"
+
 
         findViewById<TextView>(R.id.tvnumerocompra).text = purchaseNumber
         findViewById<TextView>(R.id.tvfechacompra).text = purchaseDate

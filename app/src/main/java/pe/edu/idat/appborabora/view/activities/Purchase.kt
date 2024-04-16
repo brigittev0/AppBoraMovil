@@ -303,13 +303,13 @@ class Purchase : AppCompatActivity() {
                     editor.putString("cardType", cardType)
 
                     // Aquí es donde guardas la información adicional en SharedPreferences
-                    editor.putString("purchaseNumber", "2020111701") // Aquí debes poner el número de compra real
+                    editor.putString("purchaseNumber", "2020111701")
                     editor.putString("purchaseDate", formattedDate)
-                    editor.putString("fullName", sPUserLogged.getString("fullName", "N/A")) // Aquí obtienes el nombre real del usuario
-                    editor.putString("email", sPUserLogged.getString("email", "N/A")) // Aquí obtienes el correo real del usuario
-                    editor.putString("document", sPUserLogged.getString("document", "N/A")) // Aquí obtienes el documento real del usuario
-                    editor.putString("phone", sPUserLogged.getString("phone", "N/A")) // Aquí obtienes el teléfono real del usuario
-                    editor.putString("paymentMethod", "Método de pago") // Aquí debes poner el método de pago real
+                    editor.putString("fullName", sPUserLogged.getString("name", "N/A") + " " + sPUserLogged.getString("lastname", "N/A"))
+                    editor.putString("email", sPUserLogged.getString("email", "N/A"))
+                    editor.putString("document", sPUserLogged.getString("identity_doc", "N/A"))
+                    editor.putString("phone", sPUserLogged.getString("cellphone", "N/A"))
+                    editor.putString("paymentMethod", "Método de pago")
                     editor.putString("subtotal", subtotalTextView.toString())
                     editor.putString("igv", igvTextView.toString())
                     editor.putString("total", totalTextView.toString())
