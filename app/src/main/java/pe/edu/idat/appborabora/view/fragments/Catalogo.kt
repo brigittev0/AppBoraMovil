@@ -32,6 +32,7 @@ class Catalogo : Fragment() {
 
         val rvcategoria = view.findViewById<RecyclerView>(R.id.rvcategoria)
 
+
         categoryAdapter = CategoryAdapter(listOf())
         rvcategoria.layoutManager = LinearLayoutManager(context)
         rvcategoria.adapter = categoryAdapter

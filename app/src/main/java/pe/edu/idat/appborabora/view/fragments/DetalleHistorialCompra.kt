@@ -22,56 +22,47 @@ import pe.edu.idat.appborabora.viewmodel.PurchaseViewModel
 
 
 class DetalleHistorialCompra : Fragment() {
-
-    private lateinit var DetailPurchaseAdapter: DetailPurchaseAdapter
-
-    private lateinit var tvNumeroCompra: TextView
-    private lateinit var tvMetodoPago: TextView
-    private lateinit var tvSubtotal: TextView
-    private lateinit var tvIgv: TextView
-    private lateinit var tvTotalCompra: TextView
-    private lateinit var purchaseViewModel: PurchaseViewModel
+    private lateinit var purchaseResponse: PurchasetResponse
+    private lateinit var viewModel: PurchaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalle_historial_compra, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_detalle_historial_compra, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        // Inicializa el ViewModel
+        viewModel = ViewModelProvider(this).get(PurchaseViewModel::class.java)
 
-        tvNumeroCompra = view.findViewById(R.id.textView26)
-        tvMetodoPago = view.findViewById(R.id.tvmetodopago)
-        tvSubtotal = view.findViewById(R.id.tvsubtotal)
-        tvIgv = view.findViewById(R.id.tvigv)
-        tvTotalCompra = view.findViewById(R.id.tvtotalcompra)
 
-        purchaseViewModel = ViewModelProvider(this).get(PurchaseViewModel::class.java)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvproductoscart)
-        val adapter = DetailPurchaseAdapter(requireContext(), Cart.obtenerProductos())
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        // Observa los cambios en purchaseResponse
+        viewModel.purchaseResponse.observe(viewLifecycleOwner, Observer { purchaseResponses ->
+            // Supongamos que quieres mostrar la primera respuesta de compra
+            if (!purchaseResponses.isNullOrEmpty()) {
+                purchaseResponse = purchaseResponses[0]
 
-        // Supongamos que tienes un documento de identidad para buscar las compras
-        val identityDoc = 12345678
+                // Supongamos que tienes los siguientes TextViews en tu layout
+                val purchaseIdTextView = view.findViewById<TextView>(R.id.tvnumerocompra)
+                val totalTextView = view.findViewById<TextView>(R.id.tvtotalcompra)
+                val igvTextView = view.findViewById<TextView>(R.id.tvigv)
+                val subtotalTextView = view.findViewById<TextView>(R.id.tvsubtotal)
+                val purchaseDateTextView = view.findViewById<TextView>(R.id.tvfechacompra)
+                val paymentIdTextView = view.findViewById<TextView>(R.id.tvmetodopago)
+                val identityDocTextView = view.findViewById<TextView>(R.id.tvdocumento)
 
-        purchaseViewModel.fetchAllPurchases(identityDoc)
-
-        purchaseViewModel.purchaseResponse.observe(viewLifecycleOwner, Observer { purchases ->
-            // Aquí puedes manejar la lista de compras
-            // Por ejemplo, puedes tomar la primera compra y mostrarla en los TextViews
-            val purchaseResponse = purchases.firstOrNull()
-            if (purchaseResponse != null) {
-                tvNumeroCompra.text = purchaseResponse.purchase_id.toString()
-                tvMetodoPago.text = purchaseResponse.paymentId.toString() // Necesitarás convertir el ID de pago en el método de pago real
-                tvSubtotal.text = purchaseResponse.subtotal.toString()
-                tvIgv.text = purchaseResponse.igv.toString()
-                tvTotalCompra.text = purchaseResponse.total.toString()
+                // Establecer los valores
+                purchaseIdTextView.text = purchaseResponse.purchase_id.toString()
+                totalTextView.text = purchaseResponse.total.toString()
+                igvTextView.text = purchaseResponse.igv.toString()
+                subtotalTextView.text = purchaseResponse.subtotal.toString()
+                purchaseDateTextView.text = purchaseResponse.purchaseDate
+                paymentIdTextView.text = purchaseResponse.paymentId.toString()
+                identityDocTextView.text = purchaseResponse.identityDoc.toString()
             }
         })
+
+        return view
     }
 }

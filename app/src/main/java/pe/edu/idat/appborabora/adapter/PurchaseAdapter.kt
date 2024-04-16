@@ -48,10 +48,9 @@ class PurchaseAdapter(private val context: Context, private val navController: N
         holder.tvMPago.text = compra.paymentId.toString()
         holder.tvTotal.text = compra.total.toString()
             // Aquí puedes manejar el evento de clic en el botón
-        /*holder.btnDetalleProducto.setOnClickListener {
-            val action = HistorialCompraDirections.actionHistorialCompraToDetalleHistorialCompra(compra.orderId)
-            navController.navigate(action)
-        } */
+        holder.btnDetalleProducto.setOnClickListener {
+            listener?.onDetalleCompraClick(compra)
+        }
         }
 
     override fun getItemCount() = listaCompras.size
