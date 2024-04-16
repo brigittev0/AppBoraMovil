@@ -40,7 +40,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="Punto de retiro"
             android:textColor="@color/text_color"
             android:textSize="18sp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         <Spinner
-            android:id="@+id/spDepartamento"
+            android:id="@+id/spPickup"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginTop="8dp"
@@ -76,41 +76,41 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintHorizontal_bias="0.005"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/spDepartamento" />
+            app:layout_constraintTop_toBottomOf="@+id/spPickup" />
 
-        <ImageButton
-            android:id="@+id/btnShowDatePicker"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="28dp"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_select_date"
-            app:layout_constraintEnd_toStartOf="@+id/tvSelectedDate"
-            app:layout_constraintHorizontal_bias="0.727"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-        <TextView
-            android:id="@+id/tvSelectedDate"
-            android:layout_width="154dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="70dp"
-            android:background="@drawable/bg_spinner"
-            android:hint="Fecha:"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.893"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            <ImageButton
+                android:id="@+id/btnDatePickup"
+                android:layout_width="137dp"
+                android:layout_height="59dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_date_select"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/tvSelectDatePickup"
+                android:layout_width="137dp"
+                android:layout_height="32dp"
+                android:layout_gravity="bottom"
+                android:hint="Ingrese su Fecha"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="RtlCompat" />
+
+        </FrameLayout>
 
         <Button
-            android:id="@+id/btnGuardar"
+            android:id="@+id/btnSavePickup"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:backgroundTint="@color/btn_purple"
@@ -122,7 +122,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/tvSelectedDate"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
             app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
