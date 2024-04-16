@@ -2,13 +2,9 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
 
-
         <!-- AGREGAR TU IP -->
 
         <domain includeSubdomains="true">192.168.18.25</domain>
-
-
-        <!--Ejemplo: <domain includeSubdomains="true">192.160.13.4</domain> -->
 
     </domain-config>
 </network-security-config>

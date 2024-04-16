@@ -46,9 +46,9 @@
         tools:layout="@layout/fragment_detalle_producto"/>
     <activity
         android:id="@+id/compra"
-        android:name="pe.edu.idat.appborabora.view.activities.Compra"
+        android:name="pe.edu.idat.appborabora.view.activities.Purchase"
         android:label="Compra"
-        tools:layout="@layout/activity_compra" />
+        tools:layout="@layout/activity_purchase" />
     <fragment
         android:id="@+id/administrarProductos"
         android:name="pe.edu.idat.appborabora.view.fragments.AdministrarProductos"

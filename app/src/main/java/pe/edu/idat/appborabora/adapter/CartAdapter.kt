@@ -1,5 +1,9 @@
 package pe.edu.idat.appborabora.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,12 +40,12 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         val currentItem = productList[position]
         holder.tvProdCard.text = currentItem.producto.description
         val unitPrice = currentItem.producto.price
-        holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.cantidad * unitPrice)}"
-        holder.tvCantidad.text = currentItem.cantidad.toString()
+        holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.quantity * unitPrice)}"
+        holder.tvCantidad.text = currentItem.quantity.toString()
 
-        Glide.with(holder.itemView.context)
-            .load(currentItem.producto.image)
-            .into(holder.imgcart)
+        // Decodifica la imagen en base64
+        val imageBitmap = decodeImage(currentItem.producto.image)
+        holder.imgcart.setImageBitmap(imageBitmap)
 
         // Eliminar
         val btnDelete: ImageView = holder.itemView.findViewById(R.id.btnDeleteCart)
@@ -56,12 +60,14 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         }
 
         //Incremento - Decremento
-        holder.tvCantidad.text = currentItem.cantidad.toString()
+        holder.tvCantidad.text = currentItem.quantity.toString()
 
         holder.incrementButton.setOnClickListener {
-            if (currentItem.cantidad < currentItem.producto.stock) {
-                currentItem.cantidad++
-                holder.tvCantidad.text = currentItem.cantidad.toString()
+            if (currentItem.quantity < currentItem.producto.stock) {
+                currentItem.quantity++
+                Log.d("CartAdapter", "Incrementar cantidad: ${currentItem.quantity}") // Agrega un mensaje de registro
+                Cart.actualizarCantidadProducto(currentItem, currentItem.quantity)
+                holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
                 onProductQuantityChanged.invoke() // Llama al callback cuando se incrementa la cantidad
@@ -71,9 +77,11 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
         }
 
         holder.decrementButton.setOnClickListener {
-            if (currentItem.cantidad > 1) {
-                currentItem.cantidad--
-                holder.tvCantidad.text = currentItem.cantidad.toString()
+            if (currentItem.quantity > 1) {
+                currentItem.quantity--
+                Log.d("CartAdapter", "Decrementar cantidad: ${currentItem.quantity}") // Agrega un mensaje de registro
+                Cart.actualizarCantidadProducto(currentItem, currentItem.quantity)
+                holder.tvCantidad.text = currentItem.quantity.toString()
                 holder.tvPrecioPDC.text = "S/. ${String.format("%.2f", currentItem.subtotal)}"
                 notifyItemChanged(position)
                 onProductQuantityChanged.invoke() // Llama al callback cuando se decrementa la cantidad
@@ -86,5 +94,10 @@ class CartAdapter(private var productList: List<ProductCart>, private val onProd
     fun actualizarProductos(productos: List<ProductCart>) {
         this.productList = productos
         notifyDataSetChanged()
+    }
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 }

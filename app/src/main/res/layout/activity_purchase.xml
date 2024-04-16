@@ -7,7 +7,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.Compra">
+    tools:context=".view.activities.Purchase">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,6 +51,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Carrito de compra -->
+
+                <!-- Resumen de Compra -->
                 <androidx.recyclerview.widget.RecyclerView
 
                     android:id="@+id/rvproductoscart"
@@ -61,11 +64,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <!-- Resumen de Compra -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,15 +110,16 @@
                             android:id="@+id/textView31"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Resumen de tu compra"
+                            android:text="Resumen del pedido"
                             android:textColor="@color/purple_title"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/header"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.453"
+                            app:layout_constraintHorizontal_bias="0.39"
                             app:layout_constraintStart_toStartOf="@+id/header"
-                            app:layout_constraintTop_toTopOf="@+id/header" />
+                            app:layout_constraintTop_toTopOf="@+id/header"
+                            app:layout_constraintVertical_bias="0.478" />
 
                         <TextView
                             android:id="@+id/textView28"
@@ -279,7 +282,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="8dp">
+                        android:paddingBottom="20dp">
 
                         <View
                             android:id="@+id/header2"
@@ -316,12 +319,25 @@
                             app:layout_constraintTop_toTopOf="@+id/header2"
                             app:srcCompat="@drawable/ic_entrega" />
 
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="296dp"
+                            android:layout_height="39dp"
+                            android:layout_marginStart="9dp"
+                            android:text="*El costo de envío es de S/.5.90, sin importar cuántos productos compres."
+                            android:textColor="@color/text_color_light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.515"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rgOptionSelect"
+                            app:layout_constraintVertical_bias="0.0" />
+
                         <RadioGroup
-                            android:id="@+id/radioGroup"
+                            android:id="@+id/rgOptionSelect"
                             android:layout_width="299dp"
                             android:layout_height="69dp"
                             android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/header2">
@@ -333,7 +349,7 @@
                                 android:layout_marginTop="16dp"
                                 android:buttonTint="@drawable/radio_button_selector"
                                 android:text="Retiro en tienda"
-                                android:textColor="@drawable/radio_button_selector"
+                                android:textColor="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.863"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -348,7 +364,7 @@
                                 android:layout_marginBottom="16dp"
                                 android:buttonTint="@drawable/radio_button_selector"
                                 android:text="Envío a domicilio"
-                                android:textColor="@drawable/radio_button_selector"
+                                android:textColor="@color/black"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/radioButtonStorePickup"
                                 app:layout_constraintHorizontal_bias="0.34"
@@ -360,6 +376,38 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="26dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="49dp">
+
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:src="@drawable/banner_niubiz"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

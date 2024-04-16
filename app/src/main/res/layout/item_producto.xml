@@ -33,7 +33,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif"
                 android:text="Nombre"
-                android:textColor="#000"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_marginTop="9dp"
                 android:fontFamily="sans-serif"
                 android:text="Precio"
-                android:textColor="#2e2e2e"
+                android:textColor="@color/black"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 

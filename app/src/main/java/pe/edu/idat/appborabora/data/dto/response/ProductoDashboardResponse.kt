@@ -2,7 +2,7 @@ package pe.edu.idat.appborabora.data.dto.response
 
 // ProductoDashboardResponse.kt
 data class ProductoDashboardResponse(
-    val idProduct: Int,
+    val id_product: Int,
     val name: String,
     val description: String,
     val price: Double,
