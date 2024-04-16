@@ -40,4 +40,5 @@ interface PublicService {
 
     @GET("products/byCategory/{categoryId}")
     fun getProductsByCategoryId(@Path("categoryId") categoryId: Int): Call<List<ProductDTO>>
+
 }

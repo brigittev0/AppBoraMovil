@@ -11,14 +11,7 @@ import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 
-class ListProductAdapter (
-    private val productList: List<ProductDTO>,
-    private val onCategoryClickListener: OnCategoryClickListener
-)  : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
-
-    interface OnCategoryClickListener {
-        fun onCategoryClick(categoryId: Int)
-    }
+class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProducto: ImageView = itemView.findViewById(R.id.imgProducto)
@@ -35,21 +28,24 @@ class ListProductAdapter (
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList[position]
-        Glide.with(holder.itemView)
-            .load(product.image)
-            .into(holder.imgProducto)
+
+        // Establecer el nombre del producto
         holder.nombreProducto.text = product.name
+        // Establecer el precio del producto
         holder.txtPrecioProducto.text = product.price.toString()
+        // Establecer la imagen del producto
+        // Esto asume que tienes una forma de convertir una URL de imagen o un identificador de recurso en un Drawable
+        // Si tu 'image' es una URL, puedes usar una biblioteca como Glide o Picasso para cargar la imagen
+        // Si tu 'image' es un identificador de recurso, puedes usar `ContextCompat.getDrawable()`
+        // Aquí hay un ejemplo con Glide:
+        // Glide.with(holder.itemView.context).load(product.image).into(holder.imgProducto)
+        // Establecer los listeners de los botones
         holder.btnOrdenar.setOnClickListener {
-            // Aquí debes manejar el evento de clic en el botón Ordenar
+            // Aquí puedes manejar el clic en el botón 'Ordenar'
         }
         holder.btnVerDetalle.setOnClickListener {
-            // Aquí llamas a onCategoryClick con el ID de la categoría del producto
-            onCategoryClickListener.onCategoryClick(product.categoryId)
+            // Aquí puedes manejar el clic en el botón 'Ver Detalle'
         }
     }
-
-    override fun getItemCount(): Int {
-        return productList.size
-    }
+    override fun getItemCount() = productList.size
 }
