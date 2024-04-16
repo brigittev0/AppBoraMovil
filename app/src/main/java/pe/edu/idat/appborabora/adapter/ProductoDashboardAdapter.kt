@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Base64
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.util.Log
 import pe.edu.idat.appborabora.R
-import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.util.ProductPurchase
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.util.ProductCart
@@ -39,7 +40,7 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = productList[position]
         holder.tvNombre.text = product.name
-        holder.tvPrecio.text = product.price.toString()
+        holder.tvPrecio.text = "S/. ${product.price}"
         // Decodifica la imagen en base64 y la carga en ivProducto
         val imageBitmap = decodeImage(product.image)
         holder.ivProducto.setImageBitmap(imageBitmap)
@@ -47,9 +48,11 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
         // Carrito
         // Botón de ordenar
         holder.btnOrdenar.setOnClickListener {
-            val productCart = ProductCart(ProductDTO(product.name, product.description,
-                product.price, product.stock, product.expirationDate, product.image, product.categoryId,
-                product.brandProductId), 1)
+            val productCart = ProductCart(
+                ProductPurchase(product.id_product, product.name, product.description,
+                    product.price, product.stock, product.expirationDate, product.image, product.categoryId,
+                    product.brandProductId), product.id_product,1
+            )
 
             val productoAgregado = Cart.agregarProducto(productCart)
             if (productoAgregado) {
@@ -57,6 +60,7 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
             } else {
                 Toast.makeText(context, "El producto ya está en el carrito", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 

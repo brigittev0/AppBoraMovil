@@ -100,7 +100,7 @@ class CrearProducto : Fragment() {
         tilImagen = view.findViewById(R.id.tilImagen)
         ivImagen = view.findViewById(R.id.ivImagen)
         btnSave = view.findViewById(R.id.btnSave)
-        btnShowDatePicker = view.findViewById(R.id.btnShowDatePicker)
+        btnShowDatePicker = view.findViewById(R.id.btnDatePicker)
         tvSelectedDate = view.findViewById(R.id.tvSelectedDate)
 
         //Seleccion del boton subir imagen

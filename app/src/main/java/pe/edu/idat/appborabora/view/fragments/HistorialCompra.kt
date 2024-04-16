@@ -43,10 +43,10 @@ class HistorialCompra : Fragment() {
             historialCompraAdapter.setProductList(compras)
         })
         val sharedPreferences = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        val identityDoc = sharedPreferences.getString("identityDoc", "0")?.toInt() ?: 0
+        val identityDoc = sharedPreferences.getString("identityDoc", "")?.toInt() ?: 0
         // Aquí obtienes tus datos de las compras
         // Asegúrate de reemplazar "userId" con el ID de usuario correcto
-        purchaseViewModel.fetchAllPurchases(identityDoc)
+        purchaseViewModel.fetchAllPurchases(12345678)
 
 
     }

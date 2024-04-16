@@ -1,5 +1,6 @@
 package pe.edu.idat.appborabora.data.network.authenticated
 
+import pe.edu.idat.appborabora.data.dto.request.PurchaseRequest
 import pe.edu.idat.appborabora.data.dto.request.UpdateUserRequest
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.UserProfileResponse
@@ -38,6 +39,14 @@ interface AuthService {
     @PUT("products/update/{id}")
     fun updateProduct(@Path("id") id: Int, @Body productDTO: ProductDTO): Call<ApiResponse>
 
-    @GET("purchases/all/{identityDoc}")
+
+    @GET("purchase/all/{identityDoc}")
     fun getAllPurchases(@Path("identityDoc") identityDoc: Int): Call<List<PurchasetResponse>>
+
+    @POST("purchase/PICKUP")
+    fun createPickUpOrder(@Body purchaseRequest: PurchaseRequest): Call<ApiResponse>
+
+    @POST("purchase/DELIVERY")
+    fun createDeliveryOrder(@Body purchaseRequest: PurchaseRequest): Call<ApiResponse>
+
 }

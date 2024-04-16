@@ -9,9 +9,12 @@ import pe.edu.idat.appborabora.data.dto.response.BrandProductDTO
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 import pe.edu.idat.appborabora.data.dto.response.CreateUserResponse
 import pe.edu.idat.appborabora.data.dto.response.LoginResponse
+import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.data.dto.response.ProductResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductoDashboardResponse
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -38,5 +41,11 @@ interface PublicService {
     @GET("brand/all")
     fun getAllBrandProducts(): Call<List<BrandProductDTO>>
 
+
+    @GET("products/byCategory/{categoryId}")
+    fun getProductsByCategoryId(@Path("categoryId") categoryId: Int): Call<List<ProductResponse>>
+
+    @GET("products/productResponse/{id}")
+    fun getProductById(@Path("id") id: Int): Call<ProductResponse>
 
 }
