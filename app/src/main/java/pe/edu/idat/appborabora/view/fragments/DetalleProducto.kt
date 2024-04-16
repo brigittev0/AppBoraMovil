@@ -51,7 +51,7 @@ class DetalleProducto : Fragment() {
 
             tvNombre.text = product.name
             tvDescripcion.text = product.description
-            tvPrecio.text = product.price.toString()
+            tvPrecio.text = "S/. ${product.price}"
             tvStock.text = product.stock.toString()
             tvExpirationDate.text = product.expirationDate
             tvBrandProductName.text = product.brandProductName

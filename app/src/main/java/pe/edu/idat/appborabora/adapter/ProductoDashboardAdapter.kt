@@ -39,7 +39,7 @@ class ProductoDashboardAdapter(private val context: Context) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = productList[position]
         holder.tvNombre.text = product.name
-        holder.tvPrecio.text = product.price.toString()
+        holder.tvPrecio.text = "S/. ${product.price}"
         // Decodifica la imagen en base64 y la carga en ivProducto
         val imageBitmap = decodeImage(product.image)
         holder.ivProducto.setImageBitmap(imageBitmap)
