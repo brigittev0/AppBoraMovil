@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.dto.response.ProductResponse
+import pe.edu.idat.appborabora.util.Cart
+import pe.edu.idat.appborabora.util.ProductCart
+import pe.edu.idat.appborabora.util.ProductPurchase
 
 class ListProductAdapter(private var productList: List<ProductResponse>, private val onProductClick: (ProductResponse) -> Unit
 ) : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
@@ -43,7 +47,18 @@ class ListProductAdapter(private var productList: List<ProductResponse>, private
         holder.imgProducto.setImageBitmap(imageBitmap)
         // Establecer los listeners de los botones
         holder.btnOrdenar.setOnClickListener {
-            // Aquí puedes manejar el clic en el botón 'Ordenar'
+            val productCart = ProductCart(
+                ProductPurchase(product.id_product, product.name, product.description,
+                    product.price, product.stock, product.expirationDate, product.image, product.categoryId,
+                    product.brandProductId), product.id_product,1
+            )
+
+            val productoAgregado = Cart.agregarProducto(productCart)
+            if (productoAgregado) {
+                Toast.makeText(holder.itemView.context, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(holder.itemView.context, "El producto ya está en el carrito", Toast.LENGTH_SHORT).show()
+            }
         }
         holder.btnVerDetalle.setOnClickListener {
             onProductClick(product)

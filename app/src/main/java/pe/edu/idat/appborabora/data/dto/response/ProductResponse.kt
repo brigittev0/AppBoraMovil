@@ -11,5 +11,7 @@ data class ProductResponse(
 
     val categoryName: String,
     val brandProductName: String,
-    val deleted: Boolean
+    val deleted: Boolean,
+    val categoryId: Int,
+    val brandProductId: Int,
 )

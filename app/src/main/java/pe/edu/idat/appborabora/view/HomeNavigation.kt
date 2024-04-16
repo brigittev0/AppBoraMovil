@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,6 +20,7 @@ import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.activities.Purchase
 import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
+import pe.edu.idat.appborabora.view.fragments.HistorialCompra
 
 class HomeNavigation : AppCompatActivity() {
 
@@ -84,6 +86,9 @@ class HomeNavigation : AppCompatActivity() {
             startActivity(intent)
             true
         }
+
+        // Manejar la navegación a historialCompra
+
 
         updateMenu(navView.menu)
     }

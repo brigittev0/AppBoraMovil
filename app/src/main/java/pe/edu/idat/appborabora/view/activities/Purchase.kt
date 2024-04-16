@@ -164,13 +164,29 @@ class Purchase : AppCompatActivity() {
         val rgOptionSelect: RadioGroup = findViewById(R.id.rgOptionSelect)
         payButton.setOnClickListener {
 
-            if (rgOptionSelect.checkedRadioButtonId == -1) {
-                Toast.makeText(this, "Por favor, selecciona una opción de entrega", Toast.LENGTH_SHORT).show()
+            // Obtén las preferencias compartidas
+            val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+            val role = sharedPref.getString("role", null)
+
+            // Verifica si el usuario tiene un rol
+            if (role == null) {
+                Toast.makeText(this, "Inicia sesión para continuar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Verifica si el usuario es un administrador
+            if (role == "ROLE_ADMIN_BASIC" || role == "ROLE_ADMIN_FULL") {
+                Toast.makeText(this, "No tienes permisos para realizar esta acción", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (Cart.productosSeleccionados.isEmpty()) {
                 Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (rgOptionSelect.checkedRadioButtonId == -1) {
+                Toast.makeText(this, "Por favor, selecciona una opción de entrega", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -266,7 +282,9 @@ class Purchase : AppCompatActivity() {
         }
 
     }
-
+    //--FECHA ACTUAL
+    private val currentDate = LocalDate.now()
+    private val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == VisaNet.VISANET_AUTHORIZATION) {
@@ -300,6 +318,17 @@ class Purchase : AppCompatActivity() {
                     editor.putString("status", status)
                     editor.putString("cardType", cardType)
 
+                    // Aquí es donde guardas la información adicional en SharedPreferences
+                    editor.putString("purchaseNumber", "2020111701")
+                    editor.putString("purchaseDate", formattedDate)
+                    editor.putString("fullName", sPUserLogged.getString("name", "N/A") + " " + sPUserLogged.getString("lastname", "N/A"))
+                    editor.putString("email", sPUserLogged.getString("email", "N/A"))
+                    editor.putString("document", sPUserLogged.getString("identity_doc", "N/A"))
+                    editor.putString("phone", sPUserLogged.getString("cellphone", "N/A"))
+                    editor.putString("paymentMethod", "Método de pago")
+                    editor.putString("subtotal", subtotalTextView.toString())
+                    editor.putString("igv", igvTextView.toString())
+                    editor.putString("total", totalTextView.toString())
                     editor.apply()
 
                     //Crear Compra
@@ -312,8 +341,8 @@ class Purchase : AppCompatActivity() {
                     disableComponents()
 
                     sPDeliveryPickup.edit().clear().apply()
-                    sPPayment.edit().clear().apply()
                     Cart.limpiarCarrito()
+
 
                     // Iniciar la nueva actividad
                     val intent = Intent(this, CompraExitosa::class.java)

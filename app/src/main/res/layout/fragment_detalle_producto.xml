@@ -13,8 +13,7 @@
         android:layout_height="230dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        android:scaleType="fitCenter" />
 
     <ScrollView
         android:id="@+id/scInfo"
@@ -35,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="Nombre:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvNombre"
@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:text="Descripcion:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDescripcion"
@@ -67,7 +68,8 @@
                 android:layout_height="wrap_content"
                 android:text="Precio:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvPrecio"
@@ -83,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:text="Stock:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvStock"
@@ -99,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:text="Expiration Date:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvExpirationDate"
@@ -115,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:text="Brand Product:"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvBrandProduct"
