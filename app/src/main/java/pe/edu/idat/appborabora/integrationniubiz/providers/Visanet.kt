@@ -8,7 +8,6 @@ import android.widget.Toast
 import pe.edu.idat.appborabora.integrationniubiz.*
 import pe.edu.idat.appborabora.integrationniubiz.model.CertificateApp
 import pe.edu.idat.appborabora.integrationniubiz.services.CertificateApps
-import pe.edu.idat.appborabora.integrationniubiz.services.ApiServiceToken
 import com.google.gson.Gson
 import pe.edu.idat.appborabora.R
 import com.google.gson.GsonBuilder
@@ -17,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pe.edu.idat.appborabora.integrationniubiz.services.TokenSecurity
 import pe.edu.idat.appborabora.view.activities.Purchase
 import retrofit2.Retrofit
 
@@ -35,7 +35,7 @@ class Visanet {
                 .build()
 
             // Crea el servicio
-            val service = retrofit.create(ApiServiceToken::class.java)
+            val service = retrofit.create(TokenSecurity::class.java)
 
             // Solicitud para obtener token
             val response = service.getToken()
