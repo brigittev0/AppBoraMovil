@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
@@ -32,7 +33,16 @@ class Catalogo : Fragment() {
 
         val rvcategoria = view.findViewById<RecyclerView>(R.id.rvcategoria)
 
-        categoryAdapter = CategoryAdapter(listOf())
+        categoryAdapter = CategoryAdapter(listOf()) { category ->
+            // Crea un Bundle y coloca el ID de la categoría en él
+            val bundle = Bundle().apply {
+                putInt("categoryId", category.id_category)
+            }
+
+            // Navega a ListarProdCategoria con el Bundle como argumento
+            findNavController().navigate(R.id.listarProdCategoria, bundle)
+        }
+
         rvcategoria.layoutManager = LinearLayoutManager(context)
         rvcategoria.adapter = categoryAdapter
 
@@ -43,4 +53,4 @@ class Catalogo : Fragment() {
 
         categoryViewModel.fetchAllCategories()
     }
-}
+    }
