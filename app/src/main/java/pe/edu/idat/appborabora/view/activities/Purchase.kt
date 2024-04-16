@@ -282,7 +282,9 @@ class Purchase : AppCompatActivity() {
         }
 
     }
-
+    //--FECHA ACTUAL
+    private val currentDate = LocalDate.now()
+    private val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == VisaNet.VISANET_AUTHORIZATION) {
@@ -316,6 +318,17 @@ class Purchase : AppCompatActivity() {
                     editor.putString("status", status)
                     editor.putString("cardType", cardType)
 
+                    // Aquí es donde guardas la información adicional en SharedPreferences
+                    editor.putString("purchaseNumber", "2020111701")
+                    editor.putString("purchaseDate", formattedDate)
+                    editor.putString("fullName", sPUserLogged.getString("name", "N/A") + " " + sPUserLogged.getString("lastname", "N/A"))
+                    editor.putString("email", sPUserLogged.getString("email", "N/A"))
+                    editor.putString("document", sPUserLogged.getString("identity_doc", "N/A"))
+                    editor.putString("phone", sPUserLogged.getString("cellphone", "N/A"))
+                    editor.putString("paymentMethod", "Método de pago")
+                    editor.putString("subtotal", subtotalTextView.toString())
+                    editor.putString("igv", igvTextView.toString())
+                    editor.putString("total", totalTextView.toString())
                     editor.apply()
 
                     //Crear Compra
@@ -328,8 +341,8 @@ class Purchase : AppCompatActivity() {
                     disableComponents()
 
                     sPDeliveryPickup.edit().clear().apply()
-                    sPPayment.edit().clear().apply()
                     Cart.limpiarCarrito()
+
 
                     // Iniciar la nueva actividad
                     val intent = Intent(this, CompraExitosa::class.java)
