@@ -35,7 +35,7 @@ class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerVi
         // Establecer el nombre del producto
         holder.nombreProducto.text = product.name
         // Establecer el precio del producto
-        holder.txtPrecioProducto.text = product.price.toString()
+        holder.txtPrecioProducto.text = "S/. ${product.price}"
         // Establecer la imagen del producto
         val imageBitmap = decodeImage(product.image)
         holder.imgProducto.setImageBitmap(imageBitmap)
