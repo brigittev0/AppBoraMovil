@@ -174,6 +174,12 @@ class Purchase : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Verifica si el usuario es un administrador
+            if (role == "ROLE_ADMIN_BASIC" || role == "ROLE_ADMIN_FULL") {
+                Toast.makeText(this, "No tienes permisos para realizar esta acción", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (Cart.productosSeleccionados.isEmpty()) {
                 Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

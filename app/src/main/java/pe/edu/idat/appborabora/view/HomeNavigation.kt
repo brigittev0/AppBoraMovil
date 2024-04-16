@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,6 +20,7 @@ import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.activities.Purchase
 import pe.edu.idat.appborabora.view.activities.Login
 import pe.edu.idat.appborabora.view.activities.MainActivity
+import pe.edu.idat.appborabora.view.fragments.HistorialCompra
 
 class HomeNavigation : AppCompatActivity() {
 
@@ -82,6 +84,20 @@ class HomeNavigation : AppCompatActivity() {
         navView.menu.findItem(R.id.login).setOnMenuItemClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
+            true
+        }
+
+        // Manejar la navegación a historialCompra
+        navView.menu.findItem(R.id.historialCompra).setOnMenuItemClickListener {
+            val role = sharedPref.getString("role", null)
+            if (role == "ROLE_ADMIN_BASIC" || role == "ROLE_ADMIN_FULL") {
+                Toast.makeText(this, "No tienes permisos para realizar esta acción", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeNavigation::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, HistorialCompra::class.java)
+                startActivity(intent)
+            }
             true
         }
 
