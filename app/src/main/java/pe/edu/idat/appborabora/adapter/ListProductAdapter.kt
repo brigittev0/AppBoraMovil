@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
+import pe.edu.idat.appborabora.data.dto.response.ProductResponse
 
-class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
+class ListProductAdapter(private var productList: List<ProductResponse>, private val onProductClick: (ProductResponse) -> Unit
+) : RecyclerView.Adapter<ListProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProducto: ImageView = itemView.findViewById(R.id.imgProducto)
@@ -44,7 +46,7 @@ class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerVi
             // Aquí puedes manejar el clic en el botón 'Ordenar'
         }
         holder.btnVerDetalle.setOnClickListener {
-            // Aquí puedes manejar el clic en el botón 'Ver Detalle'
+            onProductClick(product)
         }
     }
     override fun getItemCount() = productList.size
@@ -52,5 +54,10 @@ class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerVi
     private fun decodeImage(imageString: String): Bitmap {
         val decodedString = Base64.decode(imageString, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
+
+    fun updateProducts(newProducts: List<ProductResponse>) {
+        productList= newProducts
+        notifyDataSetChanged()
     }
 }
