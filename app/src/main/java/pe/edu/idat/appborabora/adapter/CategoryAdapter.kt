@@ -10,7 +10,10 @@ import com.bumptech.glide.Glide
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.CategoryResponse
 
-class CategoryAdapter(private var categories: List<CategoryResponse>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(
+    private var categories: List<CategoryResponse>,
+    private val onCategoryClick: (CategoryResponse) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val txtNombreCategoria: TextView = view.findViewById(R.id.txtNombreCategoria)
@@ -28,9 +31,10 @@ class CategoryAdapter(private var categories: List<CategoryResponse>) : Recycler
         val category = categories[position]
         holder.txtNombreCategoria.text = category.name
         Glide.with(holder.itemView.context).load(category.image).into(holder.imgCategoria)
-
+        holder.itemView.setOnClickListener {
+            onCategoryClick(category)
+        }
     }
-
     override fun getItemCount() = categories.size
 
     fun updateData(newCategories: List<CategoryResponse>) {

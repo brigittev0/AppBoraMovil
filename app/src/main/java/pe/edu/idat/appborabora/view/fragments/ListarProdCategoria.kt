@@ -32,17 +32,20 @@ class ListarProdCategoria : Fragment() {
         // Inicializa el ViewModel
         viewModel = ViewModelProvider(this).get(ProdCategViewModel::class.java)
 
+        val categoryId = arguments?.getInt("categoryId") ?: return
         // Observa los cambios en los productos
         viewModel.products.observe(viewLifecycleOwner, Observer { products ->
             // Actualiza el adaptador con los nuevos productos
             adapter = ListProductAdapter(products)
             val recyclerView = view.findViewById<RecyclerView>(R.id.rcvPlatillosPorCategoria)
+
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
+
         })
 
         // Llama a la función para obtener los productos por categoría
         // Deberías reemplazar este valor con el ID de la categoría que quieres
-        viewModel.fetchProductsByCategoryId(1)
+        viewModel.fetchProductsByCategoryId(categoryId)
     }
 }
