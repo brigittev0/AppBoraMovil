@@ -13,12 +13,12 @@ import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
 import pe.edu.idat.appborabora.data.dto.response.PurchasetResponse
 
-class PurchaseAdapter(private val context: Context, private val navController: NavController) : RecyclerView.Adapter<PurchaseAdapter.CompraViewHolder>() {
-
+class PurchaseAdapter(
+    private val context: Context,
+    private var listener: OnDetalleCompraClickListener?
+) : RecyclerView.Adapter<PurchaseAdapter.CompraViewHolder>() {
 
     private var listaCompras: List<PurchasetResponse> = ArrayList()
-    private var listener: OnDetalleCompraClickListener? = null
-
 
     fun setProductList(listaCompras: List<PurchasetResponse>) {
         this.listaCompras = listaCompras
@@ -28,6 +28,7 @@ class PurchaseAdapter(private val context: Context, private val navController: N
     fun setOnDetalleCompraClickListener(listener: OnDetalleCompraClickListener) {
         this.listener = listener
     }
+
     class CompraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNroCompra: TextView = itemView.findViewById(R.id.tvnrocompra)
         val tvFCompra: TextView = itemView.findViewById(R.id.tvfcompra)
@@ -47,17 +48,16 @@ class PurchaseAdapter(private val context: Context, private val navController: N
         holder.tvFCompra.text = compra.purchaseDate.toString()
         holder.tvMPago.text = compra.paymentId.toString()
         holder.tvTotal.text = compra.total.toString()
-            // Aquí puedes manejar el evento de clic en el botón
+
+        // Aquí puedes manejar el evento de clic en el botón
         holder.btnDetalleProducto.setOnClickListener {
             listener?.onDetalleCompraClick(compra)
         }
-        }
+    }
 
     override fun getItemCount() = listaCompras.size
-
 
     interface OnDetalleCompraClickListener {
         fun onDetalleCompraClick(compra: PurchasetResponse)
     }
-
 }

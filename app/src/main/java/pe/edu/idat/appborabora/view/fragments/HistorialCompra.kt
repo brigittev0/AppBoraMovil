@@ -13,26 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.adapter.PurchaseAdapter
+import pe.edu.idat.appborabora.data.dto.response.PurchasetResponse
 import pe.edu.idat.appborabora.viewmodel.PurchaseViewModel
 
-class HistorialCompra : Fragment() {
+class HistorialCompra : Fragment(), PurchaseAdapter.OnDetalleCompraClickListener {
     private lateinit var historialCompraAdapter: PurchaseAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_historial_compra, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        val navController = findNavController()
-        historialCompraAdapter = PurchaseAdapter(requireContext(), navController)
+        historialCompraAdapter = PurchaseAdapter(requireContext(), this)
 
         val rvHistorialCompras: RecyclerView = view.findViewById(R.id.rvhistorialcompras)
         rvHistorialCompras.layoutManager = LinearLayoutManager(context)
@@ -42,13 +39,17 @@ class HistorialCompra : Fragment() {
         purchaseViewModel.purchaseResponse.observe(viewLifecycleOwner, Observer { compras ->
             historialCompraAdapter.setProductList(compras)
         })
+
         val sharedPreferences = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val identityDoc = sharedPreferences.getString("identityDoc", "")?.toInt() ?: 0
-        // Aquí obtienes tus datos de las compras
-        // Asegúrate de reemplazar "userId" con el ID de usuario correcto
-        purchaseViewModel.fetchAllPurchases(12345678)
-
-
+        purchaseViewModel.fetchAllPurchases(identityDoc)
     }
 
+    override fun onDetalleCompraClick(compra: PurchasetResponse) {
+        val bundle = Bundle().apply {
+            putInt("purchaseId", compra.purchase_id)
+        }
+
+        findNavController().navigate(R.id.detalleHistorialCompra, bundle)
+    }
 }

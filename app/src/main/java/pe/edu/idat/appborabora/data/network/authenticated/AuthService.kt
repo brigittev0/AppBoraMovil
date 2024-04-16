@@ -49,4 +49,7 @@ interface AuthService {
     @POST("purchase/DELIVERY")
     fun createDeliveryOrder(@Body purchaseRequest: PurchaseRequest): Call<ApiResponse>
 
+    @GET("purchase/{purchase_id}")
+    fun getPurchaseById(@Path("purchase_id") purchase_id: Int): Call<PurchasetResponse>
+
 }

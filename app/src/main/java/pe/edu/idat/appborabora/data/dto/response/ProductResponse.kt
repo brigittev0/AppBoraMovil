@@ -8,6 +8,7 @@ data class ProductResponse(
     val stock: Int,
     val expirationDate: String,
     val image: String,
+
     val categoryName: String,
     val brandProductName: String,
     val deleted: Boolean
