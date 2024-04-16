@@ -169,6 +169,11 @@ class Purchase : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (Cart.productosSeleccionados.isEmpty()) {
+                Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             //Niubiz - proceso de pago
             Visanet().getTokenSecurityProvider(this)
 
