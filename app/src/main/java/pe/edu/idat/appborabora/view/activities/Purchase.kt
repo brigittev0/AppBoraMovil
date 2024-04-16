@@ -164,13 +164,23 @@ class Purchase : AppCompatActivity() {
         val rgOptionSelect: RadioGroup = findViewById(R.id.rgOptionSelect)
         payButton.setOnClickListener {
 
-            if (rgOptionSelect.checkedRadioButtonId == -1) {
-                Toast.makeText(this, "Por favor, selecciona una opción de entrega", Toast.LENGTH_SHORT).show()
+            // Obtén las preferencias compartidas
+            val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+            val role = sharedPref.getString("role", null)
+
+            // Verifica si el usuario tiene un rol
+            if (role == null) {
+                Toast.makeText(this, "Inicia sesión para continuar", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (Cart.productosSeleccionados.isEmpty()) {
                 Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (rgOptionSelect.checkedRadioButtonId == -1) {
+                Toast.makeText(this, "Por favor, selecciona una opción de entrega", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
