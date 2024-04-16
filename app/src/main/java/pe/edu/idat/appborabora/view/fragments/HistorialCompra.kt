@@ -42,7 +42,6 @@ class HistorialCompra : Fragment() {
         purchaseViewModel.purchaseResponse.observe(viewLifecycleOwner, Observer { compras ->
             historialCompraAdapter.setProductList(compras)
         })
-
         val sharedPreferences = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         val identityDoc = sharedPreferences.getString("identityDoc", "0")?.toInt() ?: 0
         // Aquí obtienes tus datos de las compras

@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
+import pe.edu.idat.appborabora.data.dto.response.PurchasetResponse
 
 class PurchaseAdapter(private val context: Context, private val navController: NavController) : RecyclerView.Adapter<PurchaseAdapter.CompraViewHolder>() {
 
 
-    private var listaCompras: List<PurchaseDTO> = ArrayList()
+    private var listaCompras: List<PurchasetResponse> = ArrayList()
     private var listener: OnDetalleCompraClickListener? = null
 
 
-    fun setProductList(listaCompras: List<PurchaseDTO>) {
+    fun setProductList(listaCompras: List<PurchasetResponse>) {
         this.listaCompras = listaCompras
         notifyDataSetChanged()
     }
@@ -31,8 +33,7 @@ class PurchaseAdapter(private val context: Context, private val navController: N
         val tvFCompra: TextView = itemView.findViewById(R.id.tvfcompra)
         val tvMPago: TextView = itemView.findViewById(R.id.tvmpago)
         val tvTotal: TextView = itemView.findViewById(R.id.tvtotal)
-        val btnDetalleProducto: Button = itemView.findViewById(R.id.btnDetalleProductos)
-
+        val btnDetalleProducto: AppCompatImageButton = itemView.findViewById(R.id.btnDetalleProductos)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompraViewHolder {
@@ -42,7 +43,7 @@ class PurchaseAdapter(private val context: Context, private val navController: N
 
     override fun onBindViewHolder(holder: CompraViewHolder, position: Int) {
         val compra = listaCompras[position]
-        holder.tvNroCompra.text = compra.orderId.toString()
+        holder.tvNroCompra.text = compra.purchase_id.toString()
         holder.tvFCompra.text = compra.purchaseDate.toString()
         holder.tvMPago.text = compra.paymentId.toString()
         holder.tvTotal.text = compra.total.toString()
@@ -57,7 +58,7 @@ class PurchaseAdapter(private val context: Context, private val navController: N
 
 
     interface OnDetalleCompraClickListener {
-        fun onDetalleCompraClick(compra: PurchaseDTO)
+        fun onDetalleCompraClick(compra: PurchasetResponse)
     }
 
 }

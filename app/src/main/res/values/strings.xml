@@ -126,4 +126,5 @@
     <string name="calCelular">Celular</string>
     <string name="valDni">DNI</string>
     <string name="valUsername">Username</string>
+    <string name="title_activity_test2">test2</string>
 </resources>

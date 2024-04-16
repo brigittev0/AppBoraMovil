@@ -6,6 +6,7 @@ import pe.edu.idat.appborabora.data.dto.response.UserProfileResponse
 import pe.edu.idat.appborabora.data.dto.response.ProductDTO
 import pe.edu.idat.appborabora.data.dto.response.ProductoEmptyRequest
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
+import pe.edu.idat.appborabora.data.dto.response.PurchasetResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -38,5 +39,5 @@ interface AuthService {
     fun updateProduct(@Path("id") id: Int, @Body productDTO: ProductDTO): Call<ApiResponse>
 
     @GET("purchases/all/{identityDoc}")
-    fun getAllPurchases(@Path("identityDoc") identityDoc: Int): Call<List<PurchaseDTO>>
+    fun getAllPurchases(@Path("identityDoc") identityDoc: Int): Call<List<PurchasetResponse>>
 }

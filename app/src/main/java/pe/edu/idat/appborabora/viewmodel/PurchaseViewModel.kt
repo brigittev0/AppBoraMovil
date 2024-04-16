@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import pe.edu.idat.appborabora.data.dto.response.ApiResponse
 import pe.edu.idat.appborabora.data.dto.response.PurchaseDTO
+import pe.edu.idat.appborabora.data.dto.response.PurchasetResponse
 import pe.edu.idat.appborabora.data.network.authenticated.AuthClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,14 +16,15 @@ class PurchaseViewModel(application: Application) : AndroidViewModel(application
     private val authClient = AuthClient(application.applicationContext)
     private val authService = authClient.getInstance()
 
-    val purchaseResponse: MutableLiveData<List<PurchaseDTO>> = MutableLiveData()
     val apiResponse: MutableLiveData<ApiResponse> = MutableLiveData()
     val errorMessage: MutableLiveData<String> = MutableLiveData()
 
     //--BUSCAR COMPRAS
+    val purchaseResponse: MutableLiveData<List<PurchasetResponse>> = MutableLiveData()
+
     fun fetchAllPurchases(identityDoc: Int) {
-        authService.getAllPurchases(identityDoc).enqueue(object : Callback<List<PurchaseDTO>> {
-            override fun onResponse(call: Call<List<PurchaseDTO>>, response: Response<List<PurchaseDTO>>) {
+        authService.getAllPurchases(identityDoc).enqueue(object : Callback<List<PurchasetResponse>> {
+            override fun onResponse(call: Call<List<PurchasetResponse>>, response: Response<List<PurchasetResponse>>) {
                 if (response.isSuccessful) {
                     Log.d("PurchaseViewModel", "Respuesta exitosa al obtener las compras del usuario")
                     purchaseResponse.value = response.body()
@@ -32,11 +34,11 @@ class PurchaseViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-            override fun onFailure(call: Call<List<PurchaseDTO>>, t: Throwable) {
+            override fun onFailure(call: Call<List<PurchasetResponse>>, t: Throwable) {
                 Log.e("PurchaseViewModel", "Fallo al obtener las compras del usuario", t)
                 errorMessage.value = "Error al obtener las compras del usuario: ${t.message}"
             }
         })
+    }
 
-}
 }

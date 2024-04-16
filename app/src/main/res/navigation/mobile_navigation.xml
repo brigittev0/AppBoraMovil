@@ -25,30 +25,20 @@
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment
-        android:id="@+id/historialCompra"
-        android:name="pe.edu.idat.appborabora.view.fragments.HistorialCompra"
-        android:label="@string/men_historial_compra"
-        tools:layout="@layout/fragment_historial_compra">
-        <action
-            android:id="@+id/action_historialCompra_to_detalleHistorialCompra"
-            app:destination="@id/detalleHistorialCompra" />
-    </fragment>
-    <fragment
         android:id="@+id/detalleHistorialCompra"
         android:name="pe.edu.idat.appborabora.view.fragments.DetalleHistorialCompra"
         android:label="Detalle de la Compra"
-        tools:layout="@layout/fragment_detalle_historial_compra">
-        <argument
-            app:name="compraId"
-            app:argType="integer" />
-    </fragment>
+        tools:layout="@layout/fragment_detalle_historial_compra" />
+    <fragment
+        android:id="@+id/historialCompra"
+        android:name="pe.edu.idat.appborabora.view.fragments.HistorialCompra"
+        android:label="@string/men_historial_compra"
+        tools:layout="@layout/fragment_historial_compra" />
     <fragment
         android:id="@+id/listarProdCategoria"
         android:name="pe.edu.idat.appborabora.view.fragments.ListarProdCategoria"
         android:label="fragment_listar_prod_categoria"
         tools:layout="@layout/fragment_listar_prod_categoria" />
-
-
     <fragment
         android:id="@+id/detalleProducto"
         android:name="pe.edu.idat.appborabora.view.fragments.DetalleProducto"
@@ -56,9 +46,9 @@
         tools:layout="@layout/fragment_detalle_producto"/>
     <activity
         android:id="@+id/compra"
-        android:name="pe.edu.idat.appborabora.view.activities.Compra"
+        android:name="pe.edu.idat.appborabora.view.activities.Purchase"
         android:label="Compra"
-        tools:layout="@layout/activity_compra" />
+        tools:layout="@layout/activity_purchase" />
     <fragment
         android:id="@+id/administrarProductos"
         android:name="pe.edu.idat.appborabora.view.fragments.AdministrarProductos"
