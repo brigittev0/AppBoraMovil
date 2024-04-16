@@ -91,6 +91,10 @@ class HomeNavigation : AppCompatActivity() {
         val sPUserLogged= getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         sPUserLogged.edit().clear().apply()
 
+        val sPPayment= getSharedPreferences("Payment", Context.MODE_PRIVATE)
+        sPPayment.edit().clear().apply()
+
+
         val sPDeliveryPickup = getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE)
         sPDeliveryPickup.edit().clear().apply()
         Cart.limpiarCarrito()
