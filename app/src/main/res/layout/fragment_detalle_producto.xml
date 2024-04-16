@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivProducto"
         android:layout_width="357dp"
-        android:layout_height="193dp"
+        android:layout_height="230dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"

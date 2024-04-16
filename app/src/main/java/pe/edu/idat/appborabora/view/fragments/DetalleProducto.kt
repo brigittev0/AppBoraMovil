@@ -1,9 +1,13 @@
 package pe.edu.idat.appborabora.view.fragments
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -41,6 +45,9 @@ class DetalleProducto : Fragment() {
             val tvStock = view.findViewById<TextView>(R.id.tvStock)
             val tvExpirationDate = view.findViewById<TextView>(R.id.tvExpirationDate)
             val tvBrandProductName = view.findViewById<TextView>(R.id.tvBrandProduct)
+            val imgProducto = view.findViewById<ImageView>(R.id.ivProducto) // Asegúrate de que este ID es correcto
+            val imageBitmap = decodeImage(product.image)
+            imgProducto.setImageBitmap(imageBitmap) // Corrección aquí
 
             tvNombre.text = product.name
             tvDescripcion.text = product.description
@@ -52,5 +59,10 @@ class DetalleProducto : Fragment() {
 
         // Obtener el producto
         viewModel.fetchProduct(productId)
+    }
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 }
