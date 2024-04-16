@@ -35,15 +35,18 @@ import pe.edu.idat.appborabora.data.dto.request.PurchaseProduct
 import pe.edu.idat.appborabora.data.dto.request.PurchaseRequest
 import pe.edu.idat.appborabora.data.dto.request.Status
 import pe.edu.idat.appborabora.data.dto.request.User
+import pe.edu.idat.appborabora.integrationniubiz.providers.Visanet
 import pe.edu.idat.appborabora.util.Cart
 import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.view.fragments.Dashboard
 import pe.edu.idat.appborabora.viewmodel.ProductViewModel
 import pe.edu.idat.appborabora.viewmodel.PurchaseViewModel
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.HashMap
+import java.util.Locale
 import kotlin.math.round
 
 class Purchase : AppCompatActivity() {
@@ -58,6 +61,7 @@ class Purchase : AppCompatActivity() {
 
     private val sPDeliveryPickup by lazy { getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE) }
     private val sPUserLogged by lazy { getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE) }
+    private val sPPayment by lazy { getSharedPreferences("Payment", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,100 +169,18 @@ class Purchase : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val purchaseRequest = createPurchaseRequest()
-            createPurchase(purchaseRequest)
-            observePurchaseResponse()
-            observeErrorMessage()
+            if (Cart.productosSeleccionados.isEmpty()) {
+                Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            //NIUBIZ
+            //Niubiz - proceso de pago
+            Visanet().getTokenSecurityProvider(this)
+
         }
     }
-
-
 
     //----- METODOS -----
-    //-- Crear compra
-    private fun createPurchaseRequest(): PurchaseRequest {
-
-        //--USER
-        val identityDoc = sPUserLogged.getString("identityDoc", "0")?.toInt() ?: 0
-        val user = User(identityDoc)
-
-        //--NIUBIZ
-        val cardType = CardType(1)
-        val status = Status(1)
-        val payment = Payment(100.0, "1234567812345678", "PEN", "1", "123456", "2022-12-31", cardType, status)
-
-        //--PICKUP
-        val headquarterId = sPDeliveryPickup.getInt("sedePosition", 1)
-        val headquarter = Headquarter(headquarterId+1)
-
-        //--DELIVERY
-        val districtId = sPDeliveryPickup.getInt("distritoPosition", 1)
-        val ubigeoString = sPDeliveryPickup.getString("ubigeo", "111111") ?: "111111"
-        val ubigeo = ubigeoString.toIntOrNull() ?: 111111
-        val district = District(districtId+1)
-        val deliveryDate = sPDeliveryPickup.getString("fechaDelivery", "2022-12-31") ?: "2022-12-31"
-        val address = sPDeliveryPickup.getString("direccion", "empty") ?: "empty"
-        val province = sPDeliveryPickup.getString("provincia", "empty") ?: "empty"
-        val department = sPDeliveryPickup.getString("departamento", "empty") ?: "empty"
-
-        //--ORDER
-        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
-        val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, ubigeo)
-
-        //--CARRITO
-        val purchaseProducts = Cart.obtenerProductos().map {
-            PurchaseProduct(Product(it.producto.id_product), it.quantity)
-        }
-        val subtotal = (round(Cart.obtenerProductos().sumOf { it.subtotal } * 100) / 100)
-        val igv = (round(Cart.obtenerProductos().sumOf { it.igv } * 100) / 100)
-        var shipping = Cart.obtenerProductos().sumOf { it.shipping }
-
-
-        // Verifica la opción seleccionada en las preferencias compartidas
-        val selectedOption = sPDeliveryPickup.getString("optionOrder", "")
-        if (selectedOption == "DELIVERY") {
-            // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
-            shipping += 5.90
-        } else if (selectedOption == "PICKUP") {
-            // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
-            shipping = 0.0
-        }
-
-        val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
-
-        val currentDate = LocalDate.now()
-        val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
-        return PurchaseRequest(total, igv, subtotal, formattedDate, user, payment, order, purchaseProducts)
-    }
-
-    //Crear compra segun typeorder
-    private fun createPurchase(purchaseRequest: PurchaseRequest) {
-        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
-        purchaseViewModel.createPurchase(optionOrder, purchaseRequest)
-    }
-
-    //-- Observadores
-    private fun observePurchaseResponse() {
-        purchaseViewModel.createPurchaseResponse.observe(this, Observer { apiResponse ->
-            Toast.makeText(this, "Compra creada con éxito", Toast.LENGTH_SHORT).show()
-
-            sPDeliveryPickup.edit().clear().apply()
-            Cart.limpiarCarrito()
-
-            val intent = Intent(this, HomeNavigation::class.java)
-            startActivity(intent)
-            finish()
-        })
-    }
-
-    private fun observeErrorMessage() {
-        purchaseViewModel.errorMessage.observe(this, Observer { errorMessage ->
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        })
-    }
 
     //-- Guardar Opcion seleccionada
     private fun saveSelectedOption(optionType: String) {
@@ -295,9 +217,25 @@ class Purchase : AppCompatActivity() {
         data[VisaNet.VISANET_SECURITY_TOKEN] = token
         data[VisaNet.VISANET_CHANNEL] = Channel.MOBILE
         data[VisaNet.VISANET_COUNTABLE] = true
-        data[VisaNet.VISANET_MERCHANT] = "456879852"
-        data[VisaNet.VISANET_PURCHASE_NUMBER] = "2020111701"
-        data[VisaNet.VISANET_AMOUNT] = 10.50
+        data[VisaNet.VISANET_MERCHANT] = "456879852"          //Código de comercio
+        data[VisaNet.VISANET_PURCHASE_NUMBER] = "2020111701"  //Valor único por intento de autorización
+
+        var shipping = Cart.obtenerProductos().sumOf { it.shipping }
+
+        // Verifica la opción seleccionada en las preferencias compartidas
+        val selectedOption = sPDeliveryPickup.getString("optionOrder", "")
+        if (selectedOption == "DELIVERY") {
+            // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
+            shipping += 5.90
+        } else if (selectedOption == "PICKUP") {
+            // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
+            shipping = 0.0
+        }else if (selectedOption == "") {
+            shipping = 0.0
+        }
+
+        val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
+        data[VisaNet.VISANET_AMOUNT] = total
 
         val MDDdata = HashMap<String, String>()
         MDDdata["19"] = "LIM"
@@ -335,13 +273,47 @@ class Purchase : AppCompatActivity() {
             if (data != null) {
                 val gson = GsonBuilder().setPrettyPrinting().create()
                 if (resultCode == RESULT_OK) {
-                    disableComponents()
+
                     val JSONString = data.extras!!.getString("keySuccess")
                     val jsonElement = JsonParser.parseString(JSONString)
+
+                    val jsonObject = JsonParser.parseString(JSONString).asJsonObject
+                    val dataMapObject = jsonObject.getAsJsonObject("dataMap")
+                    val orderObject = jsonObject.getAsJsonObject("order")
+
+                    val amount = dataMapObject.get("AMOUNT")?.asDouble ?: 0.0
+                    val card = dataMapObject.get("CARD")?.asString ?: "N/A"
+                    val currency = orderObject.get("currency")?.asString ?: "N/A"
+                    val quotaNumber = dataMapObject.get("QUOTA_NUMBER")?.asString ?: "1"
+                    val traceNumber = orderObject.get("traceNumber")?.asString ?: "N/A"
+                    val status = dataMapObject.get("STATUS")?.asString ?: "N/A"
+                    val cardType = dataMapObject.get("CARD_TYPE")?.asString ?: "N/A"
+
+
+                    val editor = sPPayment.edit()
+
+                    editor.putString("amount", amount.toString())
+                    editor.putString("card", card)
+                    editor.putString("currency", currency)
+                    editor.putString("quotaNumber", quotaNumber)
+                    editor.putString("traceNumber", traceNumber)
+                    editor.putString("status", status)
+                    editor.putString("cardType", cardType)
+
+                    editor.apply()
+
+                    //Crear Compra
+                    val purchaseRequest = createPurchaseRequest()
+                    createPurchase(purchaseRequest)
+                    observeErrorMessage()
+
                     Log.d("Success JSON", gson.toJson(jsonElement)) // Imprime el JSON de éxito
                     Log.d("MyApp", "Pago exitoso")
-                    val toast1 = Toast.makeText(applicationContext, "¡Pago exitoso!", Toast.LENGTH_LONG)
-                    toast1.show()
+                    disableComponents()
+
+                    sPDeliveryPickup.edit().clear().apply()
+                    sPPayment.edit().clear().apply()
+                    Cart.limpiarCarrito()
 
                     // Iniciar la nueva actividad
                     val intent = Intent(this, CompraExitosa::class.java)
@@ -364,6 +336,120 @@ class Purchase : AppCompatActivity() {
                 disableComponents()
             }
         }
+    }
+
+    //-- Crear compra
+    private fun createPurchaseRequest(): PurchaseRequest {
+
+        //--FECHA ACTUAL
+        val currentDate = LocalDate.now()
+        val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+        //--USER
+        val identityDoc = sPUserLogged.getString("identityDoc", "0")?.toInt() ?: 0
+        val user = User(identityDoc)
+
+        //--NIUBIZ ---DATOS DEL PROCESO DE NIUBIZ
+        val amountString = sPPayment.getString("amount", "0.0")
+        val amount = amountString?.toDoubleOrNull() ?: 0.0
+        val card = sPPayment.getString("card", "N/A") ?: "N/A"
+        val currency = sPPayment.getString("currency", "N/A") ?: "N/A"
+        val quotaNumber = sPPayment.getString("quotaNumber", "N/A") ?: "N/A"
+        val traceNumber = sPPayment.getString("traceNumber", "N/A") ?: "N/A"
+
+
+        val statusString = sPPayment.getString("status", "N/A") ?: "N/A"
+        var stat = 0
+        if(statusString == "Authorized"){
+            stat = 1
+        } else if(statusString == "Desauthorized"){
+            stat = 2
+        }
+        val cardTypeString = sPPayment.getString("cardType", "N/A")
+        var cardT = 0
+        if(cardTypeString == "C"){
+            cardT = 1
+        }else if(cardTypeString == "D"){
+            cardT = 2
+        }
+
+        val cardType = CardType(cardT)
+        val status = Status(stat)
+
+
+        val payment = Payment(amount, card, currency, quotaNumber, traceNumber, formattedDate, cardType, status)
+
+        Log.d("DatosCompra", "Payment Details: Amount: ${payment.amount}, Card: ${payment.card}, " +
+                "Currency: ${payment.currency}, Quota Number: ${payment.quota_number}, " +
+                "Trace Number: ${payment.trace_number}, Transaction Date: ${payment.transactionDate}, " +
+                "Card Type: ${payment.card_type}, Status: ${payment.status}")
+
+        //--PICKUP
+        val headquarterId = sPDeliveryPickup.getInt("sedePosition", 1)
+        val headquarter = Headquarter(headquarterId+1)
+
+        //--DELIVERY
+        val districtId = sPDeliveryPickup.getInt("distritoPosition", 1)
+        val ubigeoString = sPDeliveryPickup.getString("ubigeo", "111111") ?: "111111"
+        val ubigeo = ubigeoString.toIntOrNull() ?: 111111
+        val district = District(districtId+1)
+        val deliveryDate = sPDeliveryPickup.getString("fechaDelivery", "2022-12-12") ?: "2022-12-12"
+        val address = sPDeliveryPickup.getString("direccion", "N/A") ?: "N/A"
+        val province = sPDeliveryPickup.getString("provincia", "N/A") ?: "N/A"
+        val department = sPDeliveryPickup.getString("departamento", "N/A") ?: "N/A"
+
+        //--ORDER
+        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
+        val order = Order(optionOrder, optionOrder, deliveryDate, headquarter, address, department, district, province, ubigeo)
+
+        //--CARRITO
+        val purchaseProducts = Cart.obtenerProductos().map {
+            PurchaseProduct(Product(it.producto.id_product), it.quantity)
+        }
+        val subtotal = (round(Cart.obtenerProductos().sumOf { it.subtotal } * 100) / 100)
+        val igv = (round(Cart.obtenerProductos().sumOf { it.igv } * 100) / 100)
+        var shipping = Cart.obtenerProductos().sumOf { it.shipping }
+
+
+        // Verifica la opción seleccionada en las preferencias compartidas
+        val selectedOption = sPDeliveryPickup.getString("optionOrder", "")
+        if (selectedOption == "DELIVERY") {
+            // Si la opción seleccionada es "delivery", agrega 5.90 al costo de envío
+            shipping += 5.90
+        } else if (selectedOption == "PICKUP") {
+            // Si la opción seleccionada es "recojo en tienda", deja el costo de envío en 0
+            shipping = 0.0
+        } else if (selectedOption == "") {
+            shipping = 0.0
+        }
+
+        val total = (round((Cart.obtenerProductos().sumOf { it.total } + shipping) * 100) / 100)
+
+
+
+        //Almacenando pago:
+        val editor = sPPayment.edit()
+        editor.putFloat("subtotal", subtotal.toFloat())
+        editor.putFloat("igv", igv.toFloat())
+        editor.putFloat("shipping", shipping.toFloat())
+        editor.putFloat("total", total.toFloat())
+        editor.apply()
+
+        Log.d("MyApp", "Finalizando createPurchaseRequest")
+        return PurchaseRequest(total, igv, subtotal, formattedDate, user, payment, order, purchaseProducts)
+    }
+
+    //Crear compra segun typeorder
+    private fun createPurchase(purchaseRequest: PurchaseRequest) {
+        val optionOrder = sPDeliveryPickup.getString("optionOrder", "") ?: ""
+        purchaseViewModel.createPurchase(optionOrder, purchaseRequest)
+    }
+
+    //-- Observadores
+    private fun observeErrorMessage() {
+        purchaseViewModel.errorMessage.observe(this, Observer { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun disableComponents(){

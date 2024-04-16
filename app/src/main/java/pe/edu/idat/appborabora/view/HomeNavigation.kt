@@ -53,7 +53,16 @@ class HomeNavigation : AppCompatActivity() {
 
         val username = sharedPref.getString("username", "Invitado")
 
-        navUsername.text = username
+        //codigo para que muestre su rol + username
+        val role = sharedPref.getString("role", null)
+        val displayRole = when (role) {
+            "ROLE_ADMIN_BASIC" -> "Admin"
+            "ROLE_ADMIN_FULL" -> "Admin Full"
+            "ROLE_USER" -> "User"
+            else -> "Se encuentra como"
+        }
+
+        navUsername.text = "$displayRole $username"
 
 
         // Manejar la navegación a CompraAct
@@ -90,6 +99,10 @@ class HomeNavigation : AppCompatActivity() {
         //Limpieza
         val sPUserLogged= getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
         sPUserLogged.edit().clear().apply()
+
+        val sPPayment= getSharedPreferences("Payment", Context.MODE_PRIVATE)
+        sPPayment.edit().clear().apply()
+
 
         val sPDeliveryPickup = getSharedPreferences("DeliveryPickup", Context.MODE_PRIVATE)
         sPDeliveryPickup.edit().clear().apply()
