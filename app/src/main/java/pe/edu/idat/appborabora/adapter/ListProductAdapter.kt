@@ -1,5 +1,8 @@
 package pe.edu.idat.appborabora.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,11 +37,8 @@ class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerVi
         // Establecer el precio del producto
         holder.txtPrecioProducto.text = product.price.toString()
         // Establecer la imagen del producto
-        // Esto asume que tienes una forma de convertir una URL de imagen o un identificador de recurso en un Drawable
-        // Si tu 'image' es una URL, puedes usar una biblioteca como Glide o Picasso para cargar la imagen
-        // Si tu 'image' es un identificador de recurso, puedes usar `ContextCompat.getDrawable()`
-        // Aquí hay un ejemplo con Glide:
-        // Glide.with(holder.itemView.context).load(product.image).into(holder.imgProducto)
+        val imageBitmap = decodeImage(product.image)
+        holder.imgProducto.setImageBitmap(imageBitmap)
         // Establecer los listeners de los botones
         holder.btnOrdenar.setOnClickListener {
             // Aquí puedes manejar el clic en el botón 'Ordenar'
@@ -48,4 +48,9 @@ class ListProductAdapter(private val productList: List<ProductDTO>) : RecyclerVi
         }
     }
     override fun getItemCount() = productList.size
+
+    private fun decodeImage(imageString: String): Bitmap {
+        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
 }
