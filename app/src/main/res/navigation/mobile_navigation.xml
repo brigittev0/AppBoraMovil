@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/listarProdCategoria"
         android:name="pe.edu.idat.appborabora.view.fragments.ListarProdCategoria"
-        android:label="fragment_listar_prod_categoria"
+        android:label="Listado de Producto"
         tools:layout="@layout/fragment_listar_prod_categoria" />
     <fragment
         android:id="@+id/detalleProducto"
