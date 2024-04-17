@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.data.dto.request.UpdateUserRequest
+import pe.edu.idat.appborabora.data.dto.response.UserProfileResponse
 import pe.edu.idat.appborabora.databinding.FragmentPerfilBinding
 import pe.edu.idat.appborabora.viewmodel.UserViewModel
 
@@ -122,7 +123,27 @@ class UserProfile : Fragment() {
                 nameuser.text = userProfileResponse.username
                 userCelular.text = userProfileResponse.cellphone.toString()
 
+                saveToSharedPrefs(userProfileResponse.username, userProfileResponse.lastname,
+                    userProfileResponse.email, userProfileResponse.cellphone.toString())
+                // Imprimir en el log
+                val username = sharedPref.getString("username", null)
+                val lastname = sharedPref.getString("lastname", null)
+                val email = sharedPref.getString("email", null)
+                val cellphone = sharedPref.getString("cellphone", null)
+
+                Log.d("SharedPrefs", "username: $username, lastname: $lastname, email: $email, cellphone: $cellphone")
+
             })
+        }
+    }
+
+    private fun saveToSharedPrefs(username: String?, lastname: String?, email: String?, cellphone: String?) {
+        val sharedPref = requireActivity().getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("fullname", username + lastname)
+            putString("email", email)
+            putString("cellphone", cellphone)
+            apply()
         }
     }
 

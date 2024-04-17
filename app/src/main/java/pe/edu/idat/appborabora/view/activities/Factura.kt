@@ -11,7 +11,7 @@ import pe.edu.idat.appborabora.R
 class Factura : AppCompatActivity() {
 
     private val sPPayment by lazy { getSharedPreferences("Payment", Context.MODE_PRIVATE) }
-
+    private val sPUser by lazy { getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +19,19 @@ class Factura : AppCompatActivity() {
 
         val purchaseNumber = sPPayment.getString("purchaseNumber", "N/A") ?: "N/A"
         val purchaseDate = sPPayment.getString("purchaseDate", "N/A") ?: "N/A"
-        val fullName = sPPayment.getString("fullName", "N/A")
-        val email = sPPayment.getString("email", "N/A")
-        val document = sPPayment.getString("document", "N/A")
-        val phone = sPPayment.getString("phone", "N/A")
-        val paymentMethod = sPPayment.getString("paymentMethod", "N/A") ?: "N/A"
+        val fullName = sPUser.getString("fullname", "N/A")
+        val email = sPUser.getString("email", "N/A")
+        val document = sPUser.getString("identityDoc", "N/A")
+        val phone = sPUser.getString("phone", "N/A")
+
+        val cardTypeString = sPPayment.getString("cardType", "N/A")
+        var cardT = ""
+        if(cardTypeString == "C"){
+            cardT = "Tarjeta"
+        }else if(cardTypeString == "D"){
+            cardT = "Yape"
+        }
+
         val subtotal = sPPayment.getFloat("subtotal", 0.0f) ?: "0.0"
         val igv = sPPayment.getFloat("igv", 0.0f) ?: "0.0"
         val total = sPPayment.getFloat("total", 0.0f) ?: "0.0"
@@ -35,7 +43,7 @@ class Factura : AppCompatActivity() {
         findViewById<TextView>(R.id.tvcorreo).text = email
         findViewById<TextView>(R.id.tvdocumento).text = document
         findViewById<TextView>(R.id.tvTelefono).text = phone
-        findViewById<TextView>(R.id.tvmetodopago).text = paymentMethod
+        findViewById<TextView>(R.id.tvmetodopago).text = cardT
         findViewById<TextView>(R.id.tvsubtotal).text = subtotal.toString()
         findViewById<TextView>(R.id.tvigv).text = igv.toString()
         findViewById<TextView>(R.id.tvtotalcompra).text = total.toString()

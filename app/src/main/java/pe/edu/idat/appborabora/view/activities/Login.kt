@@ -3,6 +3,8 @@ package pe.edu.idat.appborabora.view.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
@@ -17,12 +19,16 @@ import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.view.HomeNavigation
 import pe.edu.idat.appborabora.viewmodel.LoginState
 import pe.edu.idat.appborabora.viewmodel.LoginViewModel
+import pe.edu.idat.appborabora.viewmodel.UserViewModel
 
 class Login : AppCompatActivity() {
 
     private lateinit var tUser: EditText
     private lateinit var tPassword: EditText
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var userViewModel: UserViewModel
+
+    private val sPUserLogged by lazy { getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,7 @@ class Login : AppCompatActivity() {
 
         // Inicializar ViewModel
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         // Observar cambios en loginState
         loginViewModel.loginState.observe(this, Observer { loginState ->
@@ -61,6 +68,7 @@ class Login : AppCompatActivity() {
                     tUser.text.clear()
                     tPassword.text.clear()
                     saveToSharedPrefs(loginState.username, loginState.role, loginState.jwt, loginState.identityDoc)
+                    saveDataUser()
                     startHomeNavigation()
                 }
                 is LoginState.Error -> {
@@ -70,6 +78,29 @@ class Login : AppCompatActivity() {
         })
     }
 
+    private fun saveDataUser() {
+
+        val usernameUsuario = sPUserLogged.getString("username", null)
+
+        if (usernameUsuario != null) {
+            userViewModel.getUserByUsername(usernameUsuario)
+
+            userViewModel.userProfileResponse.observe(this, Observer { userProfileResponse ->
+
+                saveToSharedPrefsUser(userProfileResponse.name, userProfileResponse.lastname,
+                    userProfileResponse.email, userProfileResponse.cellphone.toString())
+            })
+        }
+    }
+
+    private fun saveToSharedPrefsUser(name: String?, lastname: String?, email: String?, cellphone: String?) {
+        sPUserLogged.edit().apply {
+            putString("fullname", name + "" + lastname)
+            putString("email", email)
+            putString("phone", cellphone)
+            apply()
+        }
+    }
     private fun login() {
         val username = tUser.text.toString()
         val password = tPassword.text.toString()
@@ -94,8 +125,7 @@ class Login : AppCompatActivity() {
 
 
     private fun startHomeNavigation() {
-        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        val role = sharedPref.getString("role", "")
+        val role = sPUserLogged.getString("role", "")
 
         val intent = when (role) {
             "ROLE_ADMIN_FULL" -> Intent(this, HomeNavigation::class.java)
@@ -109,8 +139,7 @@ class Login : AppCompatActivity() {
 
     // Preferencias compartidas
     private fun saveToSharedPrefs(username: String?, role: String?, jwt: String?, identityDoc: Int) {
-        val sharedPref = getSharedPreferences("UsuarioLogueado", Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
+        sPUserLogged.edit().apply {
             putString("username", username)
             putString("role", role)
             putString("jwt", jwt)
