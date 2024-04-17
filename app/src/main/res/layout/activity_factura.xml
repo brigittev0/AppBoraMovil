@@ -445,6 +445,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/btnVolverMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Volver al menú"
+                android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            />
 
         </LinearLayout>
 

@@ -1,12 +1,15 @@
 package pe.edu.idat.appborabora.view.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import pe.edu.idat.appborabora.R
+import pe.edu.idat.appborabora.view.HomeNavigation
 
 class Factura : AppCompatActivity() {
 
@@ -16,6 +19,8 @@ class Factura : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factura)
+
+        val btnVolver = findViewById<Button>(R.id.btnVolverMenu)
 
         val purchaseNumber = sPPayment.getString("purchaseNumber", "N/A") ?: "N/A"
         val purchaseDate = sPPayment.getString("purchaseDate", "N/A") ?: "N/A"
@@ -47,8 +52,14 @@ class Factura : AppCompatActivity() {
         findViewById<TextView>(R.id.tvsubtotal).text = subtotal.toString()
         findViewById<TextView>(R.id.tvigv).text = igv.toString()
         findViewById<TextView>(R.id.tvtotalcompra).text = total.toString()
-    }
 
+        // botón volver al menú
+        btnVolver.setOnClickListener {
+            val intent = Intent(this, HomeNavigation::class.java)
+            startActivity(intent)
+            finish()
+        }
+}
     // En Factura
     override fun onDestroy() {
         super.onDestroy()
