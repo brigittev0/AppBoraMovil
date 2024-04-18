@@ -47,6 +47,7 @@ class ActualizarProducto : Fragment() {
     private var ivImagen: ImageView? = null
     private var categories: List<CategoryResponse> = listOf()
     private var brandProducts: List<BrandProductDTO> = listOf()
+    private var productFound = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,12 +113,24 @@ class ActualizarProducto : Fragment() {
             startActivityForResult(intent, IMAGE_PICK_CODE)
         }
 
+        fun clearFields(etProductName: EditText, etProductDescription: EditText, etPrice: EditText, etStock: EditText, tvSelectedDate: TextView, ivImagen: ImageView) {
+            etProductName.text.clear()
+            etProductDescription.text.clear()
+            etPrice.text.clear()
+            etStock.text.clear()
+            tvSelectedDate.text = ""
+            ivImagen.setImageBitmap(null)
+            selectedImage = null
+            selectedDate = null
+        }
+
         // Obtener el producto cuando se hace clic en el botón
         btnExamine.setOnClickListener {
             val productIdText = view.findViewById<EditText>(R.id.productId).text.toString()
             if (productIdText.isNotEmpty()) {
                 val productId = productIdText.toInt()
                 viewModel.getProductById(productId)
+                clearFields(etProductName, etProductDescription, etPrice, etStock, tvSelectedDate, ivImagen)
             } else {
                 Toast.makeText(context, "Por favor, introduce un ID de producto", Toast.LENGTH_SHORT).show()
             }
@@ -125,6 +138,7 @@ class ActualizarProducto : Fragment() {
 
         //llenar los elementos con sus valores
         viewModel.product.observe(viewLifecycleOwner, Observer { product ->
+            productFound = true
             etProductName.setText(product.name)
             etProductDescription.setText(product.description)
             etPrice.setText(product.price.toString())
@@ -146,9 +160,9 @@ class ActualizarProducto : Fragment() {
             ivImagen.setImageBitmap(decodedByte)
             selectedImage = decodedByte
         })
-
+        // productFound a false cuando el producto no es encontrado y mensaje
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
-            // Mostrar el mensaje de error
+            productFound = false
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         })
 
@@ -157,9 +171,28 @@ class ActualizarProducto : Fragment() {
         btnSave.setOnClickListener {
             val name = etProductName.text.toString()
             val description = etProductDescription.text.toString()
-            val price = etPrice.text.toString().toDouble()
-            val stock = etStock.text.toString().toInt()
+            val priceText = etPrice.text.toString()
+            val stockText = etStock.text.toString()
             val expirationDate = tvSelectedDate.text.toString()
+
+            if (name.isEmpty() || description.isEmpty() || priceText.isEmpty() || stockText.isEmpty() || expirationDate.isEmpty() || selectedImage == null) {
+                Toast.makeText(context, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val price = priceText.toDoubleOrNull()
+            val stock = stockText.toIntOrNull()
+
+            if (price == null || stock == null) {
+                Toast.makeText(context, "Por favor, introduzca un precio y stock válidos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!productFound) {
+                Toast.makeText(context, "Por favor, busque un producto antes de actualizar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             //imagen a base64
             val byteArrayOutputStream = ByteArrayOutputStream()
             selectedImage?.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
@@ -175,6 +208,7 @@ class ActualizarProducto : Fragment() {
             if (productIdText.isNotEmpty()) {
                 val productId = productIdText.toInt()
                 actualizarViewModel.updateProduct(productId, productDTO)
+                clearFields(etProductName, etProductDescription, etPrice, etStock, tvSelectedDate, ivImagen)
             } else {
                 Toast.makeText(context, "Por favor, introduce un ID de producto", Toast.LENGTH_SHORT).show()
             }
