@@ -3,13 +3,20 @@ package pe.edu.idat.appborabora.view.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.FileProvider
+import com.google.firebase.BuildConfig
 import pe.edu.idat.appborabora.R
 import pe.edu.idat.appborabora.view.HomeNavigation
+import java.io.File
+import java.io.FileOutputStream
 
 class Factura : AppCompatActivity() {
 
@@ -21,6 +28,7 @@ class Factura : AppCompatActivity() {
         setContentView(R.layout.activity_factura)
 
         val btnVolver = findViewById<Button>(R.id.btnVolverMenu)
+        val btnEnviarWhatsApp = findViewById<Button>(R.id.btnEnviarWhatsApp)
 
         val purchaseNumber = sPPayment.getString("purchaseNumber", "N/A") ?: "N/A"
         val purchaseDate = sPPayment.getString("purchaseDate", "N/A") ?: "N/A"
@@ -53,6 +61,15 @@ class Factura : AppCompatActivity() {
         findViewById<TextView>(R.id.tvigv).text = igv.toString()
         findViewById<TextView>(R.id.tvtotalcompra).text = total.toString()
 
+        // botón para enviar a WhatsApp
+        btnEnviarWhatsApp.setOnClickListener {
+            val facturaView = findViewById<View>(R.id.facturaLayout)
+            val facturaFile = captureScreen(facturaView)
+            if (facturaFile != null) {
+                sendToWhatsApp(facturaFile)
+            }
+        }
+
         // botón volver al menú
         btnVolver.setOnClickListener {
             val intent = Intent(this, HomeNavigation::class.java)
@@ -65,5 +82,29 @@ class Factura : AppCompatActivity() {
         super.onDestroy()
         // Borra los datos cuando la actividad Factura se destruye
         sPPayment.edit().clear().apply()
+    }
+    //metodo para capturar en imagen a factura
+    fun captureScreen(view: View): File? {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+
+        val file = File(externalCacheDir, "factura.png")
+        val fos = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
+        fos.close()
+
+        return file
+    }
+    //metodo para enviarlo a whatsapp
+    fun sendToWhatsApp(file: File) {
+        val uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)
+
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        intent.setPackage("com.whatsapp")
+
+        startActivity(Intent.createChooser(intent, "Share Image"))
     }
 }
