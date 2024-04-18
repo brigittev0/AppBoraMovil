@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -76,26 +77,46 @@ class Factura : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-}
+    }
+
     // En Factura
     override fun onDestroy() {
         super.onDestroy()
         // Borra los datos cuando la actividad Factura se destruye
         sPPayment.edit().clear().apply()
     }
+
     //metodo para capturar en imagen a factura
     fun captureScreen(view: View): File? {
+        // Oculta los botones
+        val btnVolver = findViewById<Button>(R.id.btnVolverMenu)
+        val btnEnviarWhatsApp = findViewById<Button>(R.id.btnEnviarWhatsApp)
+        btnVolver.visibility = View.GONE
+        btnEnviarWhatsApp.visibility = View.GONE
+
+        // Cambia el color de fondo a blanco
+        val originalColor = view.background
+        view.setBackgroundColor(Color.WHITE)
+
+        // Captura la vista
         val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         view.draw(canvas)
 
+        // Guarda la captura en un archivo
         val file = File(externalCacheDir, "factura.png")
         val fos = FileOutputStream(file)
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
         fos.close()
 
+        // Restablece la visibilidad de los botones y el color de fondo
+        btnVolver.visibility = View.VISIBLE
+        btnEnviarWhatsApp.visibility = View.VISIBLE
+        view.background = originalColor
+
         return file
     }
+
     //metodo para enviarlo a whatsapp
     fun sendToWhatsApp(file: File) {
         val uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)

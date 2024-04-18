@@ -99,7 +99,5 @@ dependencies {
 
     // Agregar archivos de Niubiz .aar del directorio 'libs'
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
-    //--------
-
 
 }
