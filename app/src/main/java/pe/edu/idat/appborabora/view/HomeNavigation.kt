@@ -132,11 +132,12 @@ class HomeNavigation : AppCompatActivity() {
         val isLoggedIn = jwt != null
         val isAdminBasic = role == "ROLE_ADMIN_BASIC"
         val isAdminFull = role == "ROLE_ADMIN_FULL"
+        val isUser = role == "ROLE_USER"
 
         menu.findItem(R.id.login).isVisible = !isLoggedIn
         menu.findItem(R.id.perfil).isVisible = isLoggedIn
         menu.findItem(R.id.logout).isVisible = isLoggedIn
-        menu.findItem(R.id.historialCompra).isVisible = isLoggedIn
+        menu.findItem(R.id.historialCompra).isVisible = isUser
         menu.findItem(R.id.administrarProductos).isVisible = isAdminBasic || isAdminFull
     }
 }

@@ -102,8 +102,8 @@ class Login : AppCompatActivity() {
         }
     }
     private fun login() {
-        val username = tUser.text.toString()
-        val password = tPassword.text.toString()
+        val username = tUser.text.toString().trim()
+        val password = tPassword.text.toString().trim()
 
         if (username.isNotBlank() && password.isNotBlank()) {
             loginViewModel.login(username, password)

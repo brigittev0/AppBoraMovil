@@ -286,7 +286,7 @@ class CrearProducto : Fragment() {
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             selectedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
-            tvSelectedDate.setText("Fecha seleccionada: $selectedDate")
+            tvSelectedDate.setText("$selectedDate")
         }, year, month, day)
 
         datePickerDialog.show()
