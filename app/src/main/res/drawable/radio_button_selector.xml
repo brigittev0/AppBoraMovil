@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:state_checked="true" android:color="@color/purple_title" /> <!-- color cuando está seleccionado -->
-<item android:color="@color/purple_title" /> <!-- color cuando no está seleccionado -->
+<item android:state_checked="true" android:color="@color/purple_1000" /> <!-- color cuando está seleccionado -->
+<item android:color="@color/purple_1000" /> <!-- color cuando no está seleccionado -->
 </selector>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/blackground"
     tools:context=".view.fragments.AdministrarProductos">
 
     <!-- Encabezado -->
@@ -48,51 +48,51 @@
             android:id="@+id/btnCrear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear Producto"
-            android:background="@drawable/rounded_button_primary"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:textSize="20sp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/btn_purple"
             android:paddingVertical="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:text="Crear Producto"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <!-- Botón Ver Productos -->
         <Button
             android:id="@+id/btnVer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ver Productos"
-            android:background="@drawable/rounded_button_primary"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:textSize="20sp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/btn_purple"
             android:paddingVertical="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:text="Ver Productos"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <!-- Botón Actualizar Producto -->
         <Button
             android:id="@+id/btnActualizar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizar Producto"
-            android:background="@drawable/rounded_button_primary"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:textSize="20sp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/btn_purple"
             android:paddingVertical="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:text="Actualizar Producto"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <!-- Botón Eliminar Producto -->
         <Button
             android:id="@+id/btnEliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/btn_purple"
+            android:paddingVertical="16dp"
             android:text="Eliminar Producto"
-            android:background="@drawable/rounded_button_primary"
-            android:textColor="@android:color/white"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:paddingVertical="16dp"/>
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

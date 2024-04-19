@@ -73,7 +73,7 @@
             android:id="@+id/btnvolverdash"
             android:layout_width="172dp"
             android:layout_height="53dp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/btn_purple"
             android:text="Volver"
             android:textColor="@color/yellow"
             android:textSize="20sp"

@@ -2,54 +2,39 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple_200">#FFFFFFFF</color>
-    <color name="purple_500">#FF6200EE</color>
-
-
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="purple">#8692f7</color>
-    <color name="fondo">#f8f1ee</color>
-    <color name="rojo">#FF0000</color>
-    <color name="purple_mas_oscuro">#5e60a7</color>
-
-    <color name="purple_default">#673AB7</color>
-    <color name="medio_black">#5E5E5E</color>
-
-    <color name="gris_oscuro">#777676</color>//---------------
-
-
-    <color name="purple_700">#FF3700B3</color>
-    <color name="gray_100">#4a4e69</color>  //--
 
     <color name="yellow">#ffb703</color>  //--
 
+    <color name="blackground">#efedec</color>
 
-    <color name="purple_800">#8c07dd</color>  //-- Color botones
-
-    <color name="purple_900">#6910a8</color> //---
-    <color name="purple_1000">#58148e</color>  //Input
-
-    //--------
-    <color name="purple_1200">#8102D8</color>  //Color bar header menu principal
-
+    <color name="color_hint">#B5B5B5</color>
+    <color name="color_cursor">#8102D8</color>
 
     //--Purple
+    <color name="purple_1200">#8102D8</color>  //Color bar header - header menu principal
+    <color name="purple_800">#8c07dd</color>  //-- Color botones
+    <color name="purple_900">#6910a8</color> //--- Text Subrayados
+    <color name="purple_1000">#58148e</color>  //Input
     <color name="purple_title">#6e0acf</color> //Titulos - Iconos - Bordes input
     <color name="purple_header_card">#f4ebfc</color> //Color header de cardView
+    <color name="purple_500">#FF6200EE</color> //Color text en botones
+
+    //--Gray
+    <color name="gray_line">#f4ebfc</color> //linea gris claro
+    <color name="gray_line_form">#c4c4c4</color> //linea gris claro - InputText
+    <color name="gris_oscuro">#777676</color>
+    <color name="gray_100">#4a4e69</color>
 
     //--Boton
     <color name="btn_oscuro">#fec842</color>  //botones yellow
-    <color name="btn_purple">#7100e1</color>  //botones purple
+    <color name="btn_purple">#8c07dd</color>  //botones purple
 
     //--Text
     <color name="text_color">#302E2E</color> //Color gris oscuro
     <color name="text_color_light">#7e7e7e</color> //Color gris claro
     <color name="text_green">#00ba00</color> //Color verde
 
-    //--Resources
-    <color name="gray_line">#f4ebfc</color> //linea gris claro
-    <color name="gray_line_form">#c4c4c4</color> //linea gris claro - InputText
+
 
 
 </resources>

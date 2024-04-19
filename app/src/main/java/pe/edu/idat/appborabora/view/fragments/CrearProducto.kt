@@ -119,9 +119,25 @@ class CrearProducto : Fragment() {
         // Observa la lista de categorías y actualiza el spinner cuando cambie
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             val categoryNames = categories.map { it.name }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoryNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategory.adapter = adapter
+
+            spinnerCategory.adapter = object : ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                categoryNames
+            ) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    return view
+                }
+
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    view.background = resources.getDrawable(R.drawable.spinner_dropdown_background)
+                    return view
+                }
+            }
         })
 
         // Obtiene las categorías del ViewModel
@@ -133,9 +149,25 @@ class CrearProducto : Fragment() {
         // Observa la lista de marcas de productos y actualiza el spinner cuando cambie
         brandProductViewModel.brandProducts.observe(viewLifecycleOwner, Observer { brandProducts ->
             val brandProductNames = brandProducts.map { it.brand_product }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, brandProductNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerBrandProduct.adapter = adapter
+
+            spinnerBrandProduct.adapter = object : ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                brandProductNames
+            ) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    return view
+                }
+
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    view.background = resources.getDrawable(R.drawable.spinner_dropdown_background)
+                    return view
+                }
+            }
         })
 
         // Obtiene las marcas de productos del ViewModel

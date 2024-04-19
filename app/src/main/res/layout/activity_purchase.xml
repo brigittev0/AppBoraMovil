@@ -7,6 +7,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blackground"
     tools:context=".view.activities.Purchase">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -255,10 +256,10 @@
                             android:layout_marginStart="30dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginEnd="30dp"
-                            android:background="@color/gray_line"
+                            android:background="@color/text_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvgastoenvio" >
+                            app:layout_constraintTop_toBottomOf="@+id/tvgastoenvio">
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -350,6 +351,7 @@
                                 android:buttonTint="@drawable/radio_button_selector"
                                 android:text="Retiro en tienda"
                                 android:textColor="@color/black"
+                                android:textColorHint="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.863"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -362,7 +364,7 @@
                                 android:layout_marginStart="14dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginBottom="16dp"
-                                android:buttonTint="@drawable/radio_button_selector"
+                                android:buttonTint="@color/btn_purple"
                                 android:text="Envío a domicilio"
                                 android:textColor="@color/black"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -432,6 +434,7 @@
                             android:layout_height="55dp"
                             android:backgroundTint="@color/btn_purple"
                             android:text="Ir a pagar"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             app:cornerRadius="15dp"

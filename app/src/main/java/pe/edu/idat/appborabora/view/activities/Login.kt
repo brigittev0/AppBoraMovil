@@ -34,8 +34,8 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tUser = findViewById(R.id.tUsername)
-        tPassword = findViewById(R.id.tPassword)
+        tUser = findViewById(R.id.usernameInputLayout)
+        tPassword = findViewById(R.id.passwordInputLayout)
 
         val btnlogin = findViewById<Button>(R.id.btnlogin)
         btnlogin.setOnClickListener { login() }

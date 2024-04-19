@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textColorHint="@color/color_hint"
+        app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,8 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre del Producto"
-            android:inputType="text"
-            android:textColorHint="@color/black" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,6 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/color_hint"
+        app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilProductName">
@@ -60,6 +63,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/color_hint"
+        app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilProductDescription">
@@ -81,6 +86,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/color_hint"
+        app:boxStrokeColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilPrice">
@@ -113,7 +120,7 @@
         android:layout_width="154dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_spinner"
+        android:background="@drawable/custom_spinner_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,52 +144,61 @@
         android:layout_width="154dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_spinner"
+        android:background="@drawable/custom_spinner_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
-    <ImageButton
-        android:id="@+id/btnDatePicker"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="26dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/btn_select_date"
-        app:layout_constraintEnd_toStartOf="@+id/tvSelectedDate"
-        app:layout_constraintHorizontal_bias="0.827"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerBrand"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    <!-- Botón de guardar -->
 
-    <TextView
-        android:id="@+id/tvSelectedDate"
-        android:layout_width="154dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="70dp"
-        android:background="@drawable/bg_spinner"
-        android:hint="Fecha de Vencimiento"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerBrand" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBrand">
+
+        <ImageButton
+            android:id="@+id/btnDatePicker"
+            android:layout_width="137dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_date_select"
+            app:layout_constraintEnd_toStartOf="@+id/tvSelectedDate"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerBrand"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="137dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom"
+            android:hint="Ingrese su Fecha"
+            android:textColorHint="@color/color_hint"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:ignore="RtlCompat" />
+
+    </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilImagen"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="210dp"
         android:layout_height="104dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnDatePicker">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <TextView
             android:id="@+id/tvSelectImageLabel"
@@ -201,16 +217,16 @@
             android:src="@drawable/ic_product_save" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botón de guardar -->
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@color/purple_500"
+        android:backgroundTint="@color/btn_purple"
         android:text="Guardar"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilImagen" />

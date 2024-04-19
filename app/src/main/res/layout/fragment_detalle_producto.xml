@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:paddingRight="26dp"
     android:paddingLeft="26dp"
-    android:paddingTop="12dp">
+    android:paddingTop="12dp"
+    android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/ivProducto"

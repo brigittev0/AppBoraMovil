@@ -6,6 +6,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -67,8 +69,24 @@ class Pickup : AppCompatActivity() {
             "Bodega BoraBora - Lunahuaná",
         )
 
-        spPickup.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sedes)
+        spPickup.adapter = object : ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            sedes
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+                (view as TextView).setTextColor(resources.getColor(R.color.black))
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                (view as TextView).setTextColor(resources.getColor(R.color.black))
+                view.background = resources.getDrawable(R.drawable.spinner_dropdown_background)
+                return view
+            }
+        }
     }
 
     //-- Seleccion boton fecha

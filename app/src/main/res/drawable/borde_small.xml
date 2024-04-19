@@ -3,7 +3,7 @@
     <!-- Borde de color -->
     <item>
         <shape>
-            <solid android:color="@color/purple_500" /> <!-- Color del borde -->
+            <solid android:color="@color/purple_800" /> <!-- Color del borde -->
             <corners android:radius="50dp" /> <!--forma ovalada -->
         </shape>
     </item>

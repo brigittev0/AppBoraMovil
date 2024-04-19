@@ -1,11 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AppBoraBora" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.AppBoraBora" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_1200</item>
+        <item name="colorControlHighlight">@color/color_hint</item>
     </style>
 
-    <style name="Theme.AppBoraBora" parent="Base.Theme.AppBoraBora" />
+    <style name="Theme.AppBoraBora" parent="Base.Theme.AppBoraBora">
+        <!-- Transparent system bars for edge-to-edge. -->
+        <!-- Barra del sistema -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/purple_1200</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 
     <style name="Theme.AppBoraBora.NoActionBar">
         <item name="windowActionBar">false</item>

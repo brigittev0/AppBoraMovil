@@ -27,7 +27,7 @@
             android:padding="8dp"
             android:text="¿Olvidaste tu contraseña?"
             android:textAllCaps="false"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/purple_900"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +72,7 @@
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/purple_800"
             android:text="Ingresar"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,58 +107,51 @@
             android:padding="8dp"
             android:text="@string/registropregunta2"
             android:textAllCaps="false"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/purple_900"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/usernameInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:background="@drawable/bg_input"
+            android:drawableLeft="@drawable/baseline_person_24"
+            android:ems="10"
+            android:hint="Usuario"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_hint"
+            android:textCursorDrawable="@drawable/cursor_color"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/loginText"
-            app:startIconDrawable="@drawable/baseline_person_24">
+            app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tUsername"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_input"
-                android:textColor="@color/black"
-                android:drawablePadding="1dp"
-                android:hint="@string/username"
-                android:padding="1dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/passwordInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/bg_input"
+            android:drawableLeft="@drawable/baseline_password_24"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_hint"
+            android:textCursorDrawable="@drawable/cursor_color"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toBottomOf="@+id/usernameInputLayout"
-            app:passwordToggleEnabled="true"
-            app:startIconDrawable="@drawable/baseline_password_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tPassword"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_input"
-                android:drawablePadding="1dp"
-                android:textColor="@color/black"
-                android:hint="@string/contra"
-                android:inputType="textPassword"
-                android:padding="1dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:passwordToggleEnabled="true" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
@@ -171,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="65dp" />
+            app:layout_constraintGuide_percent="0.84541065" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

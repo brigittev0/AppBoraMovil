@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efedec"
+    android:background="@color/blackground"
     tools:context=".view.fragments.Dashboard">
 
     <RelativeLayout
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/mensajeBienvenidad"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -33,7 +34,8 @@
             android:layout_marginRight="-100dp"
             android:layout_toLeftOf="@id/label"
             android:backgroundTint="@color/btn_purple"
-            android:text="@string/sesion" />
+            android:text="@string/sesion"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btncuenta"

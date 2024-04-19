@@ -4,7 +4,7 @@
 
         <!-- AGREGAR TU IP -->
 
-        <domain includeSubdomains="true">192.168.0.15</domain>
+        <domain includeSubdomains="true">192.168.18.8</domain>
 
 
     </domain-config>

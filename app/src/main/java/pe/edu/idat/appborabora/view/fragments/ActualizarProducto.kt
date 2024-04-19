@@ -82,16 +82,50 @@ class ActualizarProducto : Fragment() {
         categoryViewModel.categories.observe(viewLifecycleOwner, Observer<List<CategoryResponse>> { categories ->
             this.categories = categories
             val categoryNames = categories.map { it.name }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoryNames)
-            spinnerCategory.adapter = adapter
+
+            spinnerCategory.adapter = object : ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                categoryNames
+            ) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    return view
+                }
+
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    view.background = resources.getDrawable(R.drawable.spinner_dropdown_background)
+                    return view
+                }
+            }
         })
 
         // Obtener marca
         brandProductViewModel.brandProducts.observe(viewLifecycleOwner, Observer<List<BrandProductDTO>> { brandProducts ->
             this.brandProducts = brandProducts
             val brandNames = brandProducts.map { it.brand_product }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, brandNames)
-            spinnerBrand.adapter = adapter
+
+            spinnerBrand.adapter = object : ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                brandNames
+            ) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    return view
+                }
+
+                override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    val view = super.getDropDownView(position, convertView, parent)
+                    (view as TextView).setTextColor(resources.getColor(R.color.black))
+                    view.background = resources.getDrawable(R.drawable.spinner_dropdown_background)
+                    return view
+                }
+            }
         })
 
         tvSelectedDate.setOnClickListener {

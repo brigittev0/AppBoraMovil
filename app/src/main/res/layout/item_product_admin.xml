@@ -10,20 +10,22 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="5dp"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp">
 
         <ImageView
             android:id="@+id/ivProducto"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_gravity="center|start|center_vertical"
+            android:layout_marginLeft="40dp"
             android:src="@drawable/ctg_abarrotes" />
 
         <RelativeLayout
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginRight="10dp"
             android:padding="10dp">
 
             <TextView
