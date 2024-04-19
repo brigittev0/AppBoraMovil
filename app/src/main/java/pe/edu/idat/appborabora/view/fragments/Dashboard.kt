@@ -94,11 +94,11 @@ class Dashboard : Fragment(), View.OnClickListener {
     // Carrusel
     private fun loadData() {
         val lista = mutableListOf<SliderItem>(
-            SliderItem(R.drawable.rul_img_05),
-            SliderItem(R.drawable.rul_img_06),
-            SliderItem(R.drawable.rul_img_01),
+            SliderItem(R.drawable.rul_img_02),
             SliderItem(R.drawable.rul_img_04),
-            SliderItem(R.drawable.rul_img_02)
+            SliderItem(R.drawable.rul_img_05),
+            SliderItem(R.drawable.rul_img_03),
+            SliderItem(R.drawable.rul_img_01)
         )
 
         sliderAdapter.renewItems(lista)
