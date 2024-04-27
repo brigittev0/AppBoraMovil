@@ -92,6 +92,64 @@ Por favor, verifica el cuadro de requerimientos y asegúrate de tener instalado 
 
 <br>
 
+## 📷 Capturas de pantalla
+
+<table style="width: 100%">
+  <tr>
+    <td style="width: 33.33%"><img src="CapturasPantalla/img00.jpg" width=100% height=auto></td>
+    <td style="width: 33.33%"><img src="CapturasPantalla/img01.jpg" width=100% height=auto></td>
+    <td style="width: 33.33%"><img src="CapturasPantalla/img02.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img03.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img04.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img05.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img06.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img07.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img08.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img09.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img10.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img11.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img12.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img13.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img14.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img15.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img16.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img17.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img18.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img19.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img20.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img21.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img22.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img23.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img24.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img25.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img26.jpg" width=100% height=auto></td>
+  </tr>
+  <tr>
+    <td><img src="CapturasPantalla/img27.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img28.jpg" width=100% height=auto></td>
+    <td><img src="CapturasPantalla/img29.jpg" width=100% height=auto></td>
+  </tr>
+</table>
+
+
+<br>
+
 ## 💻 Autores
 <a href="https://github.com/CarlosAcosta4/apirest-borabora-android-kotlin/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CarlosAcosta4/apirest-borabora-android-kotlin" />
